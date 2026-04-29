@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Mensagens</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <main id="dashboard">
+    <div class="header">
+      <div>
+        <h2>Mensagens</h2>
+        <p>Converse com seus professores e acompanhe recados</p>
+      </div>
+
+      <div class="icons">
+        <i class="bi bi-search"></i>
+        <div class="perfil"></div>
+      </div>
+    </div>
+
+    <div class="banner">
+      <h3>Caixa de entrada</h3>
+      <p>Você tem <strong id="naoLidasQtd">2</strong> mensagens não lidas hoje.</p>
+    </div>
+
+    <section>
+      <div class="neuro-container" aria-label="Filtros de mensagem">
+        <label class="neuro-option">
+          <input type="radio" name="filtroMensagem" value="todas" checked>
+          <span>Todas</span>
+        </label>
+        <label class="neuro-option">
+          <input type="radio" name="filtroMensagem" value="nao-lida">
+          <span>Não lidas</span>
+        </label>
+        <label class="neuro-option">
+          <input type="radio" name="filtroMensagem" value="professor">
+          <span>Professor</span>
+        </label>
+      </div>
+
+      <div class="mensagens-lista" id="listaMensagens">
+        <article class="card mensagem-card nao-lida" data-categoria="professor" data-lida="false">
+          <div class="mensagem-topo">
+            <div class="mensagem-autor">
+              <span class="avatar-mini">PM</span>
+              <div>
+                <h4>Prof. Mariana</h4>
+                <p class="mensagem-preview">Thiago, vi seu resumo semanal. Vamos revisar a aula 5 juntos?</p>
+              </div>
+            </div>
+            <span class="mensagem-hora">09:10</span>
+          </div>
+          <button type="button" class="acao-mensagem">Marcar como lida</button>
+        </article>
+
+        <article class="card mensagem-card" data-categoria="professor" data-lida="true">
+          <div class="mensagem-topo">
+            <div class="mensagem-autor">
+              <span class="avatar-mini">PC</span>
+              <div>
+                <h4>Prof. Carlos</h4>
+                <p class="mensagem-preview">Parabéns pela atividade de matemática. Continue assim.</p>
+              </div>
+            </div>
+            <span class="mensagem-hora">Ontem</span>
+          </div>
+          <button type="button" class="acao-mensagem">Marcar como não lida</button>
+        </article>
+
+        <article class="card mensagem-card nao-lida" data-categoria="sistema" data-lida="false">
+          <div class="mensagem-topo">
+            <div class="mensagem-autor">
+              <span class="avatar-mini">AP</span>
+              <div>
+                <h4>Aprendi+</h4>
+                <p class="mensagem-preview">Nova trilha liberada: Leitura de gráficos e problemas reais.</p>
+              </div>
+            </div>
+            <span class="mensagem-hora">08:30</span>
+          </div>
+          <button type="button" class="acao-mensagem">Marcar como lida</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="recomendacao">
+      <p>Precisa de ajuda? Envie uma mensagem para seu professor responsável.</p>
+      <button type="button" id="abrirComposer">Enviar mensagem</button>
+    </section>
+
+    <section class="composer" id="composer" hidden>
+      <label for="mensagemTexto">Nova mensagem</label>
+      <textarea id="mensagemTexto" rows="4" placeholder="Escreva sua dúvida..." aria-label="Texto da mensagem"></textarea>
+      <button type="button" id="enviarMensagem">Enviar agora</button>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
+    <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
+    <a href="mensagens.html"><i class="bi bi-chat active"></i><br>Mensagens</a>
+    <a href="perfil.html"><i class="bi bi-person"></i><br>Perfil</a>
+  </nav>
+
+  <script src="../../scripts/Database.js"></script>
+  <script src="../../scripts/mensagens.js  " defer></script>
+</body>
+</html>

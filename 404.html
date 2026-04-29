@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Pagina nao encontrada</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="css/error.css">
+</head>
+<body class="relative flex items-center justify-center p-6">
+  <div class="orb h-56 w-56 bg-violet-400 top-[-3rem] left-[-3rem] animate-pulse"></div>
+  <div class="orb h-72 w-72 bg-indigo-400 bottom-[-5rem] right-[-5rem] animate-pulse"></div>
+
+  <main class="w-full max-w-3xl text-center">
+    <p class="entrada text-3xl md:text-5xl font-black tracking-tight" style="color: var(--cor-titulo);">Aprendi+</p>
+
+    <h1 class="numero-erro mt-6 text-8xl md:text-[10rem] leading-none font-black" style="color: var(--cor-principal);">404</h1>
+
+    <h2 class="entrada mt-4 text-2xl md:text-4xl font-bold" style="color: var(--cor-titulo); animation-delay: 0.1s;">
+      Esta página não existe
+    </h2>
+
+    <p class="entrada mt-3 text-base md:text-lg" style="color: var(--cor-paragrafo); animation-delay: 0.2s;">
+      A rota que voce tentou acessar nao foi encontrada. Você não tem permissão para acessar esta página.
+      <span id="contador" class="font-semibold" style="color: var(--cor-principal);">8</span>s.
+    </p>
+
+    <div class="entrada mt-8 flex flex-col sm:flex-row items-center justify-center gap-3" style="animation-delay: 0.3s;">
+      <a href="../index.html" class="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-lg shadow-indigo-300/50 transition-transform duration-300 hover:scale-105" style="background-color: var(--cor-principal);">
+        Voltar para o inicio
+      </a>
+      <button id="voltar" class="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold border transition-colors duration-300 hover:bg-white" style="color: var(--cor-principal); border-color: #c9c3ff;">
+        Voltar pagina anterior
+      </button>
+    </div>
+  </main>
+
+  <script src="scripts/error.js"></script>
+</body>
+</html>

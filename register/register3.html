@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Seu jeito de aprender</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<body class="items-start py-4 overflow-y-auto">
+  <main>
+    <form id="main" onsubmit="return false;"
+      class="min-h-screen max-w-[400px] w-full rounded-none md:rounded-[30px] md:min-h-0 md:my-6 bg-[#f4f4f8] shadow-none md:shadow-[0px_0px_10px_rgba(0,0,0,0.1)]">
+
+      <section class="steps !mb-5 mt-1">
+        <div class="step"><div class="circle !bg-[var(--cor-botoes)] !text-white">1</div><span>Quem você é?</span></div>
+        <div class="line active"></div>
+        <div class="step"><div class="circle !bg-[var(--cor-botoes)] !text-white">2</div><span>Sobre você</span></div>
+        <div class="line active"></div>
+        <div class="step active"><div class="circle">3</div><span>Seu jeito de aprender</span></div>
+      </section>
+
+      <section class="text-center mb-4">
+        <h3 class="!text-5xl leading-none" id="tituloStep3">Seu jeito de aprender</h3>
+        <p class="subtexto !text-base" id="subtituloStep3">Isso nos ajuda a montar uma experiência do seu jeito.</p>
+      </section>
+
+      <section class="bg-[#f3f3f8] border border-[#ececf2] rounded-2xl p-4 flex flex-col gap-6">
+
+        <div class="flex flex-col gap-2">
+          <label id="labelMetodo">Como você prefere aprender?</label>
+          <p class="subtexto !m-0">Selecione o que mais combina com você.</p>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="learning-card cursor-pointer">
+              <input type="radio" name="metodo" value="videos" checked class="hidden peer">
+              <span class="relative h-[136px] rounded-2xl border border-[#d8d8df] bg-[#f2f2f6] text-[#5f6477] flex flex-col items-center justify-center gap-4 font-bold peer-checked:border-[var(--cor-botoes)] peer-checked:ring-1 peer-checked:ring-[var(--cor-botoes)] peer-checked:bg-[#ecebf8] peer-checked:text-[#6354d8]">
+                <svg width="50" height="40" viewBox="0 0 50 40" fill="none">
+                  <rect x="4" y="4" width="42" height="26" rx="3" stroke="currentColor" stroke-width="3"/>
+                  <path d="M21 13L31 17.5L21 22V13Z" fill="currentColor"/>
+                  <line x1="16" y1="35" x2="34" y2="35" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <span id="labelVideos">Assistindo vídeos</span>
+              </span>
+            </label>
+            <label class="learning-card cursor-pointer">
+              <input type="radio" name="metodo" value="textos" class="hidden peer">
+              <span class="relative h-[136px] rounded-2xl border border-[#d8d8df] bg-[#f2f2f6] text-[#5f6477] flex flex-col items-center justify-center gap-4 font-bold peer-checked:border-[var(--cor-botoes)] peer-checked:ring-1 peer-checked:ring-[var(--cor-botoes)] peer-checked:bg-[#ecebf8] peer-checked:text-[#6354d8]">
+                <svg width="50" height="40" viewBox="0 0 50 40" fill="none">
+                  <path d="M6 8C13 8 17 10 23 13V34C17 31 13 29 6 29V8Z" stroke="currentColor" stroke-width="3"/>
+                  <path d="M44 8C37 8 33 10 27 13V34C33 31 37 29 44 29V8Z" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <span id="labelTextos">Lendo textos</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label id="labelPref">Você prefere estudar:</label>
+          <div class="neuro-container">
+            <label class="neuro-option"><input type="radio" name="preferencia" value="sozinho" checked><span id="prefSozinho">Sozinho</span></label>
+            <label class="neuro-option"><input type="radio" name="preferencia" value="grupo"><span id="prefGrupo">Em grupo</span></label>
+            <label class="neuro-option"><input type="radio" name="preferencia" value="ambos"><span>Um pouco dos dois</span></label>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="frequencia" id="labelFreq">Com que frequência você quer estudar?</label>
+          <select id="frequencia" class="h-11 rounded-xl border border-[#ddd] bg-white px-3 text-[#8b8d93]" required>
+            <option selected disabled>Selecione uma opção</option>
+            <option value="todos-dias">Todos os dias</option>
+            <option value="3-4-semana">3 a 4 vezes na semana</option>
+            <option value="1-2-semana">1 a 2 vezes na semana</option>
+            <option value="finais-semana">Somente nos finais de semana</option>
+          </select>
+          <p id="erroFreq" style="color:#e53e3e;font-size:0.82em;display:none;">Selecione uma frequência.</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label id="labelPeriodo">Qual a melhor parte do dia para você?</label>
+          <div class="neuro-container">
+            <label class="neuro-option"><input type="radio" name="periodo" value="manha"><span>Manhã</span></label>
+            <label class="neuro-option"><input type="radio" name="periodo" value="tarde" checked><span>Tarde</span></label>
+            <label class="neuro-option"><input type="radio" name="periodo" value="noite"><span>Noite</span></label>
+            <label class="neuro-option"><input type="radio" name="periodo" value="madrugada"><span>Madrugada</span></label>
+          </div>
+        </div>
+
+      </section>
+
+      <button type="button" id="Entrar" onclick="finalizar()"
+        class="mt-auto h-11 text-[22px] font-bold flex items-center justify-center gap-2">
+        Finalizar cadastro
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+        </svg>
+      </button>
+
+    </form>
+  </main>
+
+  <script src="../scripts/Database.js"></script>
+  <script>
+    const temp = DB.CadastroTemp.ler();
+    if (!temp.email || !temp.cidade) window.location.href = "register1.html";
+
+    // Adapta textos pro professor
+    if (temp.tipo === "professor") {
+      document.getElementById("tituloStep3").textContent    = "Seu jeito de ensinar";
+      document.getElementById("subtituloStep3").textContent = "Isso nos ajuda a personalizar sua experiência na plataforma.";
+      document.getElementById("labelMetodo").textContent    = "Como você prefere ensinar?";
+      document.getElementById("labelVideos").textContent    = "Usando vídeos";
+      document.getElementById("labelTextos").textContent    = "Material escrito";
+      document.getElementById("labelPref").textContent      = "Você prefere dar aula:";
+      document.getElementById("prefSozinho").textContent    = "Individual";
+      document.getElementById("prefGrupo").textContent      = "Em turma";
+      document.getElementById("labelFreq").textContent      = "Com que frequência você leciona?";
+      document.getElementById("labelPeriodo").textContent   = "Qual seu turno de trabalho?";
+    }
+
+    function finalizar() {
+      const metodoAprender = document.querySelector("input[name='metodo']:checked")?.value;
+      const preferencia    = document.querySelector("input[name='preferencia']:checked")?.value;
+      const frequencia     = document.getElementById("frequencia").value;
+      const periodo        = document.querySelector("input[name='periodo']:checked")?.value;
+
+      if (!frequencia || frequencia === "Selecione uma opção") {
+        document.getElementById("erroFreq").style.display = "block";
+        document.getElementById("frequencia").focus();
+        return;
+      }
+      document.getElementById("erroFreq").style.display = "none";
+
+      DB.CadastroTemp.salvar({ metodoAprender, preferencia, frequencia, periodo });
+
+      const resultado = DB.Usuarios.cadastrar(DB.CadastroTemp.ler());
+
+      if (!resultado.ok) {
+        alert(resultado.erro);
+        return;
+      }
+
+      window.location.href = "contaCriada.html";
+    }
+  </script>
+</body>
+</html>

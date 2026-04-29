@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Perfil</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <main id="dashboard">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div>
+        <h2>Perfil</h2>
+        <p>Gerencie seus dados e configurações</p>
+      </div>
+      <div class="icons">
+        <i class="bi bi-gear" id="btnLogout" style="cursor:pointer;" title="Sair"></i>
+        <div class="perfil" id="avatarHeader"></div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="perfil-hero">
+      <div class="avatar-grande" id="avatarGrande"></div>
+      <div>
+        <h3 id="nomeProf"></h3>
+        <p id="escolaProf"></p>
+      </div>
+      <button type="button" class="botao-secundario" id="editarPerfil">Editar</button>
+    </section>
+
+    <!-- STATS DO PROFESSOR -->
+    <section style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+      <div style="background:#f3f3f8; border-radius:12px; padding:12px; text-align:center;">
+        <p style="font-size:0.75em; color:var(--cor-paragrafo); margin:0;">Alunos</p>
+        <strong style="font-size:1.6em; color:var(--cor-botoes);" id="totalAlunos">—</strong>
+      </div>
+      <div style="background:#f3f3f8; border-radius:12px; padding:12px; text-align:center;">
+        <p style="font-size:0.75em; color:var(--cor-paragrafo); margin:0;">Turmas</p>
+        <strong style="font-size:1.6em; color:var(--cor-botoes);" id="totalTurmas">—</strong>
+      </div>
+      <div style="background:#f3f3f8; border-radius:12px; padding:12px; text-align:center;">
+        <p style="font-size:0.75em; color:var(--cor-paragrafo); margin:0;">Aulas criadas</p>
+        <strong style="font-size:1.6em; color:var(--cor-botoes);" id="totalAulas">—</strong>
+      </div>
+      <div style="background:#f3f3f8; border-radius:12px; padding:12px; text-align:center;">
+        <p style="font-size:0.75em; color:var(--cor-paragrafo); margin:0;">Cidade</p>
+        <strong style="font-size:0.95em; color:var(--cor-botoes);" id="cidadeProf">—</strong>
+      </div>
+    </section>
+
+    <!-- CONFIGURAÇÕES -->
+    <section class="perfil-lista">
+
+      <article class="card perfil-item">
+        <div>
+          <h4>E-mail</h4>
+          <p id="emailProf">—</p>
+        </div>
+        <i class="bi bi-envelope"></i>
+      </article>
+
+      <article class="card perfil-item">
+        <div>
+          <h4>Escola</h4>
+          <p id="escolaItem">—</p>
+        </div>
+        <i class="bi bi-building"></i>
+      </article>
+
+      <article class="card perfil-item">
+        <div>
+          <h4>Interesses</h4>
+          <p id="interessesProf">—</p>
+        </div>
+        <i class="bi bi-tags"></i>
+      </article>
+
+      <article class="card perfil-item">
+        <div>
+          <h4>Notificações de mensagens</h4>
+          <p>Receber alertas de novas mensagens</p>
+        </div>
+        <button type="button" class="switch" id="toggleNotif" aria-pressed="true">Ativo</button>
+      </article>
+
+      <article class="card perfil-item">
+        <div>
+          <h4>Modo de ensino preferido</h4>
+          <p id="metodoProf">—</p>
+        </div>
+        <i class="bi bi-pencil-square"></i>
+      </article>
+
+    </section>
+
+    <!-- AÇÕES -->
+    <section class="recomendacao">
+      <p id="statusPerfil">Seus dados estão atualizados.</p>
+      <button type="button" id="salvarPerfil">Salvar alterações</button>
+    </section>
+
+    <!-- BOTÃO SAIR -->
+    <div style="padding: 0 0 32px;">
+      <button type="button" id="btnSair"
+        style="width:100%; background:transparent; border:1.5px solid #e53e3e; color:#e53e3e; border-radius:12px; padding:10px; font-weight:bold; cursor:pointer; font-size:1em;">
+        <i class="bi bi-box-arrow-right"></i> Sair da conta
+      </button>
+    </div>
+
+  </main>
+
+  <!-- NAVBAR -->
+  <nav class="bottom-nav">
+    <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
+    <a href="turmas.html"><i class="bi bi-people"></i><br>Turmas</a>
+    <a href="mensagens.html"><i class="bi bi-chat"></i><br>Mensagens</a>
+    <a href="perfil.html"><i class="bi bi-person active"></i><br>Perfil</a>
+  </nav>
+
+  <script src="../../scripts/Database.js"></script>
+  <script src="../../scripts/professor-perfil.js" defer></script>
+</body>
+</html>

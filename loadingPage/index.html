@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Carregando...</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    #loading-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    #logo-loading {
+      width: 140px;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(116, 99, 227, 0.15);
+      border-top-color: var(--cor-botoes);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mensagem com pontinhos animados */
+    #loading-msg {
+      font-family: var(--fonte-paragrafo);
+      font-size: 1em;
+      color: var(--cor-paragrafo);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .dots span {
+      display: inline-block;
+      animation: blink 1.2s infinite;
+      font-size: 1.2em;
+      line-height: 1;
+    }
+
+    .dots span:nth-child(2) { animation-delay: 0.2s; }
+    .dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0; }
+      40%            { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading-wrapper">
+
+    <!-- LOGO -->
+    <img src="../images/logo.png" alt="Logo Aprendi+" id="logo-loading">
+
+    <!-- SPINNER -->
+    <div class="spinner"></div>
+
+    <!-- MENSAGEM -->
+    <p id="loading-msg">
+      <span id="msg-text">Carregando</span>
+      <span class="dots">
+        <span>.</span><span>.</span><span>.</span>
+      </span>
+    </p>
+
+  </div>
+
+  <script>
+    /**
+     * Como usar esta página:
+     *
+     * Opção 1 — redirecionamento direto via URL:
+     *   loading.html?redirect=dashboard/index.html
+     *   loading.html?redirect=dashboard/index.html&msg=Entrando na plataforma
+     *
+     * Opção 2 — via JS antes de navegar:
+     *   window.location.href = 'loading.html?redirect=dashboard/index.html';
+     */
+
+    const params   = new URLSearchParams(window.location.search);
+    const redirect = params.get('redirect') || 'dashboard/index.html';
+    const msg      = params.get('msg')      || 'Carregando';
+
+    document.getElementById('msg-text').textContent = msg;
+
+    const messages = [
+      msg,
+      'Preparando tudo para você',
+      'Quase lá',
+    ];
+
+    let i = 0;
+    const msgEl = document.getElementById('msg-text');
+
+    const interval = setInterval(() => {
+      i = (i + 1) % messages.length;
+      msgEl.style.opacity = '0';
+      setTimeout(() => {
+        msgEl.textContent = messages[i];
+        msgEl.style.transition = 'opacity 0.4s ease';
+        msgEl.style.opacity = '1';
+      }, 200);
+    }, 1400);
+
+    // Redireciona após 3 segundos
+    setTimeout(() => {
+      clearInterval(interval);
+      window.location.href = redirect;
+    }, 3000);
+  </script>
+
+</body>
+</html>

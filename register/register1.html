@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Vamos te conhecer!</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+
+  <style>
+    .erro-msg {
+      color: #e53e3e; font-size: 0.82em;
+      margin: -6px 0 0; display: none;
+    }
+    .input-wrap {
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 12px; border: 1px solid #ddd;
+      border-radius: 12px; background: #fff; height: 44px;
+      transition: border-color 0.2s;
+    }
+    .input-wrap:focus-within { border-color: var(--cor-botoes); }
+    .input-wrap input {
+      border: none !important; padding: 0 !important;
+      flex: 1; font-size: 16px; background: transparent; outline: none;
+    }
+    .input-wrap i { color: #aaa; font-size: 1em; }
+    .campo-condicional {
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      max-height: 200px; opacity: 1;
+    }
+    .campo-condicional.oculto { max-height: 0; opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <form id="main" onsubmit="return false;">
+
+    <section class="steps !mb-5 mt-1">
+      <div class="step active"><div class="circle">1</div><span>Quem você é?</span></div>
+      <div class="line"></div>
+      <div class="step"><div class="circle">2</div><span>Sobre você</span></div>
+      <div class="line"></div>
+      <div class="step"><div class="circle">3</div><span>Seu jeito de aprender</span></div>
+    </section>
+
+    <section class="text-center mb-4">
+      <h3 class="!text-5xl leading-none">Vamos te conhecer!</h3>
+      <p class="subtexto !text-base" id="subtitulo">Para começar, precisamos de algumas informações.</p>
+    </section>
+
+    <section class="bg-[#f3f3f8] border border-[#ececf2] rounded-2xl p-4 flex flex-col gap-5">
+
+      <div class="flex flex-col gap-2">
+        <label>Você é:</label>
+        <div class="tipo-container">
+          <label class="tipo-card">
+            <input type="radio" name="tipo" value="aluno" checked onchange="atualizarCampos()">
+            <div class="card-content"><i class="fas fa-user-graduate"></i><p>Aluno</p></div>
+          </label>
+          <label class="tipo-card">
+            <input type="radio" name="tipo" value="professor" onchange="atualizarCampos()">
+            <div class="card-content"><i class="fas fa-chalkboard-teacher"></i><p>Professor</p></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="nome">Nome completo</label>
+        <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="nome" placeholder="Seu nome completo" required></div>
+        <p class="erro-msg" id="erroNome">Informe seu nome completo.</p>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="email">E-mail</label>
+        <div class="input-wrap"><i class="fas fa-envelope"></i><input type="email" id="email" placeholder="seu.email@exemplo.com" required></div>
+        <p class="erro-msg" id="erroEmail">Informe um e-mail válido.</p>
+        <p class="erro-msg" id="erroEmailDup">Este e-mail já está cadastrado. <a href="index.html">Fazer login?</a></p>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="senha">Senha</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="senha" placeholder="Mínimo 6 caracteres" required>
+          <i class="fas fa-eye" id="toggleSenha" style="cursor:pointer;color:#aaa;" onclick="toggleVer('senha','toggleSenha')"></i>
+        </div>
+        <p class="erro-msg" id="erroSenha">A senha precisa ter pelo menos 6 caracteres.</p>
+      </div>
+
+      <!-- Só aluno -->
+      <div class="campo-condicional flex gap-2" id="campoIdadeSerie">
+        <div class="flex flex-col gap-2 flex-1">
+          <label for="idade">Idade</label>
+          <div class="input-wrap"><input type="number" id="idade" placeholder="Ex: 15" min="5" max="80"></div>
+          <p class="erro-msg" id="erroIdade">Informe sua idade.</p>
+        </div>
+        <div class="flex flex-col gap-2 flex-1">
+          <label for="serie">Série / Ano</label>
+          <div class="input-wrap"><input type="text" id="serie" placeholder="Ex: 2º EM"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="escola" id="labelEscola">Escola</label>
+        <div class="input-wrap"><i class="fas fa-school"></i><input type="text" id="escola" placeholder="Nome da sua escola" required></div>
+        <p class="erro-msg" id="erroEscola">Informe o nome da escola.</p>
+      </div>
+
+      <!-- Só professor -->
+      <div class="campo-condicional oculto flex flex-col gap-2" id="campoMateria">
+        <label for="materia">Matéria que leciona</label>
+        <div class="input-wrap"><i class="fas fa-book-open"></i><input type="text" id="materia" placeholder="Ex: Matemática, Português..."></div>
+      </div>
+
+      <!-- Só aluno -->
+      <div class="campo-condicional flex flex-col gap-2" id="campoNeuro">
+        <label>Você se considera neurodivergente?</label>
+        <p class="subtexto !m-0">Opcional — nos ajuda a personalizar sua experiência.</p>
+        <div class="neuro-container">
+          <label class="neuro-option"><input type="radio" name="neuro" value="sim"><span>Sim</span></label>
+          <label class="neuro-option"><input type="radio" name="neuro" value="nao" checked><span>Não</span></label>
+          <label class="neuro-option"><input type="radio" name="neuro" value="nao_dizer"><span>Prefiro não dizer</span></label>
+        </div>
+      </div>
+
+    </section>
+
+    <button type="button" id="Entrar" onclick="avancar()"
+      class="mt-auto h-11 text-[22px] font-bold flex items-center justify-center gap-2">
+      Continuar
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+      </svg>
+    </button>
+
+  </form>
+
+  <script src="../scripts/Database.js"></script>
+  <script>
+    DB.CadastroTemp.limpar();
+
+    function atualizarCampos() {
+      const ehProf = document.querySelector("input[name='tipo']:checked").value === "professor";
+      document.getElementById("campoIdadeSerie").classList.toggle("oculto", ehProf);
+      document.getElementById("campoNeuro").classList.toggle("oculto", ehProf);
+      document.getElementById("campoMateria").classList.toggle("oculto", !ehProf);
+      document.getElementById("labelEscola").textContent    = ehProf ? "Escola / Instituição" : "Escola";
+      document.getElementById("escola").placeholder        = ehProf ? "Instituição onde leciona" : "Nome da sua escola";
+      document.getElementById("subtitulo").textContent     = ehProf
+        ? "Conte um pouco sobre sua atuação." : "Para começar, precisamos de algumas informações.";
+    }
+
+    function mostrarErro(id, mostrar) {
+      document.getElementById(id).style.display = mostrar ? "block" : "none";
+    }
+
+    function toggleVer(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon  = document.getElementById(iconId);
+      const v = input.type === "text";
+      input.type = v ? "password" : "text";
+      icon.className = `fas fa-eye${v ? "" : "-slash"}`;
+      icon.style.cssText = "cursor:pointer;color:#aaa;";
+    }
+
+    function avancar() {
+      const tipo   = document.querySelector("input[name='tipo']:checked").value;
+      const ehProf = tipo === "professor";
+      const nome   = document.getElementById("nome").value.trim();
+      const email  = document.getElementById("email").value.trim();
+      const senha  = document.getElementById("senha").value;
+      const escola = document.getElementById("escola").value.trim();
+      const idade  = ehProf ? null : document.getElementById("idade").value;
+      const serie  = ehProf ? "N/A" : document.getElementById("serie").value.trim();
+      const neuro  = ehProf ? "nao_dizer" : document.querySelector("input[name='neuro']:checked").value;
+      const materia = ehProf ? document.getElementById("materia").value.trim() : null;
+
+      mostrarErro("erroNome",    !nome);
+      mostrarErro("erroEmail",   !email);
+      mostrarErro("erroEmailDup", false);
+      mostrarErro("erroSenha",   senha.length < 6);
+      mostrarErro("erroEscola",  !escola);
+      mostrarErro("erroIdade",   !ehProf && !idade);
+
+      if (!nome || !email || senha.length < 6 || !escola || (!ehProf && !idade)) return;
+
+      if (DB.Usuarios.buscarPorEmail(email)) {
+        mostrarErro("erroEmailDup", true);
+        return;
+      }
+
+      DB.CadastroTemp.salvar({ tipo, nome, email, senha,
+        idade: idade ? Number(idade) : null,
+        serie, escola, neurodivergente: neuro, materia,
+      });
+      window.location.href = "register2.html";
+    }
+  </script>
+</body>
+</html>
