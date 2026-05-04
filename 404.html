@@ -5,7 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aprendi+ | Pagina nao encontrada</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="error.css">
+  
+  <!-- CSS por que n deu pra colocar em outro arquivo-->
+  <style>
+    :root {
+      --cor-principal: #6a5af9;
+      --cor-secundaria: #8e7dff;
+      --cor-fundo: #f5f6fa;
+      --cor-titulo: #0d1637;
+      --cor-paragrafo: #8b8d93;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f4f6ff 0%, #ece9ff 50%, #f8f8ff 100%);
+      background-size: 200% 200%;
+      animation: fundoMovendo 10s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    @keyframes fundoMovendo {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes flutuar {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .numero-erro {
+      animation: flutuar 3.4s ease-in-out infinite;
+      text-shadow: 0 10px 35px rgba(106, 90, 249, 0.35);
+    }
+
+    .entrada {
+      animation: aparecer 0.7s ease-out both;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(4px);
+      opacity: 0.24;
+      pointer-events: none;
+    }
+  </style>
+
 </head>
 <body class="relative flex items-center justify-center p-6">
   <div class="orb h-56 w-56 bg-violet-400 top-[-3rem] left-[-3rem] animate-pulse"></div>
@@ -35,6 +94,27 @@
     </div>
   </main>
 
-  <script src="/scripts/error.js"></script>
+  <script>
+    let restante = 8;
+    const contador = document.getElementById('contador');
+
+    const intervalo = setInterval(() => {
+      restante -= 1;
+      contador.textContent = String(restante);
+
+      if (restante <= 0) {
+        clearInterval(intervalo);
+        window.location.href = '/';
+      }
+    }, 1000);
+
+    document.getElementById('voltar').addEventListener('click', () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/';
+      }
+    });
+  </script>
 </body>
 </html>
