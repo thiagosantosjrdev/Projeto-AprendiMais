@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aprendi+ | Perfil</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../../css/style.css">
-
-  <style>
-    /* ── Cards clicáveis ── */
-    .perfil-item.clicavel {
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendi+ | Perfil</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+      /* ── Cards clicáveis ── */
+      .perfil-item.clicavel {
       cursor: pointer;
       transition: background 0.15s, transform 0.15s;
-    }
-    .perfil-item.clicavel:active { transform: scale(0.98); background: #ebebf3; }
-
-    /* ── Modal sheet ── */
-    .modal-sheet {
+      }
+      .perfil-item.clicavel:active { transform: scale(0.98); background: #ebebf3; }
+      /* ── Modal sheet ── */
+      .modal-sheet {
       position: fixed; bottom: 0; left: 50%;
       transform: translateX(-50%) translateY(100%);
       width: 100%; max-width: 420px;
@@ -26,295 +24,299 @@
       padding: 16px 20px 40px; z-index: 101;
       box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
       transition: transform 0.3s cubic-bezier(0.34,1.1,0.64,1);
-    }
-    .modal-sheet.aberto { transform: translateX(-50%) translateY(0); }
-
-    .modal-handle {
+      }
+      .modal-sheet.aberto { transform: translateX(-50%) translateY(0); }
+      .modal-handle {
       width: 40px; height: 4px; background: #ddd;
       border-radius: 99px; margin: 0 auto 16px;
-    }
-
-    .modal-header {
+      }
+      .modal-header {
       display: flex; justify-content: space-between;
       align-items: center; margin-bottom: 16px;
-    }
-    .modal-header h3 { margin: 0; }
-    .modal-close { cursor: pointer; color: #aaa; font-size: 1.2em; transition: color 0.2s; }
-    .modal-close:hover { color: #333; }
-
-    /* ── Info rows no modal ── */
-    .info-row {
+      }
+      .modal-header h3 { margin: 0; }
+      .modal-close { cursor: pointer; color: #aaa; font-size: 1.2em; transition: color 0.2s; }
+      .modal-close:hover { color: #333; }
+      /* ── Info rows no modal ── */
+      .info-row {
       display: flex; align-items: center; gap: 12px;
       padding: 11px 0; border-bottom: 1px solid #f0f0f5;
-    }
-    .info-row:last-child { border-bottom: none; }
-
-    .info-icon {
+      }
+      .info-row:last-child { border-bottom: none; }
+      .info-icon {
       width: 36px; height: 36px; border-radius: 10px;
       background: rgba(116,99,227,0.1);
       display: flex; align-items: center; justify-content: center;
       color: var(--cor-botoes); flex-shrink: 0;
-    }
-
-    .info-row p { margin: 0; }
-    .info-label { font-size: 0.75em; color: var(--cor-paragrafo); }
-    .info-valor { font-size: 0.9em; font-weight: 600; color: var(--cor-titulo); }
-
-    /* ── Tags de interesses ── */
-    .tag {
+      }
+      .info-row p { margin: 0; }
+      .info-label { font-size: 0.75em; color: var(--cor-paragrafo); }
+      .info-valor { font-size: 0.9em; font-weight: 600; color: var(--cor-titulo); }
+      /* ── Tags de interesses ── */
+      .tag {
       display: inline-block;
       background: rgba(116,99,227,0.1); color: var(--cor-botoes);
       border-radius: 99px; padding: 3px 10px;
       font-size: 0.78em; margin: 3px 3px 0 0;
-    }
-
-    /* ── Input de edição ── */
-    .input-edit {
+      }
+      /* ── Input de edição ── */
+      .input-edit {
       width: 100%; box-sizing: border-box;
       border: 1px solid #ddd; border-radius: 12px;
       padding: 10px 12px; font-size: 0.9em;
       font-family: inherit; outline: none;
       transition: border-color 0.2s;
-    }
-    .input-edit:focus { border-color: var(--cor-botoes); }
-
-    .btn-modal {
+      }
+      .input-edit:focus { border-color: var(--cor-botoes); }
+      .btn-modal {
       width: 100%; background: var(--cor-botoes); color: #fff;
       border: none; border-radius: 12px; padding: 11px;
       font-size: 0.95em; font-weight: bold;
       cursor: pointer; margin-top: 14px; transition: opacity 0.2s;
-    }
-    .btn-modal:hover { opacity: 0.88; }
-
-    .btn-secundario-modal {
+      }
+      .btn-modal:hover { opacity: 0.88; }
+      .btn-secundario-modal {
       width: 100%; background: transparent;
       border: 1.5px solid #ddd; color: var(--cor-titulo);
       border-radius: 12px; padding: 10px;
       font-size: 0.9em; font-weight: 600;
       cursor: pointer; margin-top: 8px; transition: border-color 0.2s;
-    }
-    .btn-secundario-modal:hover { border-color: var(--cor-botoes); color: var(--cor-botoes); }
-  </style>
-</head>
-<body>
-  <main id="dashboard">
-
-    <!-- HEADER -->
-    <div class="header">
-      <div>
-        <h2>Perfil</h2>
-        <p>Gerencie seus dados e preferências</p>
-      </div>
-      <div class="icons">
-        <i class="bi bi-gear" id="btnGear" style="cursor:pointer;"></i>
-        <div class="perfil" id="avatarHeader" style="cursor:pointer;"
-             onclick="window.location.href='perfil.html'"></div>
-      </div>
-    </div>
-
-    <!-- HERO -->
-    <section class="perfil-hero">
-      <div class="avatar-grande" id="avatarGrande"></div>
-      <div>
-        <h3 id="nomeAluno"></h3>
-        <p id="metaAluno"></p>
-      </div>
-      <button type="button" class="botao-secundario" id="editarPerfil"
-              onclick="abrirModal('editar')">Editar</button>
-    </section>
-
-    <!-- PROGRESSO -->
-    <section class="progresso">
-      <div class="top">
-        <h4>Meta semanal</h4>
-        <span id="metaTexto">3 de 5 aulas</span>
-      </div>
-      <div class="barra">
-        <div class="fill" id="metaFill"></div>
-      </div>
-    </section>
-
-    <!-- LISTA -->
-    <section class="perfil-lista">
-
-      <!-- Tipo de aprendizagem → abre modal de preferências -->
-      <article class="card perfil-item clicavel" onclick="abrirModal('preferencias')">
+      }
+      .btn-secundario-modal:hover { border-color: var(--cor-botoes); color: var(--cor-botoes); }
+    </style>
+  </head>
+  <body>
+    <main id="dashboard">
+      <!-- HEADER -->
+      <div class="header">
         <div>
-          <h4>Tipo de aprendizagem</h4>
-          <p id="tipoAprendizagem">—</p>
+          <h2>Perfil</h2>
+          <p>Gerencie seus dados e preferências</p>
         </div>
-        <i class="bi bi-pencil-square"></i>
-      </article>
-
-      <!-- Notificações -->
-      <article class="card perfil-item">
-        <div>
-          <h4>Notificações de lembrete</h4>
-          <p>Receber alertas das aulas do dia</p>
+        <div class="icons">
+          <i class="bi bi-gear" id="btnGear" style="cursor:pointer;"></i>
+          <div class="perfil" id="avatarHeader" style="cursor:pointer;"
+            onclick="window.location.href='perfil.html'"></div>
         </div>
-        <button type="button" class="switch" id="toggleLembrete" aria-pressed="true">Ativo</button>
-      </article>
-
-      <!-- Email → abre modal com dados completos -->
-      <article class="card perfil-item clicavel" onclick="abrirModal('dados')">
-        <div>
-          <h4>Email Aluno</h4>
-          <p id="emailAluno">—</p>
-        </div>
-        <i class="bi bi-chevron-right"></i>
-      </article>
-
-    </section>
-
-    <!-- AÇÕES -->
-    <section class="recomendacao">
-      <p id="statusPerfil">Seu perfil está atualizado. Continue estudando para liberar novas trilhas.</p>
-      <button type="button" id="salvarPerfil">Salvar alterações</button>
-    </section>
-
-  </main>
-
-  <!-- NAV -->
-  <nav class="bottom-nav">
-    <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
-    <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
-    <a href="mensagens.html"><i class="bi bi-chat"></i><br>Mensagens</a>
-    <a href="perfil.html"><i class="bi bi-person active"></i><br>Perfil</a>
-  </nav>
-
-  <!-- OVERLAY -->
-  <div id="modal-overlay" onclick="fecharModal()"
-    style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100;"></div>
-
-  <!-- ── MODAL: DADOS COMPLETOS ── -->
-  <div id="modal-dados" class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <h3>Meus dados</h3>
-      <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
-    </div>
-
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-person"></i></div>
-      <div><p class="info-label">Nome completo</p><p class="info-valor" id="d-nome">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-envelope"></i></div>
-      <div><p class="info-label">E-mail</p><p class="info-valor" id="d-email">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-mortarboard"></i></div>
-      <div><p class="info-label">Série / Ano</p><p class="info-valor" id="d-serie">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-building"></i></div>
-      <div><p class="info-label">Escola</p><p class="info-valor" id="d-escola">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-geo-alt"></i></div>
-      <div><p class="info-label">Cidade</p><p class="info-valor" id="d-cidade">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-calendar3"></i></div>
-      <div><p class="info-label">Idade</p><p class="info-valor" id="d-idade">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-tags"></i></div>
-      <div>
-        <p class="info-label">Interesses</p>
-        <div id="d-interesses" style="margin-top:4px;"></div>
       </div>
-    </div>
-
-    <button class="btn-modal" onclick="abrirModal('editar'); ">
+      <!-- HERO -->
+      <section class="perfil-hero">
+        <div class="avatar-grande" id="avatarGrande"></div>
+        <div>
+          <h3 id="nomeAluno"></h3>
+          <p id="metaAluno"></p>
+        </div>
+        <button type="button" class="botao-secundario" id="editarPerfil"
+          onclick="abrirModal('editar')">Editar</button>
+      </section>
+      <!-- PROGRESSO -->
+      <section class="progresso">
+        <div class="top">
+          <h4>Meta semanal</h4>
+          <span id="metaTexto">3 de 5 aulas</span>
+        </div>
+        <div class="barra">
+          <div class="fill" id="metaFill"></div>
+        </div>
+      </section>
+      <!-- LISTA -->
+      <section class="perfil-lista">
+        <!-- Tipo de aprendizagem → abre modal de preferências -->
+        <article class="card perfil-item clicavel" onclick="abrirModal('preferencias')">
+          <div>
+            <h4>Tipo de aprendizagem</h4>
+            <p id="tipoAprendizagem">—</p>
+          </div>
+          <i class="bi bi-pencil-square"></i>
+        </article>
+        <!-- Notificações -->
+        <article class="card perfil-item">
+          <div>
+            <h4>Notificações de lembrete</h4>
+            <p>Receber alertas das aulas do dia</p>
+          </div>
+          <button type="button" class="switch" id="toggleLembrete" aria-pressed="true">Ativo</button>
+        </article>
+        <!-- Email → abre modal com dados completos -->
+        <article class="card perfil-item clicavel" onclick="abrirModal('dados')">
+          <div>
+            <h4>Email Aluno</h4>
+            <p id="emailAluno">—</p>
+          </div>
+          <i class="bi bi-chevron-right"></i>
+        </article>
+      </section>
+      <!-- AÇÕES -->
+      <section class="recomendacao">
+        <p id="statusPerfil">Seu perfil está atualizado. Continue estudando para liberar novas trilhas.</p>
+        <button type="button" id="salvarPerfil">Salvar alterações</button>
+      </section>
+    </main>
+    <!-- NAV -->
+    <nav class="bottom-nav">
+      <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
+      <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
+      <a href="mensagens.html"><i class="bi bi-chat"></i><br>Mensagens</a>
+      <a href="perfil.html"><i class="bi bi-person active"></i><br>Perfil</a>
+    </nav>
+    <!-- OVERLAY -->
+    <div id="modal-overlay" onclick="fecharModal()"
+      style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100;"></div>
+    <!-- ── MODAL: DADOS COMPLETOS ── -->
+    <div id="modal-dados" class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3>Meus dados</h3>
+        <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-person"></i></div>
+        <div>
+          <p class="info-label">Nome completo</p>
+          <p class="info-valor" id="d-nome">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-envelope"></i></div>
+        <div>
+          <p class="info-label">E-mail</p>
+          <p class="info-valor" id="d-email">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-mortarboard"></i></div>
+        <div>
+          <p class="info-label">Série / Ano</p>
+          <p class="info-valor" id="d-serie">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-building"></i></div>
+        <div>
+          <p class="info-label">Escola</p>
+          <p class="info-valor" id="d-escola">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-geo-alt"></i></div>
+        <div>
+          <p class="info-label">Cidade</p>
+          <p class="info-valor" id="d-cidade">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-calendar3"></i></div>
+        <div>
+          <p class="info-label">Idade</p>
+          <p class="info-valor" id="d-idade">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-tags"></i></div>
+        <div>
+          <p class="info-label">Interesses</p>
+          <div id="d-interesses" style="margin-top:4px;"></div>
+        </div>
+      </div>
+      <button class="btn-modal" onclick="abrirModal('editar'); ">
       <i class="bi bi-pencil"></i> Editar dados
-    </button>
-  </div>
-
-  <!-- ── MODAL: PREFERÊNCIAS DE APRENDIZAGEM ── -->
-  <div id="modal-preferencias" class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <h3>Preferências de estudo</h3>
-      <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
+      </button>
     </div>
-
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-play-btn"></i></div>
-      <div><p class="info-label">Como prefere aprender</p><p class="info-valor" id="p-metodo">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-people"></i></div>
-      <div><p class="info-label">Preferência de estudo</p><p class="info-valor" id="p-preferencia">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-calendar-check"></i></div>
-      <div><p class="info-label">Frequência</p><p class="info-valor" id="p-frequencia">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-clock"></i></div>
-      <div><p class="info-label">Melhor período</p><p class="info-valor" id="p-periodo">—</p></div>
-    </div>
-    <div class="info-row">
-      <div class="info-icon"><i class="bi bi-bullseye"></i></div>
-      <div><p class="info-label">Objetivo</p><p class="info-valor" id="p-objetivo">—</p></div>
-    </div>
-  </div>
-
-  <!-- ── MODAL: EDITAR PERFIL ── -->
-  <div id="modal-editar" class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <h3>Editar perfil</h3>
-      <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
-    </div>
-
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <div>
-        <p style="font-size:0.8em; color:var(--cor-paragrafo); margin:0 0 4px;">Cidade</p>
-        <input class="input-edit" id="edit-cidade" type="text" placeholder="Sua cidade">
+    <!-- ── MODAL: PREFERÊNCIAS DE APRENDIZAGEM ── -->
+    <div id="modal-preferencias" class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3>Preferências de estudo</h3>
+        <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
       </div>
-      <div>
-        <p style="font-size:0.8em; color:var(--cor-paragrafo); margin:0 0 4px;">Escola</p>
-        <input class="input-edit" id="edit-escola" type="text" placeholder="Nome da escola">
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-play-btn"></i></div>
+        <div>
+          <p class="info-label">Como prefere aprender</p>
+          <p class="info-valor" id="p-metodo">—</p>
+        </div>
       </div>
-      <div>
-        <p style="font-size:0.8em; color:var(--cor-paragrafo); margin:0 0 4px;">Série / Ano</p>
-        <input class="input-edit" id="edit-serie" type="text" placeholder="Ex: 2º EM">
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-people"></i></div>
+        <div>
+          <p class="info-label">Preferência de estudo</p>
+          <p class="info-valor" id="p-preferencia">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-calendar-check"></i></div>
+        <div>
+          <p class="info-label">Frequência</p>
+          <p class="info-valor" id="p-frequencia">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-clock"></i></div>
+        <div>
+          <p class="info-label">Melhor período</p>
+          <p class="info-valor" id="p-periodo">—</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="bi bi-bullseye"></i></div>
+        <div>
+          <p class="info-label">Objetivo</p>
+          <p class="info-valor" id="p-objetivo">—</p>
+        </div>
       </div>
     </div>
-
-    <button class="btn-modal" id="btnSalvarEdicao">
+    <!-- ── MODAL: EDITAR PERFIL ── -->
+    <div id="modal-editar" class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3>Editar perfil</h3>
+        <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div>
+          <p style="font-size:0.8em; color:var(--cor-paragrafo); margin:0 0 4px;">Cidade</p>
+          <input class="input-edit" id="edit-cidade" type="text" placeholder="Sua cidade">
+        </div>
+        <div>
+          <p style="font-size:0.8em; color:var(--cor-paragrafo); margin:0 0 4px;">Escola</p>
+          <input class="input-edit" id="edit-escola" type="text" placeholder="Nome da escola">
+        </div>
+        <div>
+          <p style="font-size:0.8em; color:var(--cor-paragrafo); margin:0 0 4px;">Série / Ano</p>
+          <input class="input-edit" id="edit-serie" type="text" placeholder="Ex: 2º EM">
+        </div>
+      </div>
+      <button class="btn-modal" id="btnSalvarEdicao">
       <i class="bi bi-check-lg"></i> Salvar
-    </button>
-    <button class="btn-secundario-modal" onclick="fecharModal()">Cancelar</button>
-  </div>
-
-  <!-- ── MODAL: CONFIGURAÇÕES / LOGOUT ── -->
-  <div id="modal-config" class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <h3>Configurações</h3>
-      <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
+      </button>
+      <button class="btn-secundario-modal" onclick="fecharModal()">Cancelar</button>
     </div>
-
-    <div class="info-row clicavel" style="cursor:pointer;" onclick="abrirModal('dados')">
-      <div class="info-icon"><i class="bi bi-person-lines-fill"></i></div>
-      <div><p class="info-valor">Ver meus dados</p></div>
-      <i class="bi bi-chevron-right" style="margin-left:auto; color:#aaa;"></i>
-    </div>
-    <div class="info-row clicavel" style="cursor:pointer;" onclick="abrirModal('preferencias')">
-      <div class="info-icon"><i class="bi bi-sliders"></i></div>
-      <div><p class="info-valor">Preferências de estudo</p></div>
-      <i class="bi bi-chevron-right" style="margin-left:auto; color:#aaa;"></i>
-    </div>
-
-    <button class="btn-modal" style="background:#e53e3e; margin-top:20px;" id="btnLogout">
+    <!-- ── MODAL: CONFIGURAÇÕES / LOGOUT ── -->
+    <div id="modal-config" class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3>Configurações</h3>
+        <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
+      </div>
+      <div class="info-row clicavel" style="cursor:pointer;" onclick="abrirModal('dados')">
+        <div class="info-icon"><i class="bi bi-person-lines-fill"></i></div>
+        <div>
+          <p class="info-valor">Ver meus dados</p>
+        </div>
+        <i class="bi bi-chevron-right" style="margin-left:auto; color:#aaa;"></i>
+      </div>
+      <div class="info-row clicavel" style="cursor:pointer;" onclick="abrirModal('preferencias')">
+        <div class="info-icon"><i class="bi bi-sliders"></i></div>
+        <div>
+          <p class="info-valor">Preferências de estudo</p>
+        </div>
+        <i class="bi bi-chevron-right" style="margin-left:auto; color:#aaa;"></i>
+      </div>
+      <button class="btn-modal" style="background:#e53e3e; margin-top:20px;" id="btnLogout">
       <i class="bi bi-box-arrow-right"></i> Sair da conta
-    </button>
-  </div>
-
-  <script src="../../scripts/Database.js"></script>
-  <script src="../../scripts/aluno-perfil.js" defer></script>
-</body>
+      </button>
+    </div>
+    <script src="../../scripts/Database.js"></script>
+    <script src="../../scripts/aluno-perfil.js" defer></script>
+  </body>
 </html>
