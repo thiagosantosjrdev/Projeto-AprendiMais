@@ -1,13 +1,8 @@
-// ============================================================
-//  Aprendi+ | dashboard/professor/perfil-professor.js
-//  Depende de: db.js
-// ============================================================
-
 const usuario = DB.Sessao.exigir();
 
 // Garante que é professor; se não, manda pro dashboard de aluno
 if (usuario.tipo !== "professor") {
-  window.location.href = "/dashboard/aluno/index.html";
+  window.location.href = "../dashboard/aluno/index.html";
 }
 
 const primeiroNome = usuario.nome.split(" ")[0];

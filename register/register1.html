@@ -5,33 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aprendi+ | Vamos te conhecer!</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
 
   <style>
-    .erro-msg {
-      color: #e53e3e; font-size: 0.82em;
-      margin: -6px 0 0; display: none;
-    }
+    .erro-msg { color:#e53e3e; font-size:0.82em; margin:-6px 0 0; display:none; }
     .input-wrap {
-      display: flex; align-items: center; gap: 8px;
-      padding: 0 12px; border: 1px solid #ddd;
-      border-radius: 12px; background: #fff; height: 44px;
-      transition: border-color 0.2s;
+      display:flex; align-items:center; gap:8px;
+      padding:0 12px; border:1px solid #ddd;
+      border-radius:12px; background:#fff; height:44px;
+      transition:border-color 0.2s;
     }
-    .input-wrap:focus-within { border-color: var(--cor-botoes); }
+    .input-wrap:focus-within { border-color:var(--cor-botoes); }
     .input-wrap input {
-      border: none !important; padding: 0 !important;
-      flex: 1; font-size: 16px; background: transparent; outline: none;
+      border:none !important; padding:0 !important;
+      flex:1; font-size:16px; background:transparent; outline:none;
     }
-    .input-wrap i { color: #aaa; font-size: 1em; }
+    .input-wrap i { color:#aaa; font-size:1em; }
     .campo-condicional {
-      overflow: hidden;
-      transition: max-height 0.3s ease, opacity 0.3s ease;
-      max-height: 200px; opacity: 1;
+      overflow:hidden;
+      transition:max-height 0.3s ease, opacity 0.3s ease;
+      max-height:600px; opacity:1;
     }
-    .campo-condicional.oculto { max-height: 0; opacity: 0; pointer-events: none; }
+    .campo-condicional.oculto { max-height:0; opacity:0; pointer-events:none; }
+
+    /* Select de série/turma */
+    .select-campo {
+      width:100%; box-sizing:border-box;
+      border:1px solid #ddd; border-radius:12px;
+      padding:0 12px; height:44px; font-size:0.9em;
+      font-family:inherit; background:#fff; outline:none;
+      transition:border-color 0.2s; color:var(--cor-titulo);
+      -webkit-appearance:none; appearance:none;
+    }
+    .select-campo:focus { border-color:var(--cor-botoes); }
   </style>
 </head>
 <body>
@@ -52,6 +61,7 @@
 
     <section class="bg-[#f3f3f8] border border-[#ececf2] rounded-2xl p-4 flex flex-col gap-5">
 
+      <!-- Tipo -->
       <div class="flex flex-col gap-2">
         <label>Você é:</label>
         <div class="tipo-container">
@@ -66,12 +76,14 @@
         </div>
       </div>
 
+      <!-- Nome -->
       <div class="flex flex-col gap-2">
         <label for="nome">Nome completo</label>
         <div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="nome" placeholder="Seu nome completo" required></div>
         <p class="erro-msg" id="erroNome">Informe seu nome completo.</p>
       </div>
 
+      <!-- Email -->
       <div class="flex flex-col gap-2">
         <label for="email">E-mail</label>
         <div class="input-wrap"><i class="fas fa-envelope"></i><input type="email" id="email" placeholder="seu.email@exemplo.com" required></div>
@@ -79,6 +91,7 @@
         <p class="erro-msg" id="erroEmailDup">Este e-mail já está cadastrado. <a href="index.html">Fazer login?</a></p>
       </div>
 
+      <!-- Senha -->
       <div class="flex flex-col gap-2">
         <label for="senha">Senha</label>
         <div class="input-wrap">
@@ -89,32 +102,63 @@
         <p class="erro-msg" id="erroSenha">A senha precisa ter pelo menos 6 caracteres.</p>
       </div>
 
-      <!-- Só aluno -->
+      <!-- Idade — só aluno -->
       <div class="campo-condicional flex gap-2" id="campoIdadeSerie">
         <div class="flex flex-col gap-2 flex-1">
           <label for="idade">Idade</label>
           <div class="input-wrap"><input type="number" id="idade" placeholder="Ex: 15" min="5" max="80"></div>
           <p class="erro-msg" id="erroIdade">Informe sua idade.</p>
         </div>
-        <div class="flex flex-col gap-2 flex-1">
-          <label for="serie">Série / Ano</label>
-          <div class="input-wrap"><input type="text" id="serie" placeholder="Ex: 2º EM"></div>
-        </div>
       </div>
 
-      <div class="flex flex-col gap-2">
-        <label for="escola" id="labelEscola">Escola</label>
-        <div class="input-wrap"><i class="fas fa-school"></i><input type="text" id="escola" placeholder="Nome da sua escola" required></div>
-        <p class="erro-msg" id="erroEscola">Informe o nome da escola.</p>
+      <!-- Série — só aluno, select -->
+      <div class="campo-condicional flex flex-col gap-2" id="campoSerie">
+        <label for="serie">Série / Ano</label>
+        <select class="select-campo" id="serie">
+          <option value="" disabled selected>Selecione sua série</option>
+          <optgroup label="Ensino Fundamental">
+            <option>1º Ano EF</option><option>2º Ano EF</option><option>3º Ano EF</option>
+            <option>4º Ano EF</option><option>5º Ano EF</option><option>6º Ano EF</option>
+            <option>7º Ano EF</option><option>8º Ano EF</option><option>9º Ano EF</option>
+          </optgroup>
+          <optgroup label="Ensino Médio">
+            <option>1º Ano EM</option><option>2º Ano EM</option><option>3º Ano EM</option>
+          </optgroup>
+          <optgroup label="Ensino Superior">
+            <option>Graduação</option><option>Pós-graduação</option>
+          </optgroup>
+        </select>
+        <p class="erro-msg" id="erroSerie">Selecione sua série.</p>
       </div>
 
-      <!-- Só professor -->
+      <!-- Turma — só aluno -->
+      <div class="campo-condicional flex flex-col gap-2" id="campoTurma">
+        <label for="turma">Turma</label>
+        <select class="select-campo" id="turma">
+          <option value="" disabled selected>Selecione sua turma</option>
+          <option value="A">Turma A</option>
+          <option value="B">Turma B</option>
+          <option value="C">Turma C</option>
+          <option value="D">Turma D</option>
+          <option value="E">Turma E</option>
+        </select>
+      </div>
+
+      <!-- Matéria — só professor -->
       <div class="campo-condicional oculto flex flex-col gap-2" id="campoMateria">
         <label for="materia">Matéria que leciona</label>
         <div class="input-wrap"><i class="fas fa-book-open"></i><input type="text" id="materia" placeholder="Ex: Matemática, Português..."></div>
       </div>
 
-      <!-- Só aluno -->
+      <!-- Escola — picker via API -->
+      <div class="flex flex-col gap-2">
+        <label id="labelEscola">Escola</label>
+        <p class="subtexto !m-0" id="subtextoEscola">Selecione seu estado, cidade e busque a escola.</p>
+        <div id="escola-picker-container"></div>
+        <p class="erro-msg" id="erroEscola">Selecione sua escola.</p>
+      </div>
+
+      <!-- Neurodivergente — só aluno -->
       <div class="campo-condicional flex flex-col gap-2" id="campoNeuro">
         <label>Você se considera neurodivergente?</label>
         <p class="subtexto !m-0">Opcional — nos ajuda a personalizar sua experiência.</p>
@@ -138,18 +182,30 @@
   </form>
 
   <script src="../scripts/Database.js"></script>
+  <script src="../scripts/select-escola.js"></script>
   <script>
     DB.CadastroTemp.limpar();
+    EscolaPicker.init("escola-picker-container", { multiplas: false });
 
     function atualizarCampos() {
       const ehProf = document.querySelector("input[name='tipo']:checked").value === "professor";
+
       document.getElementById("campoIdadeSerie").classList.toggle("oculto", ehProf);
+      document.getElementById("campoSerie").classList.toggle("oculto", ehProf);
+      document.getElementById("campoTurma").classList.toggle("oculto", ehProf);
       document.getElementById("campoNeuro").classList.toggle("oculto", ehProf);
       document.getElementById("campoMateria").classList.toggle("oculto", !ehProf);
-      document.getElementById("labelEscola").textContent    = ehProf ? "Escola / Instituição" : "Escola";
-      document.getElementById("escola").placeholder        = ehProf ? "Instituição onde leciona" : "Nome da sua escola";
-      document.getElementById("subtitulo").textContent     = ehProf
-        ? "Conte um pouco sobre sua atuação." : "Para começar, precisamos de algumas informações.";
+
+      document.getElementById("labelEscola").textContent    = ehProf ? "Escolas onde leciona" : "Escola";
+      document.getElementById("subtextoEscola").textContent = ehProf
+        ? "Adicione todas as escolas onde você leciona."
+        : "Selecione seu estado, cidade e busque a escola.";
+      document.getElementById("subtitulo").textContent = ehProf
+        ? "Conte um pouco sobre sua atuação."
+        : "Para começar, precisamos de algumas informações.";
+
+      // Reinicia picker com suporte a múltiplas escolas pro professor
+      EscolaPicker.init("escola-picker-container", { multiplas: ehProf });
     }
 
     function mostrarErro(id, mostrar) {
@@ -166,35 +222,47 @@
     }
 
     function avancar() {
-      const tipo   = document.querySelector("input[name='tipo']:checked").value;
-      const ehProf = tipo === "professor";
-      const nome   = document.getElementById("nome").value.trim();
-      const email  = document.getElementById("email").value.trim();
-      const senha  = document.getElementById("senha").value;
-      const escola = document.getElementById("escola").value.trim();
-      const idade  = ehProf ? null : document.getElementById("idade").value;
-      const serie  = ehProf ? "N/A" : document.getElementById("serie").value.trim();
-      const neuro  = ehProf ? "nao_dizer" : document.querySelector("input[name='neuro']:checked").value;
+      const tipo    = document.querySelector("input[name='tipo']:checked").value;
+      const ehProf  = tipo === "professor";
+      const nome    = document.getElementById("nome").value.trim();
+      const email   = document.getElementById("email").value.trim();
+      const senha   = document.getElementById("senha").value;
+      const idade   = ehProf ? null : document.getElementById("idade").value;
+      const serie   = ehProf ? "N/A" : document.getElementById("serie").value;
+      const turma   = ehProf ? null  : document.getElementById("turma").value;
+      const neuro   = ehProf ? "nao_dizer" : document.querySelector("input[name='neuro']:checked").value;
       const materia = ehProf ? document.getElementById("materia").value.trim() : null;
+
+      const escolasSelecionadas = EscolaPicker.lerEscolas("escola-picker-container");
 
       mostrarErro("erroNome",    !nome);
       mostrarErro("erroEmail",   !email);
       mostrarErro("erroEmailDup", false);
       mostrarErro("erroSenha",   senha.length < 6);
-      mostrarErro("erroEscola",  !escola);
       mostrarErro("erroIdade",   !ehProf && !idade);
+      mostrarErro("erroSerie",   !ehProf && !serie);
+      mostrarErro("erroEscola",  escolasSelecionadas.length === 0);
 
-      if (!nome || !email || senha.length < 6 || !escola || (!ehProf && !idade)) return;
+      if (!nome || !email || senha.length < 6 || escolasSelecionadas.length === 0
+          || (!ehProf && (!idade || !serie))) return;
 
       if (DB.Usuarios.buscarPorEmail(email)) {
         mostrarErro("erroEmailDup", true);
         return;
       }
 
-      DB.CadastroTemp.salvar({ tipo, nome, email, senha,
-        idade: idade ? Number(idade) : null,
-        serie, escola, neurodivergente: neuro, materia,
+      const primeiraEscola = escolasSelecionadas[0];
+
+      DB.CadastroTemp.salvar({
+        tipo, nome, email, senha,
+        idade:  idade ? Number(idade) : null,
+        serie, turma, neurodivergente: neuro, materia,
+        escola:    primeiraEscola.nome,
+        escolaObj: primeiraEscola,
+        cidade:    primeiraEscola.cidade,
+        escolas:   escolasSelecionadas,
       });
+
       window.location.href = "register2.html";
     }
   </script>

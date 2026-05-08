@@ -216,6 +216,54 @@
       transition: opacity 0.2s;
       }
       .btn-enviar:hover { opacity: 0.88; }
+      .msg-select {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 12px;
+        margin-top: 4px;
+        font-size: 0.9em;
+        background: white;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+
+      .msg-select:focus {
+        outline: none;
+        border-color: var(--cor-botoes);
+      }
+
+      .msg-select:disabled {
+        background: #f5f5f5;
+        color: #aaa;
+      }
+      .icone-option input[type="radio"] { display: none; }
+    
+      .icone-option span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        border: 1.5px solid #ddd;
+        background: #f3f3f8;
+        color: var(--cor-paragrafo);
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s, color 0.15s;
+      }
+    
+      .icone-option input[type="radio"]:checked + span {
+        border-color: var(--cor-botoes);
+        background: rgba(116,99,227,0.1);
+        color: var(--cor-botoes);
+      }
+    
+      .icone-option span:hover {
+        border-color: var(--cor-botoes);
+        color: var(--cor-botoes);
+      }
     </style>
   </head>
   <body>
@@ -381,56 +429,153 @@
         <h3>Nova atividade</h3>
         <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
       </div>
-      <input
-        type="text"
-        id="atividadeTitulo"
-        placeholder="Título da atividade"
-        style="
-        width:100%;
-        padding:12px;
-        border:1px solid #ddd;
-        border-radius:12px;
-        margin-bottom:12px;
-        box-sizing:border-box;
-        "
-        >
-      <input
-        type="date"
-        id="atividadeData"
-        style="
-        width:100%;
-        padding:12px;
-        border:1px solid #ddd;
-        border-radius:12px;
-        margin-bottom:12px;
-        box-sizing:border-box;
-        "
-        >
+    
+      <!-- ÍCONE DA TAREFA -->
+      <p style="font-size:0.82em; font-weight:600; margin-bottom:6px;">Ícone da atividade</p>
+      <div id="icones-atividade" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-file-earmark-text" checked>
+          <span title="Lista / Texto"><i class="bi bi-file-earmark-text"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-clipboard-check">
+          <span title="Resumo / Entrega"><i class="bi bi-clipboard-check"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-exclamation-circle">
+          <span title="Prova / Urgente"><i class="bi bi-exclamation-circle"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-book">
+          <span title="Leitura"><i class="bi bi-book"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-pencil-square">
+          <span title="Redação / Escrita"><i class="bi bi-pencil-square"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-calculator">
+          <span title="Matemática"><i class="bi bi-calculator"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-camera-video">
+          <span title="Vídeo / Apresentação"><i class="bi bi-camera-video"></i></span>
+        </label>
+    
+        <label class="icone-option">
+          <input type="radio" name="iconeAtividade" value="bi-people">
+          <span title="Trabalho em grupo"><i class="bi bi-people"></i></span>
+        </label>
+    
+      </div>
+    
+      <!-- TÍTULO -->
+      <input type="text" id="atividadeTitulo" placeholder="Título da atividade"
+        style="width:100%; padding:12px; border:1px solid #ddd; border-radius:12px;
+              margin-bottom:10px; box-sizing:border-box; font-family:inherit; font-size:0.9em;
+              outline:none; transition:border-color 0.2s;"
+        onfocus="this.style.borderColor='var(--cor-botoes)'"
+        onblur="this.style.borderColor='#ddd'">
+    
+      <!-- DATA DE ENTREGA -->
+      <input type="date" id="atividadeData"
+        style="width:100%; padding:12px; border:1px solid #ddd; border-radius:12px;
+              margin-bottom:10px; box-sizing:border-box; font-family:inherit; font-size:0.9em;
+              outline:none; transition:border-color 0.2s;"
+        onfocus="this.style.borderColor='var(--cor-botoes)'"
+        onblur="this.style.borderColor='#ddd'">
+    
+      <!-- PARA QUAL TURMA -->
+      <p style="font-size:0.82em; font-weight:600; margin-bottom:6px; margin-top:4px;">Destinatários</p>
+    
+      <select id="atividadeEscola" class="msg-select" onchange="carregarSeriesAtividade()" style="margin-bottom:8px;">
+        <option value="">Selecione a escola</option>
+      </select>
+    
+      <select id="atividadeSerie" class="msg-select" disabled onchange="carregarTurmasAtividade()" style="margin-bottom:8px;">
+        <option value="">Selecione a série</option>
+      </select>
+    
+      <select id="atividadeTurma" class="msg-select" disabled style="margin-bottom:14px;">
+        <option value="">Selecione a turma</option>
+        <!-- opção extra pra enviar pra todas as turmas da série -->
+      </select>
+    
       <button class="btn-enviar" onclick="criarAtividade()">
-      <i class="bi bi-send"></i> Criar atividade
+        <i class="bi bi-send"></i> Criar atividade
       </button>
     </div>
-    <!-- ── MODAL: MENSAGENS RÁPIDAS ── -->
+    <!-- ── MODAL: MENSAGENS ── -->
     <div id="modal-mensagens" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
+
       <div class="modal-header">
-        <h3>Mensagem rápida</h3>
+        <h3>Enviar mensagem</h3>
         <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
       </div>
-      <p style="font-size:0.85em; color:var(--cor-paragrafo); margin-bottom:10px;">Envie um recado para toda a turma ou escolha um modelo:</p>
-      <div>
-        <span class="msg-chip" onclick="preencherMsg(this)">Lembrete de atividade</span>
-        <span class="msg-chip" onclick="preencherMsg(this)">Parabéns pela aula de hoje!</span>
-        <span class="msg-chip" onclick="preencherMsg(this)">Revisão amanhã às 14h</span>
-        <span class="msg-chip" onclick="preencherMsg(this)">Entreguem o resumo semanal</span>
+
+      <p style="font-size:0.85em; color:var(--cor-paragrafo); margin-bottom:12px;">
+        Escolha a escola, série e turma que irá receber a mensagem.
+      </p>
+
+      <!-- SELECT ESCOLA -->
+      <label style="font-size:0.82em; font-weight:600;">Escola</label>
+
+      <select id="msgEscola" class="msg-select" onchange="carregarSeriesMensagem()">
+        <option value="">Selecione a escola</option>
+      </select>
+
+      <!-- SELECT SÉRIE -->
+      <label style="font-size:0.82em; font-weight:600; margin-top:10px;">Série</label>
+
+      <select id="msgSerie" class="msg-select" onchange="carregarTurmasMensagem()" disabled>
+        <option value="">Selecione a série</option>
+      </select>
+
+      <!-- SELECT TURMA -->
+      <label style="font-size:0.82em; font-weight:600; margin-top:10px;">Turma</label>
+
+      <select id="msgTurma" class="msg-select" disabled>
+        <option value="">Selecione a turma</option>
+      </select>
+
+      <!-- CHIPS -->
+      <div style="margin-top:14px;">
+        <span class="msg-chip" onclick="preencherMsg(this)">
+          Lembrete de atividade
+        </span>
+
+        <span class="msg-chip" onclick="preencherMsg(this)">
+          Revisão amanhã às 14h
+        </span>
+
+        <span class="msg-chip" onclick="preencherMsg(this)">
+          Entreguem o resumo semanal
+        </span>
       </div>
-      <textarea class="msg-textarea" id="msgTexto" rows="4" placeholder="Ou escreva sua mensagem..."></textarea>
-      <button class="btn-enviar" onclick="enviarMensagem()">
-      <i class="bi bi-send"></i> Enviar para a turma
+
+      <!-- TEXTO -->
+      <textarea
+        class="msg-textarea"
+        id="msgTexto"
+        rows="4"
+        placeholder="Digite a mensagem..."
+      ></textarea>
+
+      <button class="btn-enviar" onclick="enviarMensagemTurma()">
+        <i class="bi bi-send"></i>
+        Enviar mensagem
       </button>
     </div>
     <script src="../../scripts/Database.js"></script>
-    <script src="../../scripts/professor-index.js" defer></script>
+    <script src="../../scripts/professor-index.js"></script>
     <script>
       function abrirModal(nome) {
         fecharModal(false);
@@ -578,5 +723,177 @@
       }
       
     </script>
+    <script>
+      let estruturaTurmas = [];
+
+      function iniciarMensagensProfessor() {
+
+        const sessao = DB.Sessao.atual();
+
+        if (!sessao) return;
+
+        estruturaTurmas = DB.Usuarios.turmasDoProfessor(sessao.id);
+
+        const selectEscola = document.getElementById("msgEscola");
+
+        selectEscola.innerHTML = `
+          <option value="">Selecione a escola</option>
+        `;
+
+        estruturaTurmas.forEach((grupo, index) => {
+
+          const opt = document.createElement("option");
+
+          opt.value = index;
+
+          opt.textContent =
+            `${grupo.escola} (${grupo.cidade}/${grupo.uf})`;
+
+          selectEscola.appendChild(opt);
+        });
+      }
+
+      function carregarSeriesMensagem() {
+
+        const escolaIndex =
+          document.getElementById("msgEscola").value;
+
+        const selectSerie =
+          document.getElementById("msgSerie");
+
+        const selectTurma =
+          document.getElementById("msgTurma");
+
+        selectSerie.innerHTML =
+          `<option value="">Selecione a série</option>`;
+
+        selectTurma.innerHTML =
+          `<option value="">Selecione a turma</option>`;
+
+        selectTurma.disabled = true;
+
+        if (escolaIndex === "") {
+          selectSerie.disabled = true;
+          return;
+        }
+
+        selectSerie.disabled = false;
+
+        const escola = estruturaTurmas[escolaIndex];
+
+        escola.series.forEach((serie, index) => {
+
+          const opt = document.createElement("option");
+
+          opt.value = index;
+
+          opt.textContent = serie.serie;
+
+          selectSerie.appendChild(opt);
+        });
+      }
+
+      function carregarTurmasMensagem() {
+
+        const escolaIndex =
+          document.getElementById("msgEscola").value;
+
+        const serieIndex =
+          document.getElementById("msgSerie").value;
+
+        const selectTurma =
+          document.getElementById("msgTurma");
+
+        selectTurma.innerHTML =
+          `<option value="">Selecione a turma</option>`;
+
+        if (serieIndex === "") {
+          selectTurma.disabled = true;
+          return;
+        }
+
+        selectTurma.disabled = false;
+
+        const escola =
+          estruturaTurmas[escolaIndex];
+
+        const serie =
+          escola.series[serieIndex];
+
+        serie.turmas.forEach((turma, index) => {
+
+          const opt = document.createElement("option");
+
+          opt.value = index;
+
+          opt.textContent =
+            `Turma ${turma.turma} (${turma.alunos.length} alunos)`;
+
+          selectTurma.appendChild(opt);
+        });
+      }
+
+      function enviarMensagemTurma() {
+
+        const texto =
+          document.getElementById("msgTexto").value.trim();
+
+        const escolaIndex =
+          document.getElementById("msgEscola").value;
+
+        const serieIndex =
+          document.getElementById("msgSerie").value;
+
+        const turmaIndex =
+          document.getElementById("msgTurma").value;
+
+        if (
+          escolaIndex === "" ||
+          serieIndex === "" ||
+          turmaIndex === ""
+        ) {
+          mostrarToast("Selecione escola, série e turma.");
+          return;
+        }
+
+        if (!texto) {
+          mostrarToast("Digite uma mensagem.");
+          return;
+        }
+
+        const turma =
+          estruturaTurmas[escolaIndex]
+            .series[serieIndex]
+            .turmas[turmaIndex];
+
+        console.log("Mensagem enviada:", {
+          escola:
+            estruturaTurmas[escolaIndex].escola,
+
+          serie:
+            estruturaTurmas[escolaIndex]
+              .series[serieIndex].serie,
+
+          turma: turma.turma,
+
+          alunos: turma.alunos,
+
+          mensagem: texto,
+        });
+
+        document.getElementById("msgTexto").value = "";
+
+        fecharModal();
+
+        mostrarToast(
+          `Mensagem enviada para ${turma.alunos.length} alunos da Turma ${turma.turma}`
+        );
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        iniciarMensagensProfessor();
+      });
+
+      </script>
   </body>
 </html>

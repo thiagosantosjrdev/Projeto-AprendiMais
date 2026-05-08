@@ -1,368 +1,225 @@
-// Caso esteja lendo isso, eu coloquei isso aqui porque é somente um protótipo, não um PROJEETO entende?
-
 const SEED_USUARIOS = [
+  // ── Alunos da Mariana (Escola Municipal São Jorge, BH/MG) ──
   {
-    id: "u001",
-    email: "ana.silva@email.com",
-    senha: "senha123",
-    tipo: "aluno",
-    nome: "Ana Silva",
-    idade: 15,
-    serie: "1º Ano EM",
-    escola: "Colégio Estadual Central",
-    neurodivergente: "nao",
-    cidade: "São Paulo",
+    id: "u001", email: "ana.silva@email.com", senha: "senha123", tipo: "aluno",
+    nome: "Ana Silva", idade: 15, serie: "1º Ano EM", turma: "A",
+    escola: "Escola Municipal São Jorge",
+    escolaObj: { nome: "Escola Municipal São Jorge", cidade: "Belo Horizonte", uf: "MG" },
+    neurodivergente: "nao", cidade: "Belo Horizonte",
     interesses: ["Tecnologia", "Ciencias", "Leitura"],
-    objetivo: "Melhorar meu desempenho escolar",
-    tempoLivre: "Gosto de ler e jogar videogame.",
-    metodoAprender: "videos",
-    preferencia: "sozinho",
-    frequencia: "todos-dias",
-    periodo: "tarde",
+    objetivo: "Melhorar meu desempenho escolar", tempoLivre: "Gosto de ler e jogar.",
+    metodoAprender: "videos", preferencia: "sozinho", frequencia: "todos-dias", periodo: ["tarde"],
     criadoEm: "2025-01-10T14:00:00.000Z",
   },
   {
-    id: "u002",
-    email: "carlos.mendes@email.com",
-    senha: "senha123",
-    tipo: "aluno",
-    nome: "Carlos Mendes",
-    idade: 17,
-    serie: "3º Ano EM",
-    escola: "Instituto Federal",
-    neurodivergente: "sim",
-    cidade: "Recife",
+    id: "u002", email: "carlos.mendes@email.com", senha: "senha123", tipo: "aluno",
+    nome: "Carlos Mendes", idade: 17, serie: "1º Ano EM", turma: "B",
+    escola: "Escola Municipal São Jorge",
+    escolaObj: { nome: "Escola Municipal São Jorge", cidade: "Belo Horizonte", uf: "MG" },
+    neurodivergente: "sim", cidade: "Belo Horizonte",
     interesses: ["Tecnologia", "Jogos", "Artes"],
-    objetivo: "Criar rotina de estudos",
-    tempoLivre: "Programo nas horas vagas e jogo online.",
-    metodoAprender: "textos",
-    preferencia: "ambos",
-    frequencia: "3-4-semana",
-    periodo: "noite",
+    objetivo: "Criar rotina de estudos", tempoLivre: "Programo e jogo online.",
+    metodoAprender: "textos", preferencia: "ambos", frequencia: "3-4-semana", periodo: ["noite"],
     criadoEm: "2025-02-03T09:30:00.000Z",
   },
+  // ── Aluno da Mariana (Colégio Estadual Central, SP/SP) ──────
   {
-    id: "u003",
-    email: "mariana.prof@email.com",
-    senha: "senha123",
-    tipo: "professor",
-    nome: "Mariana Costa",
-    idade: 34,
-    serie: "N/A",
+    id: "u005", email: "julia.santos@email.com", senha: "senha123", tipo: "aluno",
+    nome: "Júlia Santos", idade: 14, serie: "9º Ano EF", turma: "A",
+    escola: "Colégio Estadual Central",
+    escolaObj: { nome: "Colégio Estadual Central", cidade: "São Paulo", uf: "SP" },
+    neurodivergente: "sim", cidade: "São Paulo",
+    interesses: ["Artes", "Leitura", "Esportes"],
+    objetivo: "Explorar novos temas", tempoLivre: "Desenho e ouço música.",
+    metodoAprender: "videos", preferencia: "sozinho", frequencia: "finais-semana", periodo: ["tarde"],
+    criadoEm: "2025-04-01T16:00:00.000Z",
+  },
+  // ── Professores ─────────────────────────────────────────────
+  {
+    id: "u003", email: "mariana.prof@email.com", senha: "senha123", tipo: "professor",
+    nome: "Mariana Costa", idade: 34, serie: "N/A", turma: null,
     escola: "Escola Municipal São Jorge",
-    neurodivergente: "nao_dizer",
-    cidade: "Belo Horizonte",
+    escolas: [
+      { nome: "Escola Municipal São Jorge", cidade: "Belo Horizonte", uf: "MG" },
+      { nome: "Colégio Estadual Central",   cidade: "São Paulo",      uf: "SP" },
+    ],
+    neurodivergente: "nao_dizer", cidade: "Belo Horizonte",
     interesses: ["Ciencias", "Leitura", "Artes"],
-    objetivo: "Aprender algo novo",
-    tempoLivre: "Gosto de caminhar e cozinhar.",
-    metodoAprender: "textos",
-    preferencia: "grupo",
-    frequencia: "1-2-semana",
-    periodo: "manha",
+    objetivo: "Aprender algo novo", tempoLivre: "Gosto de caminhar.",
+    metodoAprender: "textos", preferencia: "grupo", frequencia: "1-2-semana", periodo: ["manha", "tarde"],
     criadoEm: "2025-01-20T11:00:00.000Z",
   },
   {
-    id: "u004",
-    email: "lucas.prof@email.com",
-    senha: "senha123",
-    tipo: "professor",
-    nome: "Lucas Ferreira",
-    idade: 41,
-    serie: "N/A",
+    id: "u004", email: "lucas.prof@email.com", senha: "senha123", tipo: "professor",
+    nome: "Lucas Ferreira", idade: 41, serie: "N/A", turma: null,
     escola: "Colégio Técnico Norte",
-    neurodivergente: "nao",
-    cidade: "Fortaleza",
+    escolas: [{ nome: "Colégio Técnico Norte", cidade: "Fortaleza", uf: "CE" }],
+    neurodivergente: "nao", cidade: "Fortaleza",
     interesses: ["Tecnologia", "Ciencias", "Esportes"],
-    objetivo: "Explorar novos temas",
-    tempoLivre: "Assisto documentários e pratico natação.",
-    metodoAprender: "videos",
-    preferencia: "ambos",
-    frequencia: "todos-dias",
-    periodo: "manha",
+    objetivo: "Explorar novos temas", tempoLivre: "Assisto documentários.",
+    metodoAprender: "videos", preferencia: "ambos", frequencia: "todos-dias", periodo: ["manha"],
     criadoEm: "2025-03-15T08:00:00.000Z",
-  },
-  {
-    id: "u005",
-    email: "julia.santos@email.com",
-    senha: "senha123",
-    tipo: "aluno",
-    nome: "Júlia Santos",
-    idade: 14,
-    serie: "9º Ano EF",
-    escola: "Escola Particular Horizonte",
-    neurodivergente: "sim",
-    cidade: "Curitiba",
-    interesses: ["Artes", "Leitura", "Esportes"],
-    objetivo: "Explorar novos temas",
-    tempoLivre: "Desenho e ouço música.",
-    metodoAprender: "videos",
-    preferencia: "sozinho",
-    frequencia: "finais-semana",
-    periodo: "tarde",
-    criadoEm: "2025-04-01T16:00:00.000Z",
   },
 ];
 
-// ─────────────────────────────────────────────────────────────
-//  CHAVES
-// ─────────────────────────────────────────────────────────────
-const CHAVE_USUARIOS  = "aprendimais_usuarios";
-const CHAVE_SESSAO    = "aprendimais_sessao";
-const CHAVE_CADASTRO  = "aprendimais_cadastro_temp";
+const CHAVE_USUARIOS = "aprendimais_usuarios";
+const CHAVE_SESSAO   = "aprendimais_sessao";
+const CHAVE_CADASTRO = "aprendimais_cadastro_temp";
 
-// ─────────────────────────────────────────────────────────────
-//  INICIALIZAÇÃO — popula o localStorage com o seed se vazio
-// ─────────────────────────────────────────────────────────────
 (function inicializar() {
-  if (!localStorage.getItem(CHAVE_USUARIOS)) {
+  if (!localStorage.getItem(CHAVE_USUARIOS))
     localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(SEED_USUARIOS));
-  }
 })();
 
-// ─────────────────────────────────────────────────────────────
-//  HELPERS INTERNOS
-// ─────────────────────────────────────────────────────────────
-function _getUsuarios() {
-  return JSON.parse(localStorage.getItem(CHAVE_USUARIOS)) || [];
-}
+function _getUsuarios() { return JSON.parse(localStorage.getItem(CHAVE_USUARIOS)) || []; }
+function _salvarUsuarios(l) { localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(l)); }
+function _gerarId() { return "u" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
-function _salvarUsuarios(lista) {
-  localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(lista));
-}
-
-function _gerarId() {
-  return "u" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-}
-
-// ─────────────────────────────────────────────────────────────
-//  SESSÃO — quem está logado agora
-// ─────────────────────────────────────────────────────────────
 const Sessao = {
-  /** Salva o usuário logado na sessionStorage */
-  iniciar(usuario) {
-    const { senha, ...semSenha } = usuario; // nunca guarda a senha na sessão
-    sessionStorage.setItem(CHAVE_SESSAO, JSON.stringify(semSenha));
-  },
-
-  /** Retorna o usuário logado ou null */
-  atual() {
-    const dados = sessionStorage.getItem(CHAVE_SESSAO);
-    return dados ? JSON.parse(dados) : null;
-  },
-
-  /** Encerra a sessão e redireciona para o login */
-  encerrar(redirecionar = true) {
-    sessionStorage.removeItem(CHAVE_SESSAO);
-    if (redirecionar) window.location.href='../../loadingPage/index.html?redirect=../register/index.html';
-  },
-
-  /** Verifica se há sessão ativa; redireciona se não tiver */
-  exigir(redirecionar = true) {
-    const usuario = this.atual();
-    if (!usuario) {
-      if (redirecionar) window.location.href='../../loadingPage/index.html?redirect=../register/index.html';
-      return null;
-    }
-    return usuario;
-  },
+  iniciar(u) { const {senha,...s}=u; sessionStorage.setItem(CHAVE_SESSAO,JSON.stringify(s)); },
+  atual()    { const d=sessionStorage.getItem(CHAVE_SESSAO); return d?JSON.parse(d):null; },
+  encerrar(r=true) { sessionStorage.removeItem(CHAVE_SESSAO); if(r) window.location.href="../register/index.html"; },
+  exigir(r=true)   { const u=this.atual(); if(!u){if(r)window.location.href="../register/index.html"; return null;} return u; },
 };
 
-// ─────────────────────────────────────────────────────────────
-//  CADASTRO TEMPORÁRIO — persiste dados entre as 3 etapas
-// ─────────────────────────────────────────────────────────────
 const CadastroTemp = {
-  /** Salva (ou mescla) dados parciais */
-  salvar(dados) {
-    const atual = this.ler();
-    sessionStorage.setItem(CHAVE_CADASTRO, JSON.stringify({ ...atual, ...dados }));
-  },
-
-  /** Retorna todos os dados salvos até agora */
-  ler() {
-    const dados = sessionStorage.getItem(CHAVE_CADASTRO);
-    return dados ? JSON.parse(dados) : {};
-  },
-
-  /** Limpa os dados temporários */
-  limpar() {
-    sessionStorage.removeItem(CHAVE_CADASTRO);
-  },
+  salvar(d) { sessionStorage.setItem(CHAVE_CADASTRO,JSON.stringify({...this.ler(),...d})); },
+  ler()     { const d=sessionStorage.getItem(CHAVE_CADASTRO); return d?JSON.parse(d):{}; },
+  limpar()  { sessionStorage.removeItem(CHAVE_CADASTRO); },
 };
 
-// ─────────────────────────────────────────────────────────────
-//  AUTENTICAÇÃO
-// ─────────────────────────────────────────────────────────────
 const Auth = {
-  /**
-   * Tenta fazer login.
-   * @returns {{ ok: true, usuario } | { ok: false, erro: string }}
-   */
   login(email, senha) {
-    const usuarios = _getUsuarios();
-    const usuario = usuarios.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase() && u.senha === senha
-    );
-
-    if (!usuario) {
-      return { ok: false, erro: "E-mail ou senha incorretos." };
-    }
-
-    Sessao.iniciar(usuario);
-    return { ok: true, usuario };
+    const u = _getUsuarios().find(u => u.email.toLowerCase()===email.toLowerCase() && u.senha===senha);
+    if (!u) return { ok:false, erro:"E-mail ou senha incorretos." };
+    Sessao.iniciar(u);
+    return { ok:true, usuario:u };
   },
-
-  /**
-   * Redireciona para o dashboard correto conforme o tipo do usuário.
-   * Chame após um login bem-sucedido.
-   */
-  redirecionarPorTipo(usuario) {
-    if (usuario.tipo === "professor") {
-      window.location.href = "../loadingPage/index.html?redirect=../dashboard/professor/index.html";
-    } else {
-      window.location.href = "../loadingPage/index.html?redirect=../dashboard/aluno/index.html";
-    }
+  redirecionarPorTipo(u) {
+    window.location.href = u.tipo==="professor" ? "../dashboard/professor/index.html" : "../dashboard/aluno/index.html";
   },
-
-  /** Logout */
-  logout() {
-    Sessao.encerrar();
-  },
+  logout() { Sessao.encerrar(); },
 };
 
-// ─────────────────────────────────────────────────────────────
-//  USUÁRIOS — CRUD
-// ─────────────────────────────────────────────────────────────
 const Usuarios = {
-  /** Lista todos os usuários (sem senhas) */
-  listar() {
-    return _getUsuarios().map(({ senha, ...u }) => u);
-  },
+  listar()           { return _getUsuarios().map(({senha,...u})=>u); },
+  listarAlunos()     { return _getUsuarios().filter(u=>u.tipo==="aluno").map(({senha,...u})=>u); },
+  listarProfessores(){ return _getUsuarios().filter(u=>u.tipo==="professor").map(({senha,...u})=>u); },
 
-  /** Busca por ID */
   buscarPorId(id) {
-    const u = _getUsuarios().find((u) => u.id === id);
-    if (!u) return null;
-    const { senha, ...semSenha } = u;
-    return semSenha;
+    const u=_getUsuarios().find(u=>u.id===id); if(!u)return null;
+    const{senha,...s}=u; return s;
   },
-
-  /** Busca por e-mail */
   buscarPorEmail(email) {
-    const u = _getUsuarios().find((u) => u.email.toLowerCase() === email.toLowerCase());
-    if (!u) return null;
-    const { senha, ...semSenha } = u;
-    return semSenha;
+    const u=_getUsuarios().find(u=>u.email.toLowerCase()===email.toLowerCase()); if(!u)return null;
+    const{senha,...s}=u; return s;
   },
 
-  /**
-   * Cadastra um novo usuário com todos os dados das 3 etapas.
-   * @returns {{ ok: true, usuario } | { ok: false, erro: string }}
-   */
   cadastrar(dados) {
-    const { email, senha, nome, tipo } = dados;
+    const {email,senha,nome,tipo}=dados;
+    if (!email||!senha||!nome||!tipo) return {ok:false,erro:"Campos obrigatórios faltando."};
+    const usuarios=_getUsuarios();
+    if (usuarios.find(u=>u.email.toLowerCase()===email.toLowerCase()))
+      return {ok:false,erro:"Este e-mail já está cadastrado."};
 
-    if (!email || !senha || !nome || !tipo) {
-      return { ok: false, erro: "Campos obrigatórios faltando." };
-    }
-
-    const usuarios = _getUsuarios();
-
-    if (usuarios.find((u) => u.email.toLowerCase() === email.toLowerCase())) {
-      return { ok: false, erro: "Este e-mail já está cadastrado." };
-    }
-
-    const novoUsuario = {
-      id: _gerarId(),
-      email: email.toLowerCase().trim(),
-      senha,
-      tipo,                                       // "aluno" | "professor"
-      nome: nome.trim(),
-      idade: dados.idade || null,
-      serie: dados.serie || null,
-      escola: dados.escola || null,
-      neurodivergente: dados.neurodivergente || "nao_dizer",
-      cidade: dados.cidade || null,
-      interesses: dados.interesses || [],
-      objetivo: dados.objetivo || null,
-      tempoLivre: dados.tempoLivre || null,
-      metodoAprender: dados.metodoAprender || null,
-      preferencia: dados.preferencia || null,
-      frequencia: dados.frequencia || null,
-      periodo: dados.periodo || null,
-      criadoEm: new Date().toISOString(),
+    const novo = {
+      id:_gerarId(), email:email.toLowerCase().trim(), senha, tipo,
+      nome:nome.trim(), idade:dados.idade||null,
+      serie:dados.serie||null, turma:dados.turma||null,
+      escola:dados.escola||null, escolaObj:dados.escolaObj||null,
+      escolas:dados.escolas||(dados.escolaObj?[dados.escolaObj]:[]),
+      neurodivergente:dados.neurodivergente||"nao_dizer",
+      cidade:dados.cidade||null, interesses:dados.interesses||[],
+      objetivo:dados.objetivo||null, tempoLivre:dados.tempoLivre||null,
+      metodoAprender:dados.metodoAprender||null, preferencia:dados.preferencia||null,
+      frequencia:dados.frequencia||null, periodo:dados.periodo||[],
+      materia:dados.materia||null, criadoEm:new Date().toISOString(),
     };
 
-    usuarios.push(novoUsuario);
+    usuarios.push(novo);
     _salvarUsuarios(usuarios);
-
     CadastroTemp.limpar();
-    Sessao.iniciar(novoUsuario);
-
-    return { ok: true, usuario: novoUsuario };
+    Sessao.iniciar(novo);
+    return {ok:true, usuario:novo};
   },
 
-  /**
-   * Atualiza campos de um usuário existente.
-   * @returns {{ ok: true } | { ok: false, erro: string }}
-   */
   atualizar(id, campos) {
-    const usuarios = _getUsuarios();
-    const idx = usuarios.findIndex((u) => u.id === id);
-
-    if (idx === -1) return { ok: false, erro: "Usuário não encontrado." };
-
-    const { id: _, criadoEm: __, ...seguros } = campos;
-    usuarios[idx] = { ...usuarios[idx], ...seguros };
+    const usuarios=_getUsuarios();
+    const idx=usuarios.findIndex(u=>u.id===id);
+    if (idx===-1) return {ok:false,erro:"Usuário não encontrado."};
+    const {id:_,criadoEm:__,...seguros}=campos;
+    usuarios[idx]={...usuarios[idx],...seguros};
     _salvarUsuarios(usuarios);
-
-    const sessao = Sessao.atual();
-    if (sessao && sessao.id === id) Sessao.iniciar(usuarios[idx]);
-
-    return { ok: true };
+    const s=Sessao.atual();
+    if (s&&s.id===id) Sessao.iniciar(usuarios[idx]);
+    return {ok:true};
   },
 
-  /**
-   * Remove um usuário.
-   * @returns {{ ok: true } | { ok: false, erro: string }}
-   */
   remover(id) {
-    const usuarios = _getUsuarios();
-    const idx = usuarios.findIndex((u) => u.id === id);
-    if (idx === -1) return { ok: false, erro: "Usuário não encontrado." };
-    usuarios.splice(idx, 1);
-    _salvarUsuarios(usuarios);
-    return { ok: true };
+    const usuarios=_getUsuarios();
+    const idx=usuarios.findIndex(u=>u.id===id);
+    if (idx===-1) return {ok:false,erro:"Usuário não encontrado."};
+    usuarios.splice(idx,1); _salvarUsuarios(usuarios);
+    return {ok:true};
   },
 
-  listarAlunos() {
-    return _getUsuarios()
-      .filter((u) => u.tipo === "aluno")
-      .map(({ senha, ...u }) => u);
+  turmasDoProfessor(professorId) {
+    const prof = _getUsuarios().find(u=>u.id===professorId);
+    if (!prof) return [];
+
+    const escolasProf = (prof.escolas||[]).map(e=>e.nome.toLowerCase().trim());
+    if (!escolasProf.length) return [];
+
+    const alunos = _getUsuarios().filter(u => {
+      if (u.tipo!=="aluno") return false;
+      return escolasProf.includes((u.escola||"").toLowerCase().trim());
+    });
+
+    const mapa = {};
+    alunos.forEach(a => {
+      const e = a.escola||"Sem escola";
+      const s = a.serie ||"Sem série";
+      const t = a.turma ||"Geral";
+      if (!mapa[e]) mapa[e]={};
+      if (!mapa[e][s]) mapa[e][s]={};
+      if (!mapa[e][s][t]) mapa[e][s][t]=[];
+      const {senha,...sem}=a;
+      mapa[e][s][t].push(sem);
+    });
+
+    return Object.entries(mapa).map(([escola,series])=>({
+      escola,
+      uf:     alunos.find(a=>a.escola===escola)?.escolaObj?.uf||"",
+      cidade: alunos.find(a=>a.escola===escola)?.escolaObj?.cidade||"",
+      series: Object.entries(series).map(([serie,turmas])=>({
+        serie,
+        turmas: Object.entries(turmas).map(([turma,alunos])=>({turma,alunos})),
+      })),
+    }));
   },
 
-  listarProfessores() {
-    return _getUsuarios()
-      .filter((u) => u.tipo === "professor")
-      .map(({ senha, ...u }) => u);
+  listaTurmasProfessor(professorId) {
+    const lista = [];
+    this.turmasDoProfessor(professorId).forEach(g => {
+      g.series.forEach(s => {
+        s.turmas.forEach(t => {
+          lista.push({ label:`${g.escola} · ${s.serie} · Turma ${t.turma}`, escola:g.escola, serie:s.serie, turma:t.turma, alunos:t.alunos });
+        });
+      });
+    });
+    return lista;
   },
 };
 
-// ─────────────────────────────────────────────────────────────
-//  UTILITÁRIOS DE DEBUG (só para desenvolvimento)
-// ─────────────────────────────────────────────────────────────
 const Debug = {
-  verTudo() {
-    console.table(_getUsuarios());
-  },
-
-  resetar() {
+  verTudo()  { console.table(_getUsuarios()); },
+  // ⚠️ Chame isso no console do browser se o banco estiver
+  // com dados velhos e precisar atualizar o seed:
+  resetar()  {
     localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(SEED_USUARIOS));
     sessionStorage.clear();
-    console.log("Banco resetado para o seed original.");
+    console.log("✅ Banco resetado para o seed mais recente.");
   },
 };
 
-// ─────────────────────────────────────────────────────────────
-//  EXPORTA PARA O ESCOPO GLOBAL (sem bundler)
-// ─────────────────────────────────────────────────────────────
 window.DB = { Sessao, CadastroTemp, Auth, Usuarios, Debug };
