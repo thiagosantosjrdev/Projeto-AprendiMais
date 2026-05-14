@@ -1,121 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aprendi+ | Sobre você</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-</head>
-<body>
-  <main>
-    <form id="main" onsubmit="return false;"
-      class="min-h-screen max-w-[400px] w-full rounded-none md:rounded-[30px] md:min-h-0 md:my-6 bg-[#f4f4f8] shadow-none md:shadow-[0px_0px_10px_rgba(0,0,0,0.1)]">
-
-      <section class="steps !mb-5 mt-1">
-        <div class="step"><div class="circle !bg-[var(--cor-botoes)] !text-white">1</div><span>Quem você é?</span></div>
-        <div class="line active"></div>
-        <div class="step active"><div class="circle">2</div><span>Sobre você</span></div>
-        <div class="line"></div>
-        <div class="step"><div class="circle">3</div><span>Seu jeito de aprender</span></div>
-      </section>
-
-      <section class="text-center mb-4">
-        <h3 class="!text-5xl leading-none">Sobre você</h3>
-        <p class="subtexto !text-base">Conte um pouco mais sobre sua jornada e interesses.</p>
-      </section>
-
-      <section class="bg-[#f3f3f8] border border-[#ececf2] rounded-2xl p-4 flex flex-col gap-5">
-
-        <div class="flex flex-col gap-2">
-          <label for="cidade" id="labelCidade">Em que cidade você estuda?</label>
-          <div class="flex items-center gap-2 px-3 rounded-xl border border-[#ddd] bg-white h-11">
-            <input id="cidade" type="text" placeholder="Digite sua cidade" class="!border-0 !py-2 !px-1 !text-[16px]" required>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendi+ | Sobre você</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#7463e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Aprendi+">
+    <link rel="apple-touch-icon" href="../images/logo-192.png">
+  </head>
+  <body>
+    <main>
+      <form id="main" onsubmit="return false;"
+        class="min-h-screen max-w-[400px] w-full rounded-none md:rounded-[30px] md:min-h-0 md:my-6 bg-[#f4f4f8] shadow-none md:shadow-[0px_0px_10px_rgba(0,0,0,0.1)]">
+        <section class="steps !mb-5 mt-1">
+          <div class="step">
+            <div class="circle !bg-[var(--cor-botoes)] !text-white">1</div>
+            <span>Quem você é?</span>
           </div>
-          <p id="erroCidade" style="color:#e53e3e;font-size:0.82em;display:none;">Informe sua cidade.</p>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label>Quais são seus interesses?</label>
-          <p class="subtexto !m-0">Selecione até 5 áreas que você gosta.</p>
-          <div class="neuro-container flex-wrap" id="interesses">
-            <label class="neuro-option"><input type="checkbox" name="interesses" value="Tecnologia" checked><span>Tecnologia</span></label>
-            <label class="neuro-option"><input type="checkbox" name="interesses" value="Ciencias"><span>Ciências</span></label>
-            <label class="neuro-option"><input type="checkbox" name="interesses" value="Artes"><span>Artes</span></label>
-            <label class="neuro-option"><input type="checkbox" name="interesses" value="Esportes"><span>Esportes</span></label>
-            <label class="neuro-option"><input type="checkbox" name="interesses" value="Jogos"><span>Jogos</span></label>
-            <label class="neuro-option"><input type="checkbox" name="interesses" value="Leitura"><span>Leitura</span></label>
+          <div class="line active"></div>
+          <div class="step active">
+            <div class="circle">2</div>
+            <span>Sobre você</span>
           </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="objetivo">Qual seu objetivo?</label>
-          <p class="subtexto !m-0" id="labelObjetivo">O que você espera alcançar com essa plataforma?</p>
-          <select id="objetivo" class="h-11 rounded-xl border border-[#ddd] bg-white px-3 text-[#8b8d93]" required>
-            <option selected disabled>Selecione uma opção</option>
-            <option>Melhorar meu desempenho escolar</option>
-            <option>Aprender algo novo</option>
-            <option>Criar rotina de estudos</option>
-            <option>Explorar novos temas</option>
-            <option>Ajudar meus alunos a evoluir</option>
-          </select>
-          <p id="erroObjetivo" style="color:#e53e3e;font-size:0.82em;display:none;">Selecione um objetivo.</p>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="tempoLivre" id="labelTempoLivre">O que mais gosta de fazer no tempo livre?</label>
-          <textarea id="tempoLivre" placeholder="Conte um pouco..."
-            class="min-h-24 rounded-xl border border-[#ddd] bg-white px-3 py-2 text-[#8b8d93] resize-none"></textarea>
-        </div>
-
-      </section>
-
-      <button type="button" onclick="avancar()"
-        class="mt-auto h-11 text-[22px] font-bold flex items-center justify-center gap-2">
-        Continuar
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-        </svg>
-      </button>
-
-    </form>
-  </main>
-
-  <script src="../scripts/Database.js"></script>
-  <script>
-    const temp = DB.CadastroTemp.ler();
-    if (!temp.email) window.location.href = "register1.html";
-
-    // Adapta label pro professor
-    if (temp.tipo === "professor") {
-      document.getElementById("labelObjetivo").textContent  = "O que você espera alcançar com a plataforma?";
-      document.getElementById("labelTempoLivre").textContent = "Conte um pouco sobre sua metodologia de ensino:";
-      document.getElementById("labelCidade").textContent = "Em que cidade você leciona?";
-    }
-
-    const checkboxes = document.querySelectorAll("#interesses input[type='checkbox']");
-    checkboxes.forEach(cb => {
-      cb.addEventListener("change", () => {
-        const ativos = [...checkboxes].filter(c => c.checked);
-        if (ativos.length > 5) cb.checked = false;
+          <div class="line"></div>
+          <div class="step">
+            <div class="circle">3</div>
+            <span>Seu jeito de aprender</span>
+          </div>
+        </section>
+        <section class="text-center mb-4">
+          <h3 class="!text-5xl leading-none">Sobre você</h3>
+          <p class="subtexto !text-base">Conte um pouco mais sobre sua jornada e interesses.</p>
+        </section>
+        <section class="bg-[#f3f3f8] border border-[#ececf2] rounded-2xl p-4 flex flex-col gap-5">
+          <div class="flex flex-col gap-2">
+            <label for="cidade" id="labelCidade">Em que cidade você mora?</label>
+            <div class="flex items-center gap-2 px-3 rounded-xl border border-[#ddd] bg-white h-11">
+              <input id="cidade" type="text" placeholder="Digite sua cidade" class="!border-0 !py-2 !px-1 !text-[16px]" required>
+            </div>
+            <p id="erroCidade" style="color:#e53e3e;font-size:0.82em;display:none;">Informe sua cidade.</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label>Quais são seus interesses?</label>
+            <p class="subtexto !m-0">Selecione até 5 áreas que você gosta.</p>
+            <div class="neuro-container flex-wrap" id="interesses">
+              <label class="neuro-option"><input type="checkbox" name="interesses" value="Tecnologia" checked><span>Tecnologia</span></label>
+              <label class="neuro-option"><input type="checkbox" name="interesses" value="Ciencias"><span>Ciências</span></label>
+              <label class="neuro-option"><input type="checkbox" name="interesses" value="Artes"><span>Artes</span></label>
+              <label class="neuro-option"><input type="checkbox" name="interesses" value="Esportes"><span>Esportes</span></label>
+              <label class="neuro-option"><input type="checkbox" name="interesses" value="Jogos"><span>Jogos</span></label>
+              <label class="neuro-option"><input type="checkbox" name="interesses" value="Leitura"><span>Leitura</span></label>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="objetivo">Qual seu objetivo?</label>
+            <p class="subtexto !m-0" id="labelObjetivo">O que você espera alcançar com essa plataforma?</p>
+            <select id="objetivo" class="h-11 rounded-xl border border-[#ddd] bg-white px-3 text-[#8b8d93]" required>
+              <option selected disabled>Selecione uma opção</option>
+              <option>Melhorar meu desempenho escolar</option>
+              <option>Aprender algo novo</option>
+              <option>Criar rotina de estudos</option>
+              <option>Explorar novos temas</option>
+              <option>Ajudar meus alunos a evoluir</option>
+            </select>
+            <p id="erroObjetivo" style="color:#e53e3e;font-size:0.82em;display:none;">Selecione um objetivo.</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="tempoLivre" id="labelTempoLivre">O que mais gosta de fazer no tempo livre?</label>
+            <textarea id="tempoLivre" placeholder="Conte um pouco..."
+              class="min-h-24 rounded-xl border border-[#ddd] bg-white px-3 py-2 text-[#8b8d93] resize-none"></textarea>
+          </div>
+        </section>
+        <button type="button" onclick="avancar()"
+          class="mt-auto h-11 text-[22px] font-bold flex items-center justify-center gap-2">
+          Continuar
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+          </svg>
+        </button>
+      </form>
+    </main>
+    <script src="../scripts/Database.js"></script>
+    <script>
+      const temp = DB.CadastroTemp.ler();
+      if (!temp.email) window.location.href = "register1.html";
+      
+      // Adapta label pro professor
+      if (temp.tipo === "professor") {
+        document.getElementById("labelObjetivo").textContent  = "O que você espera alcançar com a plataforma?";
+        document.getElementById("labelTempoLivre").textContent = "Conte um pouco sobre sua metodologia de ensino:";
+        document.getElementById("labelCidade").textContent = "Em que cidade você leciona?";
+      }
+      
+      const checkboxes = document.querySelectorAll("#interesses input[type='checkbox']");
+      checkboxes.forEach(cb => {
+        cb.addEventListener("change", () => {
+          const ativos = [...checkboxes].filter(c => c.checked);
+          if (ativos.length > 5) cb.checked = false;
+        });
       });
-    });
-
-    function avancar() {
-      const cidade     = document.getElementById("cidade").value.trim();
-      const objetivo   = document.getElementById("objetivo").value;
-      const tempoLivre = document.getElementById("tempoLivre").value.trim();
-      const interesses = [...checkboxes].filter(c => c.checked).map(c => c.value);
-
-      document.getElementById("erroCidade").style.display    = !cidade ? "block" : "none";
-      document.getElementById("erroObjetivo").style.display  = (!objetivo || objetivo === "Selecione uma opção") ? "block" : "none";
-
-      if (!cidade || !objetivo || objetivo === "Selecione uma opção") return;
-
-      DB.CadastroTemp.salvar({ cidade, interesses, objetivo, tempoLivre });
-      window.location.href = "register3.html";
-    }
-  </script>
-</body>
+      
+      function avancar() {
+        const cidade     = document.getElementById("cidade").value.trim();
+        const objetivo   = document.getElementById("objetivo").value;
+        const tempoLivre = document.getElementById("tempoLivre").value.trim();
+        const interesses = [...checkboxes].filter(c => c.checked).map(c => c.value);
+      
+        document.getElementById("erroCidade").style.display    = !cidade ? "block" : "none";
+        document.getElementById("erroObjetivo").style.display  = (!objetivo || objetivo === "Selecione uma opção") ? "block" : "none";
+      
+        if (!cidade || !objetivo || objetivo === "Selecione uma opção") return;
+      
+        DB.CadastroTemp.salvar({ cidade, interesses, objetivo, tempoLivre });
+        window.location.href = "register3.html";
+      }
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("../sw.js");
+      }
+    </script>
+  </body>
 </html>

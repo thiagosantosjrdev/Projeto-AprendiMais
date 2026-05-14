@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="manifest" href="../../manifest.json">
+    <meta name="theme-color" content="#7463e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Aprendi+">
+    <link rel="apple-touch-icon" href="../../images/logo-192.png">
     <style>
       /* ── Cards clicáveis ── */
       .perfil-item.clicavel {
@@ -157,6 +163,7 @@
       <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
       <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
       <a href="mensagens.html"><i class="bi bi-chat"></i><br>Mensagens</a>
+      <a href="desafio.html"><span><i class="bi bi-fire"></i><br>Desafio</span></a>
       <a href="perfil.html"><i class="bi bi-person active"></i><br>Perfil</a>
     </nav>
     <!-- OVERLAY -->
@@ -318,5 +325,10 @@
     </div>
     <script src="../../scripts/Database.js"></script>
     <script src="../../scripts/aluno-perfil.js" defer></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("../../sw.js");
+      }
+    </script>
   </body>
 </html>

@@ -8,9 +8,135 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="manifest" href="../../manifest.json">
+    <meta name="theme-color" content="#7463e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Aprendi+">
+    <link rel="apple-touch-icon" href="../../images/logo-192.png">
+
+    <style>
+      /* ── Card IA ── */
+      .card-ia {
+        background: linear-gradient(135deg, #7463e3 0%, #9b87f5 100%);
+        border-radius: 20px;
+        padding: 16px;
+        color: #fff;
+        margin-bottom: 16px;
+      }
+
+      .card-ia-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .card-ia-header i { font-size: 1.1em; }
+
+      .card-ia-header span {
+        font-size: 0.78em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        opacity: 0.85;
+      }
+
+      .card-ia-header .btn-refresh {
+        margin-left: auto;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-size: 0.95em;
+      }
+      .card-ia-header .btn-refresh:hover { background: rgba(255,255,255,0.3); }
+      .card-ia-header .btn-refresh.girando i {
+        animation: girar 0.8s linear infinite;
+      }
+      @keyframes girar { to { transform: rotate(360deg); } }
+
+      /* Skeleton loading */
+      .ia-skeleton {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .ia-skeleton-line {
+        height: 12px;
+        background: rgba(255,255,255,0.25);
+        border-radius: 6px;
+        animation: pulse 1.4s ease-in-out infinite;
+      }
+      .ia-skeleton-line:nth-child(2) { width: 80%; animation-delay: 0.2s; }
+      .ia-skeleton-line:nth-child(3) { width: 60%; animation-delay: 0.4s; }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.4; }
+      }
+
+      /* Recomendações */
+      .ia-recomendacoes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .ia-item {
+        background: rgba(255,255,255,0.15);
+        border-radius: 12px;
+        padding: 10px 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .ia-item:hover { background: rgba(255,255,255,0.25); }
+
+      .ia-item-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.95em;
+      }
+
+      .ia-item-texto { flex: 1; }
+      .ia-item-titulo {
+        font-size: 0.88em;
+        font-weight: 700;
+        margin: 0 0 2px;
+        line-height: 1.3;
+      }
+      .ia-item-sub {
+        font-size: 0.75em;
+        opacity: 0.8;
+        margin: 0;
+      }
+
+      .ia-erro {
+        font-size: 0.85em;
+        opacity: 0.85;
+        text-align: center;
+        padding: 8px 0;
+      }
+    </style>
   </head>
   <body>
     <main id="dashboard">
+
       <!-- HEADER -->
       <div class="header">
         <div>
@@ -22,6 +148,7 @@
           <div class="perfil" onclick="window.location.href='perfil.html'" style="cursor:pointer;" title="Meu perfil"></div>
         </div>
       </div>
+
       <!-- BANNER -->
       <div class="banner">
         <div>
@@ -29,33 +156,31 @@
           <p>Vamos juntos descobrir seu melhor jeito de aprender.</p>
         </div>
       </div>
+
       <!-- ACESSO RÁPIDO -->
       <section class="acesso">
-        <!-- Meu Resumo → abre modal de resumo -->
         <div class="card" onclick="abrirModal('resumo')" style="cursor:pointer;">
           <i class="bi bi-clipboard"></i>
           <h4>Meu Resumo</h4>
           <p>Como estou nas aulas</p>
         </div>
-        <!-- Professor → vai para mensagens -->
         <div class="card" onclick="window.location.href='mensagens.html'" style="cursor:pointer;">
           <i class="bi bi-chat-dots"></i>
           <h4>Professor</h4>
           <p>Tire suas dúvidas</p>
         </div>
-        <!-- Aulas → vai para aulas -->
         <div class="card" onclick="window.location.href='aulas.html'" style="cursor:pointer;">
           <i class="bi bi-play-btn"></i>
           <h4>Aulas</h4>
           <p>Assista e aprenda</p>
         </div>
-        <!-- Materiais → abre modal de materiais -->
         <div class="card" onclick="abrirModal('materiais')" style="cursor:pointer;">
           <i class="bi bi-book"></i>
           <h4>Materiais</h4>
           <p>Seus conteúdos</p>
         </div>
       </section>
+
       <!-- PROGRESSO -->
       <section class="progresso">
         <div class="top">
@@ -66,24 +191,48 @@
           <div class="fill"></div>
         </div>
       </section>
+
+      <!-- ── CARD IA ── -->
+      <div class="card-ia" id="cardIA">
+        <div class="card-ia-header">
+          <i class="bi bi-stars"></i>
+          <span>Recomendado pra você</span>
+          <button class="btn-refresh" id="btnRefreshIA" onclick="gerarRecomendacoes()" title="Gerar novas sugestões">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+        </div>
+        <div id="iaConteudo">
+          <div class="ia-skeleton">
+            <div class="ia-skeleton-line"></div>
+            <div class="ia-skeleton-line"></div>
+            <div class="ia-skeleton-line"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- RECOMENDAÇÃO -->
       <section class="recomendacao">
         <p>Que tal responder seu resumo semanal? Isso ajuda seu professor a te entender melhor!</p>
         <button onclick="abrirModal('resumo')">Fazer meu resumo</button>
       </section>
+
     </main>
+
     <!-- NAVBAR -->
     <nav class="bottom-nav">
       <span><i class="bi bi-house active"></i><br>Início</span>
       <a href="aulas.html"><span><i class="bi bi-mortarboard"></i><br>Aulas</span></a>
       <a href="mensagens.html"><span><i class="bi bi-chat"></i><br>Mensagens</span></a>
+      <a href="desafio.html"><span><i class="bi bi-fire"></i><br>Desafio</span></a>
       <a href="perfil.html"><span><i class="bi bi-person"></i><br>Perfil</span></a>
+      
     </nav>
-    <!-- ==================== MODAIS ==================== -->
+
     <!-- OVERLAY -->
     <div id="modal-overlay" onclick="fecharModal()"
-      style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100; transition: opacity 0.3s ease;">
+      style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100;">
     </div>
+
     <!-- MODAL: MEU RESUMO -->
     <div id="modal-resumo" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
@@ -92,7 +241,6 @@
         <i class="bi bi-x-lg" onclick="fecharModal()" style="cursor:pointer; font-size:1.2em; color:#888;"></i>
       </div>
       <p style="color:var(--cor-paragrafo); font-size:0.9em; margin-bottom:16px;">Semana de 14 a 20 de abril</p>
-      <!-- Stats -->
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
         <div style="background:#f3f3f8; border-radius:12px; padding:12px; text-align:center;">
           <p style="font-size:0.75em; color:var(--cor-paragrafo); margin:0;">Aulas assistidas</p>
@@ -113,9 +261,10 @@
       </div>
       <button onclick="window.location.href='aulas.html'"
         style="width:100%; background:var(--cor-botoes); color:#fff; border:none; border-radius:12px; padding:12px; font-size:1em; font-weight:bold; cursor:pointer;">
-      Ver minhas aulas
+        Ver minhas aulas
       </button>
     </div>
+
     <!-- MODAL: MATERIAIS -->
     <div id="modal-materiais" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
@@ -125,8 +274,7 @@
       </div>
       <p style="color:var(--cor-paragrafo); font-size:0.9em; margin-bottom:16px;">Seus conteúdos disponíveis</p>
       <div style="display:flex; flex-direction:column; gap:10px;">
-        <div style="display:flex; align-items:center; gap:12px; background:#f3f3f8; border-radius:12px; padding:12px; cursor:pointer;"
-          onclick="alert('Abrindo PDF...')">
+        <div style="display:flex; align-items:center; gap:12px; background:#f3f3f8; border-radius:12px; padding:12px; cursor:pointer;" onclick="alert('Abrindo PDF...')">
           <div style="width:40px; height:40px; border-radius:10px; background:rgba(116,99,227,0.12); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
             <i class="bi bi-file-earmark-pdf" style="color:var(--cor-botoes); font-size:1.2em;"></i>
           </div>
@@ -136,8 +284,7 @@
           </div>
           <i class="bi bi-download" style="margin-left:auto; color:var(--cor-botoes);"></i>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; background:#f3f3f8; border-radius:12px; padding:12px; cursor:pointer;"
-          onclick="alert('Abrindo exercícios...')">
+        <div style="display:flex; align-items:center; gap:12px; background:#f3f3f8; border-radius:12px; padding:12px; cursor:pointer;" onclick="alert('Abrindo exercícios...')">
           <div style="width:40px; height:40px; border-radius:10px; background:rgba(116,99,227,0.12); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
             <i class="bi bi-file-earmark-text" style="color:var(--cor-botoes); font-size:1.2em;"></i>
           </div>
@@ -147,8 +294,7 @@
           </div>
           <i class="bi bi-download" style="margin-left:auto; color:var(--cor-botoes);"></i>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; background:#f3f3f8; border-radius:12px; padding:12px; cursor:pointer;"
-          onclick="alert('Abrindo mapa mental...')">
+        <div style="display:flex; align-items:center; gap:12px; background:#f3f3f8; border-radius:12px; padding:12px; cursor:pointer;" onclick="alert('Abrindo mapa mental...')">
           <div style="width:40px; height:40px; border-radius:10px; background:rgba(116,99,227,0.12); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
             <i class="bi bi-diagram-3" style="color:var(--cor-botoes); font-size:1.2em;"></i>
           </div>
@@ -160,36 +306,35 @@
         </div>
       </div>
     </div>
-    <!-- ESTILOS DOS MODAIS -->
+
     <style>
       .modal-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 24px 24px 0 0;
-      padding: 16px 20px 36px;
-      z-index: 101;
-      box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
-      animation: slideUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+        position: fixed; bottom: 0; left: 50%;
+        transform: translateX(-50%);
+        width: 100%; max-width: 420px;
+        background: #fff; border-radius: 24px 24px 0 0;
+        padding: 16px 20px 36px; z-index: 101;
+        box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
+        animation: slideUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
       }
       .modal-handle {
-      width: 40px;
-      height: 4px;
-      background: #ddd;
-      border-radius: 99px;
-      margin: 0 auto 16px;
+        width: 40px; height: 4px; background: #ddd;
+        border-radius: 99px; margin: 0 auto 16px;
       }
       @keyframes slideUp {
-      from { transform: translateX(-50%) translateY(100%); }
-      to   { transform: translateX(-50%) translateY(0); }
+        from { transform: translateX(-50%) translateY(100%); }
+        to   { transform: translateX(-50%) translateY(0); }
       }
     </style>
+
     <script src="../../scripts/Database.js"></script>
     <script src="../../scripts/aluno-index.js" defer></script>
     <script src="../../scripts/aluno-modais.js"></script>
+    <script src="../../scripts/aluno-ia.js" defer></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("../../sw.js");
+      }
+    </script>
   </body>
 </html>

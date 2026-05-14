@@ -761,3 +761,134 @@ button#CriarConta:hover{
 .switch.inativo {
   background: #bcc0cc;
 }
+
+/* ── Streak ── */
+.streak-bar {
+display: flex; align-items: center; gap: 10px;
+background: linear-gradient(135deg, #7c6cf0, #a18bff);
+border-radius: 16px; padding: 12px 16px;
+margin-bottom: 16px; margin-top: 16px;
+}
+.streak-circle{
+width: 18px;
+height: 18px;
+border-radius: 999px;
+background: rgba(255,255,255,0.9);
+box-shadow: 0 0 12px rgba(255,255,255,0.35);
+}
+.streak-info  { flex: 1; }
+.streak-num   { font-size: 1.4em; font-weight: 800; color: #fff; margin: 0; }
+.streak-label { font-size: 0.78em; color: rgba(255,255,255,0.85); margin: 0; }
+.streak-record{ font-size: 0.75em; color: rgba(255,255,255,0.7); }
+/* ── Progresso das questões ── */
+.questoes-prog {
+display: flex; gap: 8px; margin-bottom: 20px;
+}
+.questao-dot {
+flex: 1; height: 6px; border-radius: 99px;
+background: #e8e8f0; transition: background 0.3s;
+}
+.questao-dot.ativa    { background: var(--cor-botoes); }
+.questao-dot.correta  { background: #34d399; }
+.questao-dot.errada   { background: #f87171; }
+/* ── Card da questão ── */
+.questao-card {
+background: #fff; border-radius: 20px; padding: 20px;
+box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 16px;
+}
+.questao-materia {
+font-size: 0.72em; font-weight: 700; text-transform: uppercase;
+letter-spacing: 0.08em; color: var(--cor-botoes);
+background: rgba(116,99,227,0.1); border-radius: 99px;
+padding: 3px 10px; display: inline-block; margin-bottom: 10px;
+}
+.questao-enunciado {
+font-size: 0.95em; line-height: 1.6;
+color: var(--cor-titulo); white-space: pre-line;
+}
+/* ── Alternativas ── */
+.alternativas { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.alt-btn {
+display: flex; align-items: center; gap: 12px;
+padding: 12px 14px; border-radius: 14px;
+border: 2px solid #e8e8f0; background: #fafafa;
+cursor: pointer; transition: all 0.2s; text-align: left;
+font-size: 0.9em; font-family: inherit; color: var(--cor-titulo);
+}
+.alt-btn:hover:not(:disabled) { border-color: var(--cor-botoes); background: rgba(116,99,227,0.05); }
+.alt-btn.correta  { border-color: #34d399; background: #f0fdf4; color: #065f46; }
+.alt-btn.errada   { border-color: #f87171; background: #fef2f2; color: #991b1b; }
+.alt-btn:disabled { cursor: default; }
+.alt-letra {
+width: 28px; height: 28px; border-radius: 8px;
+background: #f0f0f8; color: var(--cor-botoes);
+font-weight: 700; font-size: 0.85em;
+display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.alt-btn.correta .alt-letra { background: #34d399; color: #fff; }
+.alt-btn.errada  .alt-letra { background: #f87171; color: #fff; }
+/* ── Dissertativa ── */
+.dissertativa-input {
+width: 100%; box-sizing: border-box;
+border: 2px solid #e8e8f0; border-radius: 14px;
+padding: 12px; font-size: 0.9em; font-family: inherit;
+resize: none; outline: none; margin-top: 16px;
+transition: border-color 0.2s; min-height: 100px;
+}
+.dissertativa-input:focus { border-color: var(--cor-botoes); }
+/* ── Feedback ── */
+.feedback-box {
+border-radius: 14px; padding: 14px; margin-top: 14px;
+display: none; animation: fadeUp 0.3s ease;
+}
+.feedback-box.correto { background: #f0fdf4; border: 1.5px solid #34d399; }
+.feedback-box.errado  { background: #fef2f2; border: 1.5px solid #f87171; }
+.feedback-titulo {
+font-weight: 700; font-size: 0.9em; margin: 0 0 6px;
+}
+.feedback-box.correto .feedback-titulo { color: #065f46; }
+.feedback-box.errado  .feedback-titulo { color: #991b1b; }
+.feedback-texto { font-size: 0.85em; color: var(--cor-titulo); margin: 0; line-height: 1.5; }
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(8px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+/* ── Botão confirmar / próxima ── */
+.btn-acao {
+width: 100%; background: var(--cor-botoes); color: #fff;
+border: none; border-radius: 14px; padding: 13px;
+font-size: 1em; font-weight: 700; cursor: pointer;
+margin-top: 12px; transition: opacity 0.2s;
+}
+.btn-acao:hover { opacity: 0.88; }
+.btn-acao:disabled { background: #ccc; cursor: default; }
+.btn-acao.verde { background: #34d399; }
+/* ── Tela de conclusão ── */
+.conclusao {
+display: none; text-align: center;
+flex-direction: column; align-items: center; gap: 16px;
+padding: 20px 0;
+}
+.conclusao.visivel { display: flex; }
+.conclusao-icone {
+font-size: 4em;
+animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+from { transform: scale(0); opacity: 0; }
+to   { transform: scale(1); opacity: 1; }
+}
+.stat-row-conclusao {
+display: flex; gap: 12px; width: 100%;
+}
+.stat-box {
+flex: 1; background: #f3f3f8; border-radius: 14px;
+padding: 12px; text-align: center;
+}
+.stat-box strong { font-size: 1.6em; color: var(--cor-botoes); display: block; }
+.stat-box span   { font-size: 0.75em; color: var(--cor-paragrafo); }
+/* ── Já feito hoje ── */
+.ja-feito {
+text-align: center; padding: 32px 16px;
+}
+.ja-feito i { font-size: 3em; color: #34d399; display: block; margin-bottom: 12px; }

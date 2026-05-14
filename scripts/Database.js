@@ -1,67 +1,160 @@
+// ============================================================
+//  Aprendi+ | Database.js — Banco de dados fake v2
+// ============================================================
+
 const SEED_USUARIOS = [
-  // ── Alunos da Mariana (Escola Municipal São Jorge, BH/MG) ──
+
+  // ── ALUNOS ─────────────────────────────────────────────────
+
   {
-    id: "u001", email: "ana.silva@email.com", senha: "senha123", tipo: "aluno",
-    nome: "Ana Silva", idade: 15, serie: "1º Ano EM", turma: "A",
-    escola: "Escola Municipal São Jorge",
-    escolaObj: { nome: "Escola Municipal São Jorge", cidade: "Belo Horizonte", uf: "MG" },
-    neurodivergente: "nao", cidade: "Belo Horizonte",
-    interesses: ["Tecnologia", "Ciencias", "Leitura"],
-    objetivo: "Melhorar meu desempenho escolar", tempoLivre: "Gosto de ler e jogar.",
-    metodoAprender: "videos", preferencia: "sozinho", frequencia: "todos-dias", periodo: ["tarde"],
-    criadoEm: "2025-01-10T14:00:00.000Z",
+    id: "u001",
+    email: "thiago.santos@aprendimais.com",
+    senha: "senha123",
+    tipo: "aluno",
+    nome: "Thiago dos Santos Junior",
+    idade: 17,
+    serie: "2º Ano EM",
+    turma: "B",
+    escola: "Centro de Excelência Deputado Joaldo Vieira Barbosa",
+    escolaObj: { nome: "Centro de Excelência Deputado Joaldo Vieira Barbosa", cidade: "Salgado", uf: "SE" },
+    neurodivergente: "nao",
+    cidade: "Salgado",
+    interesses: ["Tecnologia", "Jogos", "Ciencias"],
+    objetivo: "Melhorar meu desempenho escolar",
+    tempoLivre: "Programo, jogo e assisto a séries de tecnologia.",
+    metodoAprender: "videos",
+    preferencia: "sozinho",
+    frequencia: "todos-dias",
+    periodo: ["tarde", "noite"],
+    materia: null,
+    criadoEm: "2025-03-01T08:00:00.000Z",
   },
+
   {
-    id: "u002", email: "carlos.mendes@email.com", senha: "senha123", tipo: "aluno",
-    nome: "Carlos Mendes", idade: 17, serie: "1º Ano EM", turma: "B",
-    escola: "Escola Municipal São Jorge",
-    escolaObj: { nome: "Escola Municipal São Jorge", cidade: "Belo Horizonte", uf: "MG" },
-    neurodivergente: "sim", cidade: "Belo Horizonte",
-    interesses: ["Tecnologia", "Jogos", "Artes"],
-    objetivo: "Criar rotina de estudos", tempoLivre: "Programo e jogo online.",
-    metodoAprender: "textos", preferencia: "ambos", frequencia: "3-4-semana", periodo: ["noite"],
-    criadoEm: "2025-02-03T09:30:00.000Z",
+    id: "u002",
+    email: "alexandre.jesus@aprendimais.com",
+    senha: "senha123",
+    tipo: "aluno",
+    nome: "Alexandre Silva Jesus",
+    idade: 16,
+    serie: "2º Ano EM",
+    turma: "B",
+    escola: "Centro de Excelência Deputado Joaldo Vieira Barbosa",
+    escolaObj: { nome: "Centro de Excelência Deputado Joaldo Vieira Barbosa", cidade: "Salgado", uf: "SE" },
+    neurodivergente: "nao",
+    cidade: "Salgado",
+    interesses: ["Artes", "Tecnologia", "Leitura"],
+    objetivo: "Explorar novos temas",
+    tempoLivre: "Desenho, crio layouts e escuto música.",
+    metodoAprender: "videos",
+    preferencia: "ambos",
+    frequencia: "3-4-semana",
+    periodo: ["tarde"],
+    materia: null,
+    criadoEm: "2025-03-01T08:05:00.000Z",
   },
-  // ── Aluno da Mariana (Colégio Estadual Central, SP/SP) ──────
+
   {
-    id: "u005", email: "julia.santos@email.com", senha: "senha123", tipo: "aluno",
-    nome: "Júlia Santos", idade: 14, serie: "9º Ano EF", turma: "A",
-    escola: "Colégio Estadual Central",
-    escolaObj: { nome: "Colégio Estadual Central", cidade: "São Paulo", uf: "SP" },
-    neurodivergente: "sim", cidade: "São Paulo",
-    interesses: ["Artes", "Leitura", "Esportes"],
-    objetivo: "Explorar novos temas", tempoLivre: "Desenho e ouço música.",
-    metodoAprender: "videos", preferencia: "sozinho", frequencia: "finais-semana", periodo: ["tarde"],
-    criadoEm: "2025-04-01T16:00:00.000Z",
+    id: "u003",
+    email: "michael.nascimento@aprendimais.com",
+    senha: "senha123",
+    tipo: "aluno",
+    nome: "Michael Dhouglas Lacerda Nascimento",
+    idade: 16,
+    serie: "2º Ano EM",
+    turma: "B",
+    escola: "Centro de Excelência Deputado Joaldo Vieira Barbosa",
+    escolaObj: { nome: "Centro de Excelência Deputado Joaldo Vieira Barbosa", cidade: "Salgado", uf: "SE" },
+    neurodivergente: "nao",
+    cidade: "Salgado",
+    interesses: ["Ciencias", "Esportes", "Tecnologia"],
+    objetivo: "Aprender algo novo",
+    tempoLivre: "Jogo futebol, assisto documentários e leio sobre ciências.",
+    metodoAprender: "videos",
+    preferencia: "grupo",
+    frequencia: "3-4-semana",
+    periodo: ["manha", "tarde"],
+    materia: null,
+    criadoEm: "2025-03-01T08:10:00.000Z",
   },
-  // ── Professores ─────────────────────────────────────────────
+
   {
-    id: "u003", email: "mariana.prof@email.com", senha: "senha123", tipo: "professor",
-    nome: "Mariana Costa", idade: 34, serie: "N/A", turma: null,
-    escola: "Escola Municipal São Jorge",
-    escolas: [
-      { nome: "Escola Municipal São Jorge", cidade: "Belo Horizonte", uf: "MG" },
-      { nome: "Colégio Estadual Central",   cidade: "São Paulo",      uf: "SP" },
-    ],
-    neurodivergente: "nao_dizer", cidade: "Belo Horizonte",
+    id: "u004",
+    email: "itamar.ameno@aprendimais.com",
+    senha: "senha123",
+    tipo: "aluno",
+    nome: "Itamar André Ameno",
+    idade: 16,
+    serie: "2º Ano EM",
+    turma: "B",
+    escola: "Centro de Excelência Deputado Joaldo Vieira Barbosa",
+    escolaObj: { nome: "Centro de Excelência Deputado Joaldo Vieira Barbosa", cidade: "Salgado", uf: "SE" },
+    neurodivergente: "nao",
+    cidade: "Salgado",
+    interesses: ["Esportes", "Leitura", "Ciencias"],
+    objetivo: "Criar rotina de estudos",
+    tempoLivre: "Pratico esportes, leio e ajudo nas atividades da escola.",
+    metodoAprender: "textos",
+    preferencia: "ambos",
+    frequencia: "todos-dias",
+    periodo: ["manha"],
+    materia: null,
+    criadoEm: "2025-03-01T08:15:00.000Z",
+  },
+
+  // ── PROFESSORES ────────────────────────────────────────────
+
+  {
+    id: "u005",
+    email: "andrea.ameno@aprendimais.com",
+    senha: "senha123",
+    tipo: "professor",
+    nome: "Andréa Ameno",
+    idade: 38,
+    serie: "N/A",
+    turma: null,
+    escola: "Centro de Excelência Deputado Joaldo Vieira Barbosa",
+    escolas: [{ nome: "Centro de Excelência Deputado Joaldo Vieira Barbosa", cidade: "Salgado", uf: "SE" }],
+    neurodivergente: "nao_dizer",
+    cidade: "Salgado",
     interesses: ["Ciencias", "Leitura", "Artes"],
-    objetivo: "Aprender algo novo", tempoLivre: "Gosto de caminhar.",
-    metodoAprender: "textos", preferencia: "grupo", frequencia: "1-2-semana", periodo: ["manha", "tarde"],
-    criadoEm: "2025-01-20T11:00:00.000Z",
+    objetivo: "Ajudar meus alunos a evoluir",
+    tempoLivre: "Leio, cuido da família e me atualizo em práticas pedagógicas.",
+    metodoAprender: "textos",
+    preferencia: "grupo",
+    frequencia: "todos-dias",
+    periodo: ["manha", "tarde"],
+    materia: "Ciências / Biologia",
+    criadoEm: "2025-02-20T07:00:00.000Z",
   },
+
   {
-    id: "u004", email: "lucas.prof@email.com", senha: "senha123", tipo: "professor",
-    nome: "Lucas Ferreira", idade: 41, serie: "N/A", turma: null,
-    escola: "Colégio Técnico Norte",
-    escolas: [{ nome: "Colégio Técnico Norte", cidade: "Fortaleza", uf: "CE" }],
-    neurodivergente: "nao", cidade: "Fortaleza",
+    id: "u006",
+    email: "denisson.liborio@aprendimais.com",
+    senha: "senha123",
+    tipo: "professor",
+    nome: "Denisson Libório",
+    idade: 35,
+    serie: "N/A",
+    turma: null,
+    escola: "Centro de Excelência Deputado Joaldo Vieira Barbosa",
+    escolas: [{ nome: "Centro de Excelência Deputado Joaldo Vieira Barbosa", cidade: "Salgado", uf: "SE" }],
+    neurodivergente: "nao",
+    cidade: "Salgado",
     interesses: ["Tecnologia", "Ciencias", "Esportes"],
-    objetivo: "Explorar novos temas", tempoLivre: "Assisto documentários.",
-    metodoAprender: "videos", preferencia: "ambos", frequencia: "todos-dias", periodo: ["manha"],
-    criadoEm: "2025-03-15T08:00:00.000Z",
+    objetivo: "Ajudar meus alunos a evoluir",
+    tempoLivre: "Pratico esportes, estudo tecnologia e acompanho inovações em educação.",
+    metodoAprender: "videos",
+    preferencia: "ambos",
+    frequencia: "todos-dias",
+    periodo: ["manha", "tarde"],
+    materia: "Matemática / Física",
+    criadoEm: "2025-02-20T07:10:00.000Z",
   },
+
 ];
 
+// ─────────────────────────────────────────────────────────────
 const CHAVE_USUARIOS = "aprendimais_usuarios";
 const CHAVE_SESSAO   = "aprendimais_sessao";
 const CHAVE_CADASTRO = "aprendimais_cadastro_temp";
@@ -78,8 +171,8 @@ function _gerarId() { return "u" + Date.now().toString(36) + Math.random().toStr
 const Sessao = {
   iniciar(u) { const {senha,...s}=u; sessionStorage.setItem(CHAVE_SESSAO,JSON.stringify(s)); },
   atual()    { const d=sessionStorage.getItem(CHAVE_SESSAO); return d?JSON.parse(d):null; },
-  encerrar(r=true) { sessionStorage.removeItem(CHAVE_SESSAO); if(r) window.location.href="../register/index.html"; },
-  exigir(r=true)   { const u=this.atual(); if(!u){if(r)window.location.href="../register/index.html"; return null;} return u; },
+  encerrar(r=true) { sessionStorage.removeItem(CHAVE_SESSAO); if(r) window.location.href="../../register/index.html"; },
+  exigir(r=true)   { const u=this.atual(); if(!u){if(r)window.location.href="../../register/index.html"; return null;} return u; },
 };
 
 const CadastroTemp = {
@@ -96,7 +189,9 @@ const Auth = {
     return { ok:true, usuario:u };
   },
   redirecionarPorTipo(u) {
-    window.location.href = u.tipo==="professor" ? "../dashboard/professor/index.html" : "../dashboard/aluno/index.html";
+    window.location.href = u.tipo==="professor"
+      ? "../dashboard/professor/index.html"
+      : "../dashboard/aluno/index.html";
   },
   logout() { Sessao.encerrar(); },
 };
@@ -166,7 +261,6 @@ const Usuarios = {
   turmasDoProfessor(professorId) {
     const prof = _getUsuarios().find(u=>u.id===professorId);
     if (!prof) return [];
-
     const escolasProf = (prof.escolas||[]).map(e=>e.nome.toLowerCase().trim());
     if (!escolasProf.length) return [];
 
@@ -203,7 +297,10 @@ const Usuarios = {
     this.turmasDoProfessor(professorId).forEach(g => {
       g.series.forEach(s => {
         s.turmas.forEach(t => {
-          lista.push({ label:`${g.escola} · ${s.serie} · Turma ${t.turma}`, escola:g.escola, serie:s.serie, turma:t.turma, alunos:t.alunos });
+          lista.push({
+            label: `${g.escola} · ${s.serie} · Turma ${t.turma}`,
+            escola: g.escola, serie: s.serie, turma: t.turma, alunos: t.alunos,
+          });
         });
       });
     });
@@ -213,8 +310,6 @@ const Usuarios = {
 
 const Debug = {
   verTudo()  { console.table(_getUsuarios()); },
-  // ⚠️ Chame isso no console do browser se o banco estiver
-  // com dados velhos e precisar atualizar o seed:
   resetar()  {
     localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(SEED_USUARIOS));
     sessionStorage.clear();

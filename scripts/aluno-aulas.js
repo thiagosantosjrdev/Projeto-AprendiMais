@@ -1,52 +1,105 @@
-const lessons = [...document.querySelectorAll('.aula-card')];
-const filterInputs = [...document.querySelectorAll('input[name="filtro"]')];
-const progressFill = document.getElementById('progressoFill');
-const progressLabel = document.getElementById('progressoTexto');
+// ============================================================
+//  Aprendi+ | dashboard/aluno/aulas.js
+//  Depende de: Database.js
+// ============================================================
 
-function updateProgress() {
-  const done = lessons.filter((item) => item.dataset.done === 'true').length;
-  const percent = lessons.length ? Math.round((done / lessons.length) * 100) : 0;
-  progressFill.style.width = `${percent}%`;
-  progressLabel.textContent = `${percent}%`;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-function applyFilter(value) {
-  lessons.forEach((item) => {
-    const status = item.dataset.status;
-    const done = item.dataset.done === 'true';
-    const show = value === 'todas' || status === value || (value === 'concluida' && done);
-    item.style.display = show ? 'block' : 'none';
+  const usuario = DB.Sessao.exigir();
+
+  // ── Avatar no header ────────────────────────────────────────
+  const primeiroNome = usuario.nome.split(" ")[0];
+
+  // ── Carrega estado salvo das aulas ───────────────────────────
+  const chave     = `aprendimais_aulas_${usuario.id}`;
+  let estadoAulas = _carregarEstado(chave);
+
+  // ── Inicializa cards com estado salvo ────────────────────────
+  const cards = document.querySelectorAll(".aula-card");
+
+  cards.forEach((card, i) => {
+    const id     = card.dataset.aulaId || `aula_${i}`;
+    card.dataset.aulaId = id;
+
+    // Se tem estado salvo, aplica
+    if (estadoAulas[id] !== undefined) {
+      const feita = estadoAulas[id];
+      _aplicarEstado(card, feita);
+    }
   });
-}
 
-function updateLessonState(item, done) {
-  const statusTag = item.querySelector('.aula-status');
-  const actionButton = item.querySelector('.marcar-aula');
+  // ── Progresso inicial ────────────────────────────────────────
+  atualizarProgresso();
 
-  item.dataset.done = String(done);
-  item.dataset.status = done ? 'concluida' : 'hoje';
+  // ── Marcar / desmarcar aula ──────────────────────────────────
+  cards.forEach(card => {
+    const btn = card.querySelector(".marcar-aula");
+    btn.addEventListener("click", () => {
+      const id    = card.dataset.aulaId;
+      const feita = card.dataset.done === "true";
 
-  statusTag.textContent = done ? 'Concluida' : 'Pendente';
-  statusTag.classList.toggle('concluida', done);
-  actionButton.textContent = done ? 'Marcar como pendente' : 'Marcar como concluída';
-}
+      _aplicarEstado(card, !feita);
 
-document.querySelectorAll('.marcar-aula').forEach((button) => {
-  button.addEventListener('click', () => {
-    const item = button.closest('.aula-card');
-    const isDone = item.dataset.done === 'true';
-    updateLessonState(item, !isDone);
-    updateProgress();
+      // Salva no localStorage
+      estadoAulas[id] = !feita;
+      _salvarEstado(chave, estadoAulas);
 
-    const activeFilter = document.querySelector('input[name="filtro"]:checked')?.value || 'todas';
-    applyFilter(activeFilter);
+      atualizarProgresso();
+      aplicarFiltro();
+    });
   });
+
+  // ── Filtros ──────────────────────────────────────────────────
+  function aplicarFiltro() {
+    const ativo = document.querySelector("input[name='filtro']:checked")?.value || "todas";
+    cards.forEach(card => {
+      const mostrar =
+        ativo === "todas" ||
+        (ativo === "hoje"      && card.dataset.status === "hoje") ||
+        (ativo === "concluida" && card.dataset.done   === "true");
+      card.style.display = mostrar ? "" : "none";
+    });
+  }
+
+  document.querySelectorAll("input[name='filtro']").forEach(f =>
+    f.addEventListener("change", aplicarFiltro)
+  );
+
+  // ── Progresso ────────────────────────────────────────────────
+  function atualizarProgresso() {
+    const total      = cards.length;
+    const concluidas = [...cards].filter(c => c.dataset.done === "true").length;
+    const pct        = total ? Math.round((concluidas / total) * 100) : 0;
+
+    document.getElementById("progressoTexto").textContent = `${pct}%`;
+    document.getElementById("progressoFill").style.width  = `${pct}%`;
+  }
+
 });
 
-filterInputs.forEach((input) => {
-  input.addEventListener('change', () => applyFilter(input.value));
-});
+// ── Aplica estado visual no card ──────────────────────────────
+function _aplicarEstado(card, feita) {
+  const btn    = card.querySelector(".marcar-aula");
+  const status = card.querySelector(".aula-status");
 
-lessons.forEach((item) => updateLessonState(item, item.dataset.done === 'true'));
-updateProgress();
-applyFilter('todas');
+  card.dataset.done   = feita;
+  card.dataset.status = feita ? "concluida" : "hoje";
+
+  if (status) {
+    status.textContent = feita ? "Concluída" : "Pendente";
+    status.classList.toggle("concluida", feita);
+  }
+  if (btn) btn.textContent = feita ? "Marcar como pendente" : "Marcar como concluída";
+}
+
+// ── Persistência ──────────────────────────────────────────────
+function _carregarEstado(chave) {
+  try {
+    const raw = localStorage.getItem(chave);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function _salvarEstado(chave, estado) {
+  localStorage.setItem(chave, JSON.stringify(estado));
+}

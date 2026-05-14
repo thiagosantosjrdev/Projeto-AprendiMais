@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendi+ | Desafio do Dia</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="manifest" href="../../manifest.json">
+    <meta name="theme-color" content="#7463e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Aprendi+">
+    <link rel="apple-touch-icon" href="../../images/logo-192.png">
+  </head>
+  <body>
+    <main id="dashboard">
+      <!-- HEADER -->
+      <div class="header">
+        <div>
+          <h2>Desafio do Dia</h2>
+          <p id="subtituloDesafio">Responda e mantenha sua ofensiva!</p>
+        </div>
+        <div class="icons">
+          <div class="perfil" id="avatarHeader" style="cursor:pointer;"
+            onclick="window.location.href='perfil.html'"></div>
+        </div>
+      </div>
+      <!-- STREAK -->
+      <div class="streak-bar" id="streakBar">
+        <div class="streak-circle"></div>
+        <div class="streak-info">
+          <p class="streak-num" id="streakNum">0</p>
+          <p class="streak-label">dias seguidos</p>
+        </div>
+        <span class="streak-record" id="streakRecord"></span>
+      </div>
+      <!-- PROGRESSO DOTS -->
+      <div class="questoes-prog" id="questoesProg"></div>
+      <!-- ÁREA DA QUESTÃO -->
+      <div id="areaQuestao">
+        <div class="questao-card" id="questaoCard">
+          <span class="questao-materia" id="questaoMateria"></span>
+          <p class="questao-enunciado" id="questaoEnunciado"></p>
+          <!-- Alternativas (múltipla/texto) -->
+          <div class="alternativas" id="alternativas"></div>
+          <!-- Dissertativa -->
+          <textarea class="dissertativa-input" id="dissertativaInput"
+            placeholder="Digite sua resposta aqui..." style="display:none;"
+            oninput="verificarDissertativa()"></textarea>
+          <!-- Feedback -->
+          <div class="feedback-box" id="feedbackBox">
+            <p class="feedback-titulo" id="feedbackTitulo"></p>
+            <p class="feedback-texto" id="feedbackTexto"></p>
+          </div>
+        </div>
+        <button class="btn-acao" id="btnAcao" disabled onclick="acaoBotao()">
+        Confirmar resposta
+        </button>
+      </div>
+      <!-- TELA DE CONCLUSÃO -->
+      <div class="conclusao" id="telaConclusao">
+        <div class="conclusao-icone" id="conclusaoIcone">🎉</div>
+        <h3 id="conclusaoTitulo" style="margin:0;">Desafio concluído!</h3>
+        <p id="conclusaoSub" style="color:var(--cor-paragrafo); margin:0; font-size:0.9em;"></p>
+        <div class="stat-row-conclusao">
+          <div class="stat-box">
+            <strong id="statAcertos">0</strong>
+            <span>Acertos</span>
+          </div>
+          <div class="stat-box">
+            <strong id="statStreak">0</strong>
+            <span>Streak</span>
+          </div>
+          <div class="stat-box">
+            <strong id="statPontos">0</strong>
+            <span>Pontos</span>
+          </div>
+        </div>
+        <button class="btn-acao verde" onclick="window.location.href='index.html'">
+        <i class="bi bi-house"></i> Voltar ao início
+        </button>
+        <button class="btn-acao" style="background:#f3f3f8; color:var(--cor-botoes);"
+          onclick="window.location.href='aulas.html'">
+        Ver minhas aulas
+        </button>
+      </div>
+      <!-- JÁ FEITO HOJE -->
+      <div class="ja-feito" id="telaJaFeito" style="display:none;">
+        <i class="bi bi-check-circle-fill"></i>
+        <h3>Você já fez o desafio hoje!</h3>
+        <p style="color:var(--cor-paragrafo); font-size:0.9em;">Volte amanhã pra manter sua ofensiva. 🔥</p>
+        <div class="stat-row-conclusao" style="margin-top:16px;">
+          <div class="stat-box">
+            <strong id="jaFeitoAcertos">—</strong>
+            <span>Acertos hoje</span>
+          </div>
+          <div class="stat-box">
+            <strong id="jaFeitoStreak">—</strong>
+            <span>Streak</span>
+          </div>
+        </div>
+        <button class="btn-acao" style="margin-top:16px;" onclick="window.location.href='index.html'">
+        Voltar ao início
+        </button>
+      </div>
+    </main>
+    <nav class="bottom-nav">
+      <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
+      <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
+      <a href="mensagens.html"><i class="bi bi-chat"></i><br>Mensagens</a>
+      <a href="desafio.html"><span><i class="bi bi-fire active"></i><br>Desafio</span></a>
+      <a href="perfil.html"><i class="bi bi-person"></i><br>Perfil</a>
+    </nav>
+    <script src="../../scripts/Database.js"></script>
+    <script src="../../scripts/aluno-questoes.js"></script>
+    <script src="../../scripts/aluno-desafio.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("../../sw.js");
+      }
+    </script>
+  </body>
+</html>
