@@ -3,33 +3,33 @@
 //  Habilita funcionamento offline e cache de assets
 // ============================================================
 
-const CACHE_NAME  = "aprendimais-v1";
+const CACHE_NAME  = "Aprendi+";
 const CACHE_URLS  = [
-  "/",
-  "/register/index.html",
-  "/dashboard/aluno/index.html",
-  "/dashboard/aluno/aulas.html",
-  "/dashboard/aluno/mensagens.html",
-  "/dashboard/aluno/perfil.html",
-  "/dashboard/aluno/desafio.html",
-  "/dashboard/professor/index.html",
-  "/dashboard/professor/turma.html",
-  "/dashboard/professor/mensagens.html",
-  "/dashboard/professor/perfil.html",
-  "/scripts/Database.js",
-  "/scripts/questoes.js",
-  "/scripts/desafio.js",
-  "/scripts/aluno-index.js",
-  "/scripts/aluno-ia.js",
-  "/scripts/aulas.js",
-  "/scripts/mensagens.js",
-  "/scripts/professor-index.js",
-  "/scripts/escolaPicker.js",
-  "/css/style.css",
-  "/images/logo.png",
-  "/images/favicon.ico",
-  "/images/icon-192.png",
-  "/images/icon-512.png",
+  "/Projeto-AprendiMais/",
+  "/Projeto-AprendiMais/register/index.html",
+  "/Projeto-AprendiMais/dashboard/aluno/index.html",
+  "/Projeto-AprendiMais/dashboard/aluno/aulas.html",
+  "/Projeto-AprendiMais/dashboard/aluno/mensagens.html",
+  "/Projeto-AprendiMais/dashboard/aluno/perfil.html",
+  "/Projeto-AprendiMais/dashboard/aluno/desafio.html",
+  "/Projeto-AprendiMais/dashboard/professor/index.html",
+  "/Projeto-AprendiMais/dashboard/professor/turma.html",
+  "/Projeto-AprendiMais/dashboard/professor/mensagens.html",
+  "/Projeto-AprendiMais/dashboard/professor/perfil.html",
+  "/Projeto-AprendiMais/scripts/Database.js",
+  "/Projeto-AprendiMais/scripts/questoes.js",
+  "/Projeto-AprendiMais/scripts/desafio.js",
+  "/Projeto-AprendiMais/Projeto-AprendiMais/scripts/aluno-index.js",
+  "/Projeto-AprendiMais/scripts/aluno-ia.js",
+  "/Projeto-AprendiMais/scripts/aulas.js",
+  "/Projeto-AprendiMais/scripts/mensagens.js",
+  "/Projeto-AprendiMais/scripts/professor-index.js",
+  "/Projeto-AprendiMais/scripts/escolaPicker.js",
+  "/Projeto-AprendiMais/css/style.css",
+  "/Projeto-AprendiMais/images/logo.png",
+  "/Projeto-AprendiMais/images/favicon.ico",
+  "/Projeto-AprendiMais/images/icon-192.png",
+  "/Projeto-AprendiMais/images/icon-512.png",
 ];
 
 // ── Instalação: faz cache dos arquivos principais ─────────────
@@ -84,7 +84,7 @@ self.addEventListener("fetch", (e) => {
         .catch(() => {
           // Offline e não tem cache — retorna página offline se for HTML
           if (e.request.headers.get("accept")?.includes("text/html")) {
-            return caches.match("/register/index.html");
+            return caches.match("/Projeto-AprendiMais/register/index.html");
           }
         });
     })
