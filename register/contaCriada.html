@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aprendi+ | Conta criada!</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="/Projeto-AprendiMais/css/style.css" />
+    <link rel="shortcut icon" href="/Projeto-AprendiMais/images/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="/Projeto-AprendiMais/manifest.json">
     <meta name="theme-color" content="#7463e3">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Aprendi+">
-    <link rel="apple-touch-icon" href="../images/logo-192.png">
+    <link rel="apple-touch-icon" href="/Projeto-AprendiMais/images/logo-192.png">
     <style>
       /* Canvas de confete por cima de tudo */
       #confetti-canvas {
@@ -74,7 +74,7 @@
     <main>
       <form id="main" class="max-w-[420px] w-full mx-auto flex flex-col gap-5 items-center text-center">
         <!-- LOGO -->
-        <img src="../images/logo.png" alt="Logo do site" id="logo">
+        <img src="/Projeto-AprendiMais/images/logo.png" alt="Logo do site" id="logo">
         <!-- ÍCONE DE CHECK -->
         <div id="check-icon"
           style="width: 80px; height: 80px; border-radius: 50%; background-color: rgba(116,99,227,0.12); display: flex; align-items: center; justify-content: center;">
@@ -135,8 +135,8 @@
       </form>
     </main>
     <!-- SCRIPT CONFETE -->
-    <script src="../scripts/Database.js"></script>
-    <script src="../scripts/login-ContaCriada.js"></script>
+    <script src="/Projeto-AprendiMais/scripts/Database.js"></script>
+    <script src="/Projeto-AprendiMais/scripts/login-ContaCriada.js"></script>
     <script>
       const canvas = document.getElementById("confetti-canvas");
       const ctx = canvas.getContext("2d");
@@ -197,7 +197,7 @@
     </script>
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("../sw.js");
+        navigator.serviceWorker.register("/Projeto-AprendiMais/sw.js");
       }
     </script>
   </body>

@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprendi+ | Seu jeito de aprender</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="/Projeto-AprendiMais/css/style.css">
+    <link rel="shortcut icon" href="/Projeto-AprendiMais/images/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="/Projeto-AprendiMais/manifest.json">
     <meta name="theme-color" content="#7463e3">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Aprendi+">
-    <link rel="apple-touch-icon" href="../images/logo-192.png">
+    <link rel="apple-touch-icon" href="/Projeto-AprendiMais/images/logo-192.png">
   </head>
   <body class="items-start py-4 overflow-y-auto">
     <main>
@@ -104,7 +104,7 @@
         </button>
       </form>
     </main>
-    <script src="../scripts/Database.js"></script>
+    <script src="/Projeto-AprendiMais/scripts/Database.js"></script>
     <script>
       const temp = DB.CadastroTemp.ler();
       if (!temp.email || !temp.cidade) window.location.href = "register1.html";
@@ -145,12 +145,12 @@
           return;
         }
       
-        window.location.href = "contaCriada.html";
+        window.location.href = "/Projeto-AprendiMais/register/contaCriada.html";
       }
     </script>
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("../sw.js");
+        navigator.serviceWorker.register("/Projeto-AprendiMais/sw.js");
       }
     </script>
   </body>

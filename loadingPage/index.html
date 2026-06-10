@@ -84,7 +84,7 @@
   <div id="loading-wrapper">
 
     <!-- LOGO -->
-    <img src="../images/logo.png" alt="Logo Aprendi+" id="logo-loading">
+    <img src="/Projeto-AprendiMais/images/logo.png" alt="Logo Aprendi+" id="logo-loading">
 
     <!-- SPINNER -->
     <div class="spinner"></div>
@@ -112,7 +112,7 @@
      */
 
     const params   = new URLSearchParams(window.location.search);
-    const redirect = params.get('redirect') || 'dashboard/index.html';
+    const redirect = params.get('redirect') || '/Projeto-AprendiMais/dashboard/index.html';
     const msg      = params.get('msg')      || 'Carregando';
 
     document.getElementById('msg-text').textContent = msg;
@@ -144,7 +144,7 @@
   </script>
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("../sw.js");
+      navigator.serviceWorker.register("/Projeto-AprendiMais/sw.js");
     }
   </script>
 
