@@ -15,266 +15,75 @@
     <meta name="apple-mobile-web-app-title" content="Aprendi+">
     <link rel="apple-touch-icon" href="../../images/logo-192.png">
     <style>
-      /* ── Cards com feedback de toque ── */
-      .card[onclick], .card.clicavel {
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-      .card[onclick]:active, .card.clicavel:active {
-      transform: scale(0.96);
-      }
-      /* ── Modal sheet ── */
+      .card[onclick], .card.clicavel { cursor:pointer; transition:transform 0.15s ease, box-shadow 0.15s ease; }
+      .card[onclick]:active, .card.clicavel:active { transform:scale(0.96); }
       .modal-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 24px 24px 0 0;
-      padding: 16px 20px 40px;
-      z-index: 101;
-      box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
-      animation: slideUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
-      max-height: 85vh;
-      overflow-y: auto;
+        position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+        width:100%; max-width:420px; background:#fff; border-radius:24px 24px 0 0;
+        padding:16px 20px 40px; z-index:101; box-shadow:0 -4px 30px rgba(0,0,0,0.12);
+        animation:slideUp 0.3s cubic-bezier(0.34,1.2,0.64,1) forwards;
+        max-height:85vh; overflow-y:auto;
       }
-      .modal-handle {
-      width: 40px;
-      height: 4px;
-      background: #ddd;
-      border-radius: 99px;
-      margin: 0 auto 16px;
-      }
-      .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      }
-      .modal-header h3 { margin: 0; }
-      .modal-close {
-      cursor: pointer;
-      font-size: 1.2em;
-      color: #aaa;
-      transition: color 0.2s;
-      }
-      .modal-close:hover { color: #333; }
+      .modal-handle { width:40px; height:4px; background:#ddd; border-radius:99px; margin:0 auto 16px; }
+      .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+      .modal-header h3 { margin:0; }
+      .modal-close { cursor:pointer; font-size:1.2em; color:#aaa; transition:color 0.2s; }
+      .modal-close:hover { color:#333; }
       @keyframes slideUp {
-      from { transform: translateX(-50%) translateY(100%); }
-      to   { transform: translateX(-50%) translateY(0); }
+        from { transform:translateX(-50%) translateY(100%); }
+        to   { transform:translateX(-50%) translateY(0); }
       }
-      /* ── Aluno card no modal ── */
-      .aluno-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f0f5;
-      }
-      .aluno-row:last-child { border-bottom: none; }
-      .aluno-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(116,99,227,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: var(--cor-botoes);
-      flex-shrink: 0;
-      font-size: 1em;
-      }
-      .aluno-info { flex: 1; }
-      .aluno-info p { margin: 0; }
-      .aluno-info .nome { font-weight: bold; font-size: 0.9em; }
-      .aluno-info .meta { font-size: 0.78em; color: var(--cor-paragrafo); }
-      .aluno-pct {
-      font-weight: bold;
-      font-size: 0.9em;
-      color: var(--cor-botoes);
-      }
-      /* ── Stat chips no modal de estatísticas ── */
-      .stat-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      background: #f3f3f8;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      }
-      .stat-row .stat-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9em;
-      font-weight: 600;
-      color: var(--cor-titulo);
-      }
-      .stat-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(116,99,227,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--cor-botoes);
-      font-size: 1em;
-      }
-      .stat-pct {
-      font-weight: bold;
-      font-size: 1em;
-      color: var(--cor-botoes);
-      }
-      .stat-barra-wrap {
-      height: 4px;
-      background: #e8e8f0;
-      border-radius: 99px;
-      margin-top: 6px;
-      overflow: hidden;
-      }
-      .stat-barra-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: var(--cor-botoes);
-      transition: width 0.6s ease;
-      }
-      /* ── Modal atividades ── */
-      .atividade-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f0f0f5;
-      }
-      .atividade-item:last-child { border-bottom: none; }
-      .ativ-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(116,99,227,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--cor-botoes);
-      flex-shrink: 0;
-      }
-      .ativ-info p { margin: 0; }
-      .ativ-titulo { font-weight: bold; font-size: 0.9em; }
-      .ativ-meta   { font-size: 0.78em; color: var(--cor-paragrafo); margin-top: 2px !important; }
-      .badge {
-      font-size: 0.72em;
-      font-weight: bold;
-      padding: 2px 8px;
-      border-radius: 99px;
-      margin-left: auto;
-      flex-shrink: 0;
-      align-self: center;
-      }
-      .badge-pendente  { background: #fff3cd; color: #92680a; }
-      .badge-entregue  { background: #d1fae5; color: #065f46; }
-      .badge-atrasado  { background: #fee2e2; color: #991b1b; }
-      /* ── Modal mensagens rápidas ── */
-      .msg-chip {
-      display: inline-block;
-      background: #f3f3f8;
-      border: 1px solid #e8e8f0;
-      border-radius: 99px;
-      padding: 6px 14px;
-      font-size: 0.85em;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-      margin: 4px 4px 4px 0;
-      }
-      .msg-chip:hover {
-      background: rgba(116,99,227,0.1);
-      border-color: var(--cor-botoes);
-      color: var(--cor-botoes);
-      }
-      .msg-textarea {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 0.9em;
-      resize: none;
-      margin-top: 12px;
-      box-sizing: border-box;
-      font-family: inherit;
-      color: var(--cor-titulo);
-      }
-      .msg-textarea:focus { outline: none; border-color: var(--cor-botoes); }
-      .btn-enviar {
-      width: 100%;
-      background: var(--cor-botoes);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 11px;
-      font-size: 0.95em;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: opacity 0.2s;
-      }
-      .btn-enviar:hover { opacity: 0.88; }
-      .msg-select {
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        padding: 12px;
-        margin-top: 4px;
-        font-size: 0.9em;
-        background: white;
-        box-sizing: border-box;
-        font-family: inherit;
-      }
+      .aluno-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #f0f0f5; }
+      .aluno-row:last-child { border-bottom:none; }
+      .aluno-avatar { width:38px; height:38px; border-radius:50%; background:rgba(116,99,227,0.12); display:flex; align-items:center; justify-content:center; font-weight:bold; color:var(--cor-botoes); flex-shrink:0; font-size:1em; }
+      .aluno-info { flex:1; }
+      .aluno-info p { margin:0; }
+      .aluno-info .nome { font-weight:bold; font-size:0.9em; }
+      .aluno-info .meta { font-size:0.78em; color:var(--cor-paragrafo); }
+      .stat-row { display:flex; align-items:center; justify-content:space-between; padding:12px 14px; background:#f3f3f8; border-radius:12px; margin-bottom:8px; }
+      .stat-row .stat-label { display:flex; align-items:center; gap:10px; font-size:0.9em; font-weight:600; color:var(--cor-titulo); }
+      .stat-icon { width:32px; height:32px; border-radius:8px; background:rgba(116,99,227,0.12); display:flex; align-items:center; justify-content:center; color:var(--cor-botoes); font-size:1em; }
+      .stat-pct { font-weight:bold; font-size:1em; color:var(--cor-botoes); }
+      .stat-barra-wrap { height:4px; background:#e8e8f0; border-radius:99px; margin-top:6px; overflow:hidden; }
+      .stat-barra-fill { height:100%; border-radius:99px; background:var(--cor-botoes); transition:width 0.6s ease; }
+      .atividade-item { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid #f0f0f5; }
+      .atividade-item:last-child { border-bottom:none; }
+      .ativ-icon { width:36px; height:36px; border-radius:10px; background:rgba(116,99,227,0.1); display:flex; align-items:center; justify-content:center; color:var(--cor-botoes); flex-shrink:0; }
+      .ativ-info p { margin:0; }
+      .ativ-titulo { font-weight:bold; font-size:0.9em; }
+      .ativ-meta { font-size:0.78em; color:var(--cor-paragrafo); margin-top:2px !important; }
+      .badge { font-size:0.72em; font-weight:bold; padding:2px 8px; border-radius:99px; margin-left:auto; flex-shrink:0; align-self:center; }
+      .badge-pendente  { background:#fff3cd; color:#92680a; }
+      .badge-entregue  { background:#d1fae5; color:#065f46; }
+      .badge-atrasado  { background:#fee2e2; color:#991b1b; }
+      .msg-chip { display:inline-block; background:#f3f3f8; border:1px solid #e8e8f0; border-radius:99px; padding:6px 14px; font-size:0.85em; cursor:pointer; transition:background 0.15s, border-color 0.15s; margin:4px 4px 4px 0; }
+      .msg-chip:hover { background:rgba(116,99,227,0.1); border-color:var(--cor-botoes); color:var(--cor-botoes); }
+      .msg-textarea { width:100%; border:1px solid #ddd; border-radius:12px; padding:10px 12px; font-size:0.9em; resize:none; margin-top:12px; box-sizing:border-box; font-family:inherit; color:var(--cor-titulo); }
+      .msg-textarea:focus { outline:none; border-color:var(--cor-botoes); }
+      .btn-enviar { width:100%; background:var(--cor-botoes); color:#fff; border:none; border-radius:12px; padding:11px; font-size:0.95em; font-weight:bold; cursor:pointer; margin-top:10px; transition:opacity 0.2s; }
+      .btn-enviar:hover { opacity:0.88; }
+      .msg-select { width:100%; border:1px solid #ddd; border-radius:12px; padding:12px; margin-top:4px; font-size:0.9em; background:white; box-sizing:border-box; font-family:inherit; }
+      .msg-select:focus { outline:none; border-color:var(--cor-botoes); }
+      .msg-select:disabled { background:#f5f5f5; color:#aaa; }
+      .icone-option input[type="radio"] { display:none; }
+      .icone-option span { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; border:1.5px solid #ddd; background:#f3f3f8; color:var(--cor-paragrafo); font-size:1.2em; cursor:pointer; transition:border-color 0.15s, background 0.15s, color 0.15s; }
+      .icone-option input[type="radio"]:checked + span { border-color:var(--cor-botoes); background:rgba(116,99,227,0.1); color:var(--cor-botoes); }
+      .icone-option span:hover { border-color:var(--cor-botoes); color:var(--cor-botoes); }
 
-      .msg-select:focus {
-        outline: none;
-        border-color: var(--cor-botoes);
+      /* ── Tipo aula selector ── */
+      .tipo-aula-option input[type="radio"] { display:none; }
+      .tipo-aula-option span {
+        display:flex; align-items:center; gap:6px;
+        padding:8px 12px; border-radius:10px;
+        border:1.5px solid #ddd; background:#f3f3f8;
+        font-size:0.85em; font-weight:600; cursor:pointer;
+        transition:all 0.15s; color:var(--cor-paragrafo); white-space:nowrap;
       }
-
-      .msg-select:disabled {
-        background: #f5f5f5;
-        color: #aaa;
-      }
-      .icone-option input[type="radio"] { display: none; }
-    
-      .icone-option span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        border: 1.5px solid #ddd;
-        background: #f3f3f8;
-        color: var(--cor-paragrafo);
-        font-size: 1.2em;
-        cursor: pointer;
-        transition: border-color 0.15s, background 0.15s, color 0.15s;
-      }
-    
-      .icone-option input[type="radio"]:checked + span {
-        border-color: var(--cor-botoes);
-        background: rgba(116,99,227,0.1);
-        color: var(--cor-botoes);
-      }
-    
-      .icone-option span:hover {
-        border-color: var(--cor-botoes);
-        color: var(--cor-botoes);
-      }
+      .tipo-aula-option input:checked + span { border-color:var(--cor-botoes); background:rgba(116,99,227,0.1); color:var(--cor-botoes); }
     </style>
   </head>
   <body>
     <main id="dashboard">
-      <!-- HEADER -->
       <div class="header">
         <div>
           <h2 id="saudacao">Olá!</h2>
@@ -285,14 +94,14 @@
           <div class="perfil" id="avatarHeader" style="cursor:pointer;" onclick="window.location.href='perfil.html'" title="Perfil"></div>
         </div>
       </div>
-      <!-- BANNER -->
+
       <div class="banner">
         <div>
           <h3>Seus alunos precisam de você!</h3>
           <p>Veja onde eles mais têm dificuldade.</p>
         </div>
       </div>
-      <!-- ACESSO RÁPIDO -->
+
       <section class="acesso">
         <div class="card" onclick="abrirModal('turma')">
           <i class="bi bi-people"></i>
@@ -315,7 +124,19 @@
           <p>Falar com alunos</p>
         </div>
       </section>
-      <!-- VISÃO GERAL -->
+
+      <!-- CARD ENVIAR AULA -->
+      <div style="background:linear-gradient(135deg,#7463e3,#9b87f5); border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:12px; cursor:pointer; margin-bottom:4px;" onclick="abrirModal('enviarAula')">
+        <div style="width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <i class="bi bi-mortarboard" style="color:#fff; font-size:1.2em;"></i>
+        </div>
+        <div style="flex:1;">
+          <p style="margin:0; font-weight:700; color:#fff; font-size:0.92em;">Enviar aula</p>
+          <p style="margin:0; font-size:0.75em; color:rgba(255,255,255,0.8);">Vídeo, texto ou exercício para sua turma</p>
+        </div>
+        <i class="bi bi-chevron-right" style="color:rgba(255,255,255,0.7);"></i>
+      </div>
+
       <section class="progresso">
         <div class="top">
           <h4>Desempenho médio</h4>
@@ -325,23 +146,23 @@
           <div class="fill" style="width:68%;"></div>
         </div>
       </section>
-      <!-- INSIGHT -->
+
       <section class="recomendacao">
         <p>A maioria da turma está com dificuldade em matemática básica.</p>
         <button onclick="abrirModal('estatisticas')">Ver detalhes</button>
       </section>
     </main>
-    <!-- NAV -->
+
     <nav class="bottom-nav">
       <span><i class="bi bi-house active"></i><br>Início</span>
       <a href="turma.html"><span><i class="bi bi-people"></i><br>Turma</span></a>
       <a href="mensagens.html"><span><i class="bi bi-chat"></i><br>Mensagens</span></a>
       <a href="perfil.html"><span><i class="bi bi-person"></i><br>Perfil</span></a>
     </nav>
-    <!-- OVERLAY -->
-    <div id="modal-overlay" onclick="fecharModal()"
-      style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100;"></div>
-    <!-- ── MODAL: TURMA ── -->
+
+    <div id="modal-overlay" onclick="fecharModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100;"></div>
+
+    <!-- MODAL: TURMA -->
     <div id="modal-turma" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
       <div class="modal-header">
@@ -350,7 +171,8 @@
       </div>
       <div id="lista-alunos-modal"></div>
     </div>
-    <!-- ── MODAL: ESTATÍSTICAS ── -->
+
+    <!-- MODAL: ESTATÍSTICAS -->
     <div id="modal-estatisticas" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
       <div class="modal-header">
@@ -358,229 +180,115 @@
         <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
       </div>
       <p style="font-size:0.85em; color:var(--cor-paragrafo); margin-bottom:14px;">Semana de 14 a 20 de abril</p>
-      <div class="stat-row">
-        <div class="stat-label">
-          <div class="stat-icon"><i class="bi bi-calculator"></i></div>
-          Matemática
-        </div>
-        <span class="stat-pct">45%</span>
-      </div>
-      <div class="stat-barra-wrap" style="margin:-4px 0 10px;">
-        <div class="stat-barra-fill" style="width:45%;"></div>
-      </div>
-      <div class="stat-row">
-        <div class="stat-label">
-          <div class="stat-icon"><i class="bi bi-book"></i></div>
-          Português
-        </div>
-        <span class="stat-pct">80%</span>
-      </div>
-      <div class="stat-barra-wrap" style="margin:-4px 0 10px;">
-        <div class="stat-barra-fill" style="width:80%;"></div>
-      </div>
-      <div class="stat-row">
-        <div class="stat-label">
-          <div class="stat-icon"><i class="bi bi-globe"></i></div>
-          Ciências
-        </div>
-        <span class="stat-pct">61%</span>
-      </div>
-      <div class="stat-barra-wrap" style="margin:-4px 0 10px;">
-        <div class="stat-barra-fill" style="width:61%;"></div>
-      </div>
+      <div class="stat-row"><div class="stat-label"><div class="stat-icon"><i class="bi bi-calculator"></i></div>Matemática</div><span class="stat-pct">45%</span></div>
+      <div class="stat-barra-wrap" style="margin:-4px 0 10px;"><div class="stat-barra-fill" style="width:45%;"></div></div>
+      <div class="stat-row"><div class="stat-label"><div class="stat-icon"><i class="bi bi-book"></i></div>Português</div><span class="stat-pct">80%</span></div>
+      <div class="stat-barra-wrap" style="margin:-4px 0 10px;"><div class="stat-barra-fill" style="width:80%;"></div></div>
+      <div class="stat-row"><div class="stat-label"><div class="stat-icon"><i class="bi bi-globe"></i></div>Ciências</div><span class="stat-pct">61%</span></div>
+      <div class="stat-barra-wrap" style="margin:-4px 0 10px;"><div class="stat-barra-fill" style="width:61%;"></div></div>
       <div style="background:#f3f3f8; border-radius:12px; padding:12px 14px; margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
         <span style="font-size:0.9em; font-weight:600;">Média geral</span>
         <span style="font-weight:bold; color:var(--cor-botoes); font-size:1.1em;">68%</span>
       </div>
     </div>
-    <!-- ── MODAL: ATIVIDADES ── -->
+
+    <!-- MODAL: ATIVIDADES -->
     <div id="modal-atividades" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
-      <div class="modal-header">
-        <h3>Atividades</h3>
-        <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
-      </div>
-      <div class="atividade-item">
-        <div class="ativ-icon"><i class="bi bi-file-earmark-text"></i></div>
-        <div class="ativ-info">
-          <p class="ativ-titulo">Lista de exercícios — Aula 5</p>
-          <p class="ativ-meta">Entrega: 22 abr · 18 alunos</p>
-        </div>
-        <span class="badge badge-pendente">Pendente</span>
-      </div>
-      <div class="atividade-item">
-        <div class="ativ-icon"><i class="bi bi-clipboard-check"></i></div>
-        <div class="ativ-info">
-          <p class="ativ-titulo">Resumo semanal — Semana 3</p>
-          <p class="ativ-meta">Entrega: 18 abr · 18 alunos</p>
-        </div>
-        <span class="badge badge-entregue">Entregue</span>
-      </div>
-      <div class="atividade-item">
-        <div class="ativ-icon"><i class="bi bi-exclamation-circle"></i></div>
-        <div class="ativ-info">
-          <p class="ativ-titulo">Prova de recuperação — Mat.</p>
-          <p class="ativ-meta">Entrega: 15 abr · 18 alunos</p>
-        </div>
-        <span class="badge badge-atrasado">Atrasado</span>
-      </div>
-      <button class="btn-enviar" style="margin-top:16px;" onclick="abrirModal('novaAtividade')">
-      <i class="bi bi-plus"></i> Nova atividade
-      </button>
+      <div class="modal-header"><h3>Atividades</h3><i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i></div>
+      <div class="atividade-item"><div class="ativ-icon"><i class="bi bi-file-earmark-text"></i></div><div class="ativ-info"><p class="ativ-titulo">Lista de exercícios — Aula 5</p><p class="ativ-meta">Entrega: 22 abr · 18 alunos</p></div><span class="badge badge-pendente">Pendente</span></div>
+      <div class="atividade-item"><div class="ativ-icon"><i class="bi bi-clipboard-check"></i></div><div class="ativ-info"><p class="ativ-titulo">Resumo semanal — Semana 3</p><p class="ativ-meta">Entrega: 18 abr · 18 alunos</p></div><span class="badge badge-entregue">Entregue</span></div>
+      <div class="atividade-item"><div class="ativ-icon"><i class="bi bi-exclamation-circle"></i></div><div class="ativ-info"><p class="ativ-titulo">Prova de recuperação — Mat.</p><p class="ativ-meta">Entrega: 15 abr · 18 alunos</p></div><span class="badge badge-atrasado">Atrasado</span></div>
+      <button class="btn-enviar" style="margin-top:16px;" onclick="abrirModal('novaAtividade')"><i class="bi bi-plus"></i> Nova atividade</button>
     </div>
-    <!-- ── MODAL: NOVA ATIVIDADE ── -->
+
+    <!-- MODAL: NOVA ATIVIDADE -->
     <div id="modal-novaAtividade" class="modal-sheet" style="display:none;">
       <div class="modal-handle"></div>
-      <div class="modal-header">
-        <h3>Nova atividade</h3>
-        <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
-      </div>
-    
-      <!-- ÍCONE DA TAREFA -->
+      <div class="modal-header"><h3>Nova atividade</h3><i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i></div>
       <p style="font-size:0.82em; font-weight:600; margin-bottom:6px;">Ícone da atividade</p>
       <div id="icones-atividade" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-file-earmark-text" checked>
-          <span title="Lista / Texto"><i class="bi bi-file-earmark-text"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-clipboard-check">
-          <span title="Resumo / Entrega"><i class="bi bi-clipboard-check"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-exclamation-circle">
-          <span title="Prova / Urgente"><i class="bi bi-exclamation-circle"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-book">
-          <span title="Leitura"><i class="bi bi-book"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-pencil-square">
-          <span title="Redação / Escrita"><i class="bi bi-pencil-square"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-calculator">
-          <span title="Matemática"><i class="bi bi-calculator"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-camera-video">
-          <span title="Vídeo / Apresentação"><i class="bi bi-camera-video"></i></span>
-        </label>
-    
-        <label class="icone-option">
-          <input type="radio" name="iconeAtividade" value="bi-people">
-          <span title="Trabalho em grupo"><i class="bi bi-people"></i></span>
-        </label>
-    
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-file-earmark-text" checked><span title="Lista"><i class="bi bi-file-earmark-text"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-clipboard-check"><span title="Resumo"><i class="bi bi-clipboard-check"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-exclamation-circle"><span title="Prova"><i class="bi bi-exclamation-circle"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-book"><span title="Leitura"><i class="bi bi-book"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-pencil-square"><span title="Redação"><i class="bi bi-pencil-square"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-calculator"><span title="Matemática"><i class="bi bi-calculator"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-camera-video"><span title="Vídeo"><i class="bi bi-camera-video"></i></span></label>
+        <label class="icone-option"><input type="radio" name="iconeAtividade" value="bi-people"><span title="Grupo"><i class="bi bi-people"></i></span></label>
       </div>
-    
-      <!-- TÍTULO -->
-      <input type="text" id="atividadeTitulo" placeholder="Título da atividade"
-        style="width:100%; padding:12px; border:1px solid #ddd; border-radius:12px;
-              margin-bottom:10px; box-sizing:border-box; font-family:inherit; font-size:0.9em;
-              outline:none; transition:border-color 0.2s;"
-        onfocus="this.style.borderColor='var(--cor-botoes)'"
-        onblur="this.style.borderColor='#ddd'">
-    
-      <!-- DATA DE ENTREGA -->
-      <input type="date" id="atividadeData"
-        style="width:100%; padding:12px; border:1px solid #ddd; border-radius:12px;
-              margin-bottom:10px; box-sizing:border-box; font-family:inherit; font-size:0.9em;
-              outline:none; transition:border-color 0.2s;"
-        onfocus="this.style.borderColor='var(--cor-botoes)'"
-        onblur="this.style.borderColor='#ddd'">
-    
-      <!-- PARA QUAL TURMA -->
+      <input type="text" id="atividadeTitulo" placeholder="Título da atividade" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px;box-sizing:border-box;font-family:inherit;font-size:0.9em;outline:none;" onfocus="this.style.borderColor='var(--cor-botoes)'" onblur="this.style.borderColor='#ddd'">
+      <input type="date" id="atividadeData" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px;box-sizing:border-box;font-family:inherit;font-size:0.9em;outline:none;" onfocus="this.style.borderColor='var(--cor-botoes)'" onblur="this.style.borderColor='#ddd'">
       <p style="font-size:0.82em; font-weight:600; margin-bottom:6px; margin-top:4px;">Destinatários</p>
-    
-      <select id="atividadeEscola" class="msg-select" onchange="carregarSeriesAtividade()" style="margin-bottom:8px;">
-        <option value="">Selecione a escola</option>
-      </select>
-    
-      <select id="atividadeSerie" class="msg-select" disabled onchange="carregarTurmasAtividade()" style="margin-bottom:8px;">
-        <option value="">Selecione a série</option>
-      </select>
-    
-      <select id="atividadeTurma" class="msg-select" disabled style="margin-bottom:14px;">
-        <option value="">Selecione a turma</option>
-        <!-- opção extra pra enviar pra todas as turmas da série -->
-      </select>
-    
-      <button class="btn-enviar" onclick="criarAtividade()">
-        <i class="bi bi-send"></i> Criar atividade
-      </button>
+      <select id="atividadeEscola" class="msg-select" onchange="carregarSeriesAtividade()" style="margin-bottom:8px;"><option value="">Selecione a escola</option></select>
+      <select id="atividadeSerie" class="msg-select" disabled onchange="carregarTurmasAtividade()" style="margin-bottom:8px;"><option value="">Selecione a série</option></select>
+      <select id="atividadeTurma" class="msg-select" disabled style="margin-bottom:14px;"><option value="">Selecione a turma</option></select>
+      <button class="btn-enviar" onclick="criarAtividade()"><i class="bi bi-send"></i> Criar atividade</button>
     </div>
-    <!-- ── MODAL: MENSAGENS ── -->
-    <div id="modal-mensagens" class="modal-sheet" style="display:none;">
-      <div class="modal-handle"></div>
 
+    <!-- ── MODAL: ENVIAR AULA ── -->
+    <div id="modal-enviarAula" class="modal-sheet" style="display:none;">
+      <div class="modal-handle"></div>
       <div class="modal-header">
-        <h3>Enviar mensagem</h3>
+        <h3>Enviar aula</h3>
         <i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i>
       </div>
 
-      <p style="font-size:0.85em; color:var(--cor-paragrafo); margin-bottom:12px;">
-        Escolha a escola, série e turma que irá receber a mensagem.
-      </p>
-
-      <!-- SELECT ESCOLA -->
-      <label style="font-size:0.82em; font-weight:600;">Escola</label>
-
-      <select id="msgEscola" class="msg-select" onchange="carregarSeriesMensagem()">
-        <option value="">Selecione a escola</option>
-      </select>
-
-      <!-- SELECT SÉRIE -->
-      <label style="font-size:0.82em; font-weight:600; margin-top:10px;">Série</label>
-
-      <select id="msgSerie" class="msg-select" onchange="carregarTurmasMensagem()" disabled>
-        <option value="">Selecione a série</option>
-      </select>
-
-      <!-- SELECT TURMA -->
-      <label style="font-size:0.82em; font-weight:600; margin-top:10px;">Turma</label>
-
-      <select id="msgTurma" class="msg-select" disabled>
-        <option value="">Selecione a turma</option>
-      </select>
-
-      <!-- CHIPS -->
-      <div style="margin-top:14px;">
-        <span class="msg-chip" onclick="preencherMsg(this)">
-          Lembrete de atividade
-        </span>
-
-        <span class="msg-chip" onclick="preencherMsg(this)">
-          Revisão amanhã às 14h
-        </span>
-
-        <span class="msg-chip" onclick="preencherMsg(this)">
-          Entreguem o resumo semanal
-        </span>
+      <p style="font-size:0.82em; font-weight:600; margin-bottom:8px;">Tipo de conteúdo</p>
+      <div style="display:flex; gap:8px; margin-bottom:14px;">
+        <label class="tipo-aula-option"><input type="radio" name="tipoAula" value="video" checked><span><i class="bi bi-play-btn"></i> Vídeo</span></label>
+        <label class="tipo-aula-option"><input type="radio" name="tipoAula" value="texto"><span><i class="bi bi-file-earmark-text"></i> Texto</span></label>
+        <label class="tipo-aula-option"><input type="radio" name="tipoAula" value="exercicio"><span><i class="bi bi-pencil-square"></i> Exercício</span></label>
       </div>
 
-      <!-- TEXTO -->
-      <textarea
-        class="msg-textarea"
-        id="msgTexto"
-        rows="4"
-        placeholder="Digite a mensagem..."
-      ></textarea>
+      <input type="text" id="aulaTitulo" placeholder="Título da aula"
+        style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px;font-family:inherit;font-size:0.9em;outline:none;"
+        onfocus="this.style.borderColor='var(--cor-botoes)'" onblur="this.style.borderColor='#ddd'">
 
-      <button class="btn-enviar" onclick="enviarMensagemTurma()">
-        <i class="bi bi-send"></i>
-        Enviar mensagem
+      <textarea id="aulaDescricao" placeholder="Descrição breve (opcional)"
+        style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px;font-family:inherit;font-size:0.9em;outline:none;resize:none;height:70px;"
+        onfocus="this.style.borderColor='var(--cor-botoes)'" onblur="this.style.borderColor='#ddd'"></textarea>
+
+      <input type="text" id="aulaLink" placeholder="Link do YouTube ou URL do exercício"
+        style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px;font-family:inherit;font-size:0.9em;outline:none;"
+        onfocus="this.style.borderColor='var(--cor-botoes)'" onblur="this.style.borderColor='#ddd'">
+
+      <input type="number" id="aulaDuracao" placeholder="Duração em minutos (opcional)" min="1" max="300"
+        style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:14px;font-family:inherit;font-size:0.9em;outline:none;"
+        onfocus="this.style.borderColor='var(--cor-botoes)'" onblur="this.style.borderColor='#ddd'">
+
+      <p style="font-size:0.82em; font-weight:600; margin-bottom:6px;">Enviar para</p>
+      <select id="aulaEscola" class="msg-select" onchange="carregarSeriesAula()" style="margin-bottom:8px;"><option value="">Selecione a escola</option></select>
+      <select id="aulaSerie" class="msg-select" disabled onchange="carregarTurmasAula()" style="margin-bottom:8px;"><option value="">Selecione a série</option></select>
+      <select id="aulaTurma" class="msg-select" style="margin-bottom:14px;"><option value="">Todas as turmas desta série</option></select>
+
+      <button class="btn-enviar" onclick="enviarAula()">
+        <i class="bi bi-send"></i> Enviar aula
       </button>
     </div>
+
+    <!-- MODAL: MENSAGENS -->
+    <div id="modal-mensagens" class="modal-sheet" style="display:none;">
+      <div class="modal-handle"></div>
+      <div class="modal-header"><h3>Enviar mensagem</h3><i class="bi bi-x-lg modal-close" onclick="fecharModal()"></i></div>
+      <p style="font-size:0.85em; color:var(--cor-paragrafo); margin-bottom:12px;">Escolha a escola, série e turma que irá receber a mensagem.</p>
+      <label style="font-size:0.82em; font-weight:600;">Escola</label>
+      <select id="msgEscola" class="msg-select" onchange="carregarSeriesMensagem()"><option value="">Selecione a escola</option></select>
+      <label style="font-size:0.82em; font-weight:600; margin-top:10px;">Série</label>
+      <select id="msgSerie" class="msg-select" onchange="carregarTurmasMensagem()" disabled><option value="">Selecione a série</option></select>
+      <label style="font-size:0.82em; font-weight:600; margin-top:10px;">Turma</label>
+      <select id="msgTurma" class="msg-select" disabled><option value="">Selecione a turma</option></select>
+      <div style="margin-top:14px;">
+        <span class="msg-chip" onclick="preencherMsg(this)">Lembrete de atividade</span>
+        <span class="msg-chip" onclick="preencherMsg(this)">Revisão amanhã às 14h</span>
+        <span class="msg-chip" onclick="preencherMsg(this)">Entreguem o resumo semanal</span>
+      </div>
+      <textarea class="msg-textarea" id="msgTexto" rows="4" placeholder="Digite a mensagem..."></textarea>
+      <button class="btn-enviar" onclick="enviarMensagemTurma()"><i class="bi bi-send"></i> Enviar mensagem</button>
+    </div>
+
     <script src="../../scripts/Database.js"></script>
+    <script src="../../scripts/aulas-db.js"></script>
     <script src="../../scripts/professor-index.js"></script>
     <script>
       function abrirModal(nome) {
@@ -589,322 +297,201 @@
         document.getElementById('modal-' + nome).style.display = 'block';
         document.body.style.overflow = 'hidden';
       }
-      
       function fecharModal(restaurar = true) {
         document.querySelectorAll('.modal-sheet').forEach(m => m.style.display = 'none');
         document.getElementById('modal-overlay').style.display = 'none';
         if (restaurar) document.body.style.overflow = '';
       }
-      
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') fecharModal();
-      });
-      
-      function preencherMsg(chip) {
-        document.getElementById('msgTexto').value = chip.textContent;
-      }
-      
-      function enviarMensagem() {
-        const texto = document.getElementById('msgTexto').value.trim();
-        if (!texto) return;
-        document.getElementById('msgTexto').value = '';
-        fecharModal();
-        // feedback visual
-        const toast = document.createElement('div');
-        toast.textContent = 'Mensagem enviada para a turma';
-        toast.style.cssText = `
-          position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-          background: #1a1a2e; color: #fff; padding: 10px 20px; border-radius: 99px;
-          font-size: 0.85em; z-index: 200; opacity: 1; transition: opacity 0.4s ease;
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => { toast.style.opacity = '0'; }, 2000);
-        setTimeout(() => toast.remove(), 2500);
-      }
-      
-      
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fecharModal(); });
+      function preencherMsg(chip) { document.getElementById('msgTexto').value = chip.textContent; }
+
       function criarAtividade() {
-      
         const titulo = document.getElementById('atividadeTitulo').value.trim();
-      
-        const data = document.getElementById('atividadeData').value;
-      
-        if (!titulo || !data) {
-      
-          mostrarToast('Preencha todos os campos!');
-      
-          return;
-        }
-      
-        const lista = document.getElementById('modal-atividades');
-      
-        const atividade = document.createElement('div');
-      
-        atividade.className = 'atividade-item';
-      
-        atividade.innerHTML = `
-        
-          <div class="ativ-icon">
-            <i class="bi bi-file-earmark-text"></i>
-          </div>
-      
-          <div class="ativ-info">
-      
-            <p class="ativ-titulo">
-              ${titulo}
-            </p>
-      
-            <p class="ativ-meta">
-              Entrega: ${formatarData(data)} · 18 alunos
-            </p>
-      
-          </div>
-      
-          <span class="badge badge-pendente">
-            Pendente
-          </span>
-      
-        `;
-      
-        const botao = lista.querySelector('.btn-enviar');
-      
-        lista.insertBefore(atividade, botao);
-      
+        const data   = document.getElementById('atividadeData').value;
+        if (!titulo || !data) { mostrarToast('Preencha todos os campos!'); return; }
+        const lista  = document.getElementById('modal-atividades');
+        const botao  = lista.querySelector('.btn-enviar');
+        const div    = document.createElement('div');
+        div.className = 'atividade-item';
+        div.innerHTML = `<div class="ativ-icon"><i class="bi bi-file-earmark-text"></i></div><div class="ativ-info"><p class="ativ-titulo">${titulo}</p><p class="ativ-meta">Entrega: ${formatarData(data)}</p></div><span class="badge badge-pendente">Pendente</span>`;
+        lista.insertBefore(div, botao);
         document.getElementById('atividadeTitulo').value = '';
-      
-        document.getElementById('atividadeData').value = '';
-      
+        document.getElementById('atividadeData').value   = '';
         fecharModal();
-      
         mostrarToast('Atividade criada com sucesso!');
       }
-      
+
       function formatarData(data) {
-      
-        const partes = data.split('-');
-      
-        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        const p = data.split('-');
+        return `${p[2]}/${p[1]}/${p[0]}`;
       }
-      
+
       function mostrarToast(texto) {
-      
-        const toast = document.createElement('div');
-      
-        toast.textContent = texto;
-      
-        toast.style.cssText = `
-        
-          position: fixed;
-          bottom: 80px;
-          left: 50%;
-          transform: translateX(-50%);
-      
-          background: #1a1a2e;
-          color: white;
-      
-          padding: 10px 20px;
-      
-          border-radius: 999px;
-      
-          font-size: 0.85em;
-      
-          z-index: 200;
-      
-          opacity: 1;
-      
-          transition: opacity 0.4s ease;
-      
-          box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-        `;
-      
-        document.body.appendChild(toast);
-      
-        setTimeout(() => {
-          toast.style.opacity = '0';
-        }, 2000);
-      
-        setTimeout(() => {
-          toast.remove();
-        }, 2500);
+        const t = document.createElement('div');
+        t.textContent = texto;
+        t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:white;padding:10px 20px;border-radius:999px;font-size:0.85em;z-index:200;opacity:1;transition:opacity 0.4s ease;box-shadow:0 4px 16px rgba(0,0,0,0.2);';
+        document.body.appendChild(t);
+        setTimeout(() => { t.style.opacity = '0'; }, 2000);
+        setTimeout(() => t.remove(), 2500);
       }
-      
+
+      // ── Enviar Aula ──────────────────────────────────────────
+      function enviarAula() {
+        const titulo    = document.getElementById('aulaTitulo').value.trim();
+        const descricao = document.getElementById('aulaDescricao').value.trim();
+        const link      = document.getElementById('aulaLink').value.trim();
+        const duracao   = document.getElementById('aulaDuracao').value;
+        const tipo      = document.querySelector("input[name='tipoAula']:checked")?.value || 'video';
+        const escolaIdx = document.getElementById('aulaEscola').value;
+        const serieIdx  = document.getElementById('aulaSerie').value;
+        const turmaIdx  = document.getElementById('aulaTurma').value;
+
+        if (!titulo) { mostrarToast('Informe o título da aula.'); return; }
+        if (escolaIdx === '' || serieIdx === '') { mostrarToast('Selecione escola e série.'); return; }
+
+        const estrutura = window.estruturaTurmas;
+        const escola    = estrutura[escolaIdx].escola;
+        const serie     = estrutura[escolaIdx].series[serieIdx].serie;
+        const turma     = turmaIdx !== '' ? estrutura[escolaIdx].series[serieIdx].turmas[turmaIdx].turma : null;
+
+        const professor = DB.Sessao.atual();
+        AulasDB.criar({
+          professorId:   professor.id,
+          professorNome: professor.nome,
+          escola, serie, turma, titulo, descricao,
+          duracao: duracao ? Number(duracao) : null,
+          tipo, link,
+        });
+
+        // Limpa campos
+        document.getElementById('aulaTitulo').value    = '';
+        document.getElementById('aulaDescricao').value = '';
+        document.getElementById('aulaLink').value      = '';
+        document.getElementById('aulaDuracao').value   = '';
+
+        fecharModal();
+        mostrarToast(`Aula "${titulo}" enviada para ${serie}${turma ? ' · Turma ' + turma : ''}!`);
+      }
+
+      // Selects encadeados das aulas
+      function carregarSeriesAula() {
+        const idx = document.getElementById('aulaEscola').value;
+        const selSerie = document.getElementById('aulaSerie');
+        const selTurma = document.getElementById('aulaTurma');
+        selSerie.innerHTML = '<option value="">Selecione a série</option>';
+        selTurma.innerHTML = '<option value="">Todas as turmas desta série</option>';
+        selTurma.disabled = true;
+        if (idx === '') { selSerie.disabled = true; return; }
+        selSerie.disabled = false;
+        window.estruturaTurmas[idx].series.forEach((s, i) => {
+          const o = document.createElement('option'); o.value = i; o.textContent = s.serie;
+          selSerie.appendChild(o);
+        });
+      }
+      function carregarTurmasAula() {
+        const ei = document.getElementById('aulaEscola').value;
+        const si = document.getElementById('aulaSerie').value;
+        const selTurma = document.getElementById('aulaTurma');
+        selTurma.innerHTML = '<option value="">Todas as turmas desta série</option>';
+        if (si === '') { selTurma.disabled = true; return; }
+        selTurma.disabled = false;
+        window.estruturaTurmas[ei].series[si].turmas.forEach((t, i) => {
+          const o = document.createElement('option'); o.value = i;
+          o.textContent = `Turma ${t.turma} (${t.alunos.length} alunos)`;
+          selTurma.appendChild(o);
+        });
+      }
     </script>
     <script>
       let estruturaTurmas = [];
-
       function iniciarMensagensProfessor() {
-
         const sessao = DB.Sessao.atual();
-
         if (!sessao) return;
-
         estruturaTurmas = DB.Usuarios.turmasDoProfessor(sessao.id);
+        window.estruturaTurmas = estruturaTurmas;
 
-        const selectEscola = document.getElementById("msgEscola");
-
-        selectEscola.innerHTML = `
-          <option value="">Selecione a escola</option>
-        `;
-
-        estruturaTurmas.forEach((grupo, index) => {
-
-          const opt = document.createElement("option");
-
-          opt.value = index;
-
-          opt.textContent =
-            `${grupo.escola} (${grupo.cidade}/${grupo.uf})`;
-
-          selectEscola.appendChild(opt);
+        // Popula escola das mensagens
+        const selMsg = document.getElementById("msgEscola");
+        selMsg.innerHTML = '<option value="">Selecione a escola</option>';
+        estruturaTurmas.forEach((g, i) => {
+          const o = document.createElement('option'); o.value = i;
+          o.textContent = `${g.escola} (${g.cidade}/${g.uf})`; selMsg.appendChild(o);
         });
-      }
 
+        // Popula escola das aulas
+        const selAula = document.getElementById("aulaEscola");
+        selAula.innerHTML = '<option value="">Selecione a escola</option>';
+        estruturaTurmas.forEach((g, i) => {
+          const o = document.createElement('option'); o.value = i;
+          o.textContent = `${g.escola} (${g.cidade}/${g.uf})`; selAula.appendChild(o);
+        });
+
+        // Popula escola das atividades
+        const selAtiv = document.getElementById("atividadeEscola");
+        if (selAtiv) {
+          selAtiv.innerHTML = '<option value="">Selecione a escola</option>';
+          estruturaTurmas.forEach((g, i) => {
+            const o = document.createElement('option'); o.value = i;
+            o.textContent = `${g.escola} (${g.cidade}/${g.uf})`; selAtiv.appendChild(o);
+          });
+        }
+      }
       function carregarSeriesMensagem() {
-
-        const escolaIndex =
-          document.getElementById("msgEscola").value;
-
-        const selectSerie =
-          document.getElementById("msgSerie");
-
-        const selectTurma =
-          document.getElementById("msgTurma");
-
-        selectSerie.innerHTML =
-          `<option value="">Selecione a série</option>`;
-
-        selectTurma.innerHTML =
-          `<option value="">Selecione a turma</option>`;
-
-        selectTurma.disabled = true;
-
-        if (escolaIndex === "") {
-          selectSerie.disabled = true;
-          return;
-        }
-
-        selectSerie.disabled = false;
-
-        const escola = estruturaTurmas[escolaIndex];
-
-        escola.series.forEach((serie, index) => {
-
-          const opt = document.createElement("option");
-
-          opt.value = index;
-
-          opt.textContent = serie.serie;
-
-          selectSerie.appendChild(opt);
-        });
+        const ei = document.getElementById("msgEscola").value;
+        const ss = document.getElementById("msgSerie");
+        const st = document.getElementById("msgTurma");
+        ss.innerHTML = '<option value="">Selecione a série</option>';
+        st.innerHTML = '<option value="">Selecione a turma</option>'; st.disabled = true;
+        if (ei === '') { ss.disabled = true; return; }
+        ss.disabled = false;
+        estruturaTurmas[ei].series.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.serie; ss.appendChild(o); });
       }
-
       function carregarTurmasMensagem() {
-
-        const escolaIndex =
-          document.getElementById("msgEscola").value;
-
-        const serieIndex =
-          document.getElementById("msgSerie").value;
-
-        const selectTurma =
-          document.getElementById("msgTurma");
-
-        selectTurma.innerHTML =
-          `<option value="">Selecione a turma</option>`;
-
-        if (serieIndex === "") {
-          selectTurma.disabled = true;
-          return;
-        }
-
-        selectTurma.disabled = false;
-
-        const escola =
-          estruturaTurmas[escolaIndex];
-
-        const serie =
-          escola.series[serieIndex];
-
-        serie.turmas.forEach((turma, index) => {
-
-          const opt = document.createElement("option");
-
-          opt.value = index;
-
-          opt.textContent =
-            `Turma ${turma.turma} (${turma.alunos.length} alunos)`;
-
-          selectTurma.appendChild(opt);
-        });
+        const ei = document.getElementById("msgEscola").value;
+        const si = document.getElementById("msgSerie").value;
+        const st = document.getElementById("msgTurma");
+        st.innerHTML = '<option value="">Selecione a turma</option>';
+        if (si === '') { st.disabled = true; return; }
+        st.disabled = false;
+        estruturaTurmas[ei].series[si].turmas.forEach((t, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `Turma ${t.turma} (${t.alunos.length} alunos)`; st.appendChild(o); });
       }
-
+      function carregarSeriesAtividade() {
+        const ei = document.getElementById("atividadeEscola").value;
+        const ss = document.getElementById("atividadeSerie");
+        const st = document.getElementById("atividadeTurma");
+        ss.innerHTML = '<option value="">Selecione a série</option>';
+        st.innerHTML = '<option value="">Selecione a turma</option>'; st.disabled = true;
+        if (ei === '') { ss.disabled = true; return; }
+        ss.disabled = false;
+        estruturaTurmas[ei].series.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.serie; ss.appendChild(o); });
+      }
+      function carregarTurmasAtividade() {
+        const ei = document.getElementById("atividadeEscola").value;
+        const si = document.getElementById("atividadeSerie").value;
+        const st = document.getElementById("atividadeTurma");
+        st.innerHTML = '<option value="">Selecione a turma</option>';
+        if (si === '') { st.disabled = true; return; }
+        st.disabled = false;
+        estruturaTurmas[ei].series[si].turmas.forEach((t, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `Turma ${t.turma} (${t.alunos.length} alunos)`; st.appendChild(o); });
+      }
       function enviarMensagemTurma() {
-
-        const texto =
-          document.getElementById("msgTexto").value.trim();
-
-        const escolaIndex =
-          document.getElementById("msgEscola").value;
-
-        const serieIndex =
-          document.getElementById("msgSerie").value;
-
-        const turmaIndex =
-          document.getElementById("msgTurma").value;
-
-        if (
-          escolaIndex === "" ||
-          serieIndex === "" ||
-          turmaIndex === ""
-        ) {
-          mostrarToast("Selecione escola, série e turma.");
-          return;
-        }
-
-        if (!texto) {
-          mostrarToast("Digite uma mensagem.");
-          return;
-        }
-
-        const turma =
-          estruturaTurmas[escolaIndex]
-            .series[serieIndex]
-            .turmas[turmaIndex];
-
-        console.log("Mensagem enviada:", {
-          escola:
-            estruturaTurmas[escolaIndex].escola,
-
-          serie:
-            estruturaTurmas[escolaIndex]
-              .series[serieIndex].serie,
-
-          turma: turma.turma,
-
-          alunos: turma.alunos,
-
-          mensagem: texto,
-        });
-
-        document.getElementById("msgTexto").value = "";
-
+        const texto = document.getElementById("msgTexto").value.trim();
+        const ei    = document.getElementById("msgEscola").value;
+        const si    = document.getElementById("msgSerie").value;
+        const ti    = document.getElementById("msgTurma").value;
+        if (ei === '' || si === '' || ti === '') { mostrarToast("Selecione escola, série e turma."); return; }
+        if (!texto) { mostrarToast("Digite uma mensagem."); return; }
+        const turma = estruturaTurmas[ei].series[si].turmas[ti];
+        document.getElementById("msgTexto").value = '';
         fecharModal();
-
-        mostrarToast(
-          `Mensagem enviada para ${turma.alunos.length} alunos da Turma ${turma.turma}`
-        );
+        mostrarToast(`Mensagem enviada para ${turma.alunos.length} alunos da Turma ${turma.turma}`);
       }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        iniciarMensagensProfessor();
-      });
-
-      </script>
-      <script>
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("../../sw.js");
-        }
-      </script>
+      document.addEventListener("DOMContentLoaded", iniciarMensagensProfessor);
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("../../sw.js");
+      }
+    </script>
   </body>
 </html>

@@ -1,130 +1,196 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprendi+ | Aulas</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="manifest" href="../../manifest.json">
-    <meta name="theme-color" content="#7463e3">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Aprendi+">
-    <link rel="apple-touch-icon" href="../../images/logo-192.png">
-  </head>
-  <body>
-    <main id="dashboard">
-      <div class="header">
-        <div>
-          <h2>Aulas</h2>
-          <p>Organize seus estudos e acompanhe sua evolução</p>
-        </div>
-        <div class="icons">
-          <i class="bi bi-bell"></i>
-          <a href="perfil.html"><div class="perfil"></div></a>
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Aulas</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="manifest" href="../../manifest.json">
+  <meta name="theme-color" content="#7463e3">
+
+  <style>
+    /* ── Card de aula ── */
+    .aula-card {
+      background: #fff; border-radius: 16px; padding: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 10px;
+    }
+
+    .aula-topo {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 10px; margin-bottom: 10px;
+    }
+
+    .aula-titulo { font-weight: 700; font-size: 0.92em; margin: 0 0 4px; }
+    .aula-meta   { font-size: 0.78em; color: var(--cor-paragrafo); margin: 0; }
+
+    .aula-status {
+      font-size: 0.72em; font-weight: 700; padding: 3px 10px;
+      border-radius: 99px; flex-shrink: 0;
+      background: #fff3cd; color: #92680a;
+    }
+    .aula-status.concluida { background: #d1fae5; color: #065f46; }
+
+    .aula-prof {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.75em; color: var(--cor-paragrafo); margin-bottom: 10px;
+    }
+    .aula-prof-avatar {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(116,99,227,0.15); color: var(--cor-botoes);
+      font-weight: 700; font-size: 0.7em;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .aula-acoes { display: flex; gap: 8px; }
+
+    .btn-aula {
+      flex: 1; padding: 9px; border-radius: 10px;
+      font-size: 0.82em; font-weight: 600; cursor: pointer;
+      border: none; transition: opacity 0.2s;
+    }
+    .btn-aula:hover { opacity: 0.88; }
+    .btn-ver      { background: var(--cor-botoes); color: #fff; }
+    .btn-concluir { background: #f3f3f8; color: var(--cor-botoes); }
+    .btn-concluir.feita { background: #d1fae5; color: #065f46; }
+
+    /* ── Tipo badge ── */
+    .tipo-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.7em; font-weight: 700; padding: 2px 8px;
+      border-radius: 99px; margin-bottom: 6px;
+    }
+    .tipo-video    { background: #dbeafe; color: #1e40af; }
+    .tipo-texto    { background: #f3e8ff; color: #6b21a8; }
+    .tipo-exercicio{ background: #fef3c7; color: #92400e; }
+
+    /* ── Modal de conteúdo ── */
+    .modal-sheet {
+      position: fixed; bottom: 0; left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      width: 100%; max-width: 420px;
+      background: #fff; border-radius: 24px 24px 0 0;
+      padding: 16px 20px 40px; z-index: 101;
+      box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
+      transition: transform 0.3s cubic-bezier(0.34,1.1,0.64,1);
+      max-height: 85vh; overflow-y: auto;
+    }
+    .modal-sheet.aberto { transform: translateX(-50%) translateY(0); }
+    .modal-handle {
+      width: 40px; height: 4px; background: #ddd;
+      border-radius: 99px; margin: 0 auto 16px;
+    }
+
+    /* ── Embed YouTube ── */
+    .video-embed {
+      width: 100%; border-radius: 12px; overflow: hidden;
+      aspect-ratio: 16/9; background: #000; margin: 12px 0;
+    }
+    .video-embed iframe { width: 100%; height: 100%; border: none; }
+
+    /* ── Texto da aula ── */
+    .aula-conteudo-texto {
+      background: #f3f3f8; border-radius: 12px; padding: 14px;
+      font-size: 0.9em; line-height: 1.7; color: var(--cor-titulo);
+      margin: 12px 0; white-space: pre-line;
+    }
+
+    /* ── Vazio ── */
+    .vazio-aulas {
+      text-align: center; padding: 48px 16px;
+      color: var(--cor-paragrafo);
+    }
+    .vazio-aulas i { font-size: 3em; display: block; margin-bottom: 12px; opacity: 0.3; }
+    .vazio-aulas p { font-size: 0.9em; margin: 0; }
+  </style>
+</head>
+<body>
+  <main id="dashboard">
+
+    <div class="header">
+      <div>
+        <h2>Aulas</h2>
+        <p>Conteúdos enviados pelos seus professores</p>
       </div>
-      <div class="banner">
-        <h3>Trilha da semana</h3>
-        <p>Matemática aplicada ao dia a dia. Continue da aula 4.</p>
+      <div class="icons">
+        <i class="bi bi-bell"></i>
+        <a href="perfil.html"><div class="perfil" id="avatarHeader"></div></a>
       </div>
-      <section class="progresso">
-        <div class="top">
-          <h4>Progresso das aulas</h4>
-          <span id="progressoTexto">0%</span>
-        </div>
-        <div class="barra">
-          <div class="fill" id="progressoFill"></div>
-        </div>
-      </section>
-      <section>
-        <div class="neuro-container" aria-label="Filtros de aula">
-          <label class="neuro-option">
-            <input type="radio" name="filtro" value="todas" checked>
-            <span>Todas</span>
-          </label>
-          <label class="neuro-option">
-            <input type="radio" name="filtro" value="hoje">
-            <span>Hoje</span>
-          </label>
-          <label class="neuro-option">
-            <input type="radio" name="filtro" value="concluida">
-            <span>Concluídas</span>
-          </label>
-        </div>
+    </div>
 
-        <div class="aulas-lista" id="listaAulas">
+    <div class="banner">
+      <h3 id="bannerTitulo">Suas aulas</h3>
+      <p id="bannerSub">Carregando...</p>
+    </div>
 
-          <article class="card aula-card" data-status="hoje" data-done="false" data-aula-id="aula_4">
-            <div class="aula-topo">
-              <div>
-                <h4>Aula 4: Porcentagem em compras</h4>
-                <p class="aula-meta">22 min | Exercícios práticos</p>
-              </div>
-              <span class="aula-status">Pendente</span>
-            </div>
-            <button type="button" class="marcar-aula">Marcar como concluída</button>
-          </article>
+    <section class="progresso">
+      <div class="top">
+        <h4>Progresso das aulas</h4>
+        <span id="progressoTexto">0%</span>
+      </div>
+      <div class="barra">
+        <div class="fill" id="progressoFill"></div>
+      </div>
+    </section>
 
-          <article class="card aula-card" data-status="hoje" data-done="false" data-aula-id="aula_5">
-            <div class="aula-topo">
-              <div>
-                <h4>Aula 5: Descontos e juros simples</h4>
-                <p class="aula-meta">18 min | Estudo guiado</p>
-              </div>
-              <span class="aula-status">Pendente</span>
-            </div>
-            <button type="button" class="marcar-aula">Marcar como concluída</button>
-          </article>
+    <section>
+      <div class="neuro-container" aria-label="Filtros de aula">
+        <label class="neuro-option">
+          <input type="radio" name="filtro" value="todas" checked>
+          <span>Todas</span>
+        </label>
+        <label class="neuro-option">
+          <input type="radio" name="filtro" value="pendente">
+          <span>Pendentes</span>
+        </label>
+        <label class="neuro-option">
+          <input type="radio" name="filtro" value="concluida">
+          <span>Concluídas</span>
+        </label>
+      </div>
 
-          <article class="card aula-card" data-status="concluida" data-done="true" data-aula-id="aula_3">
-            <div class="aula-topo">
-              <div>
-                <h4>Aula 3: Leitura de gráficos</h4>
-                <p class="aula-meta">15 min | Revisão concluída</p>
-              </div>
-              <span class="aula-status concluida">Concluída</span>
-            </div>
-            <button type="button" class="marcar-aula">Marcar como pendente</button>
-          </article>
+      <div id="listaAulas"></div>
+    </section>
 
-          <article class="card aula-card" data-status="concluida" data-done="true" data-aula-id="aula_2">
-            <div class="aula-topo">
-              <div>
-                <h4>Aula 2: Regra de três</h4>
-                <p class="aula-meta">20 min | Atividades entregues</p>
-              </div>
-              <span class="aula-status concluida">Concluída</span>
-            </div>
-            <button type="button" class="marcar-aula">Marcar como pendente</button>
-          </article>
+  </main>
 
-        </div>
-      </section>
+  <nav class="bottom-nav">
+    <a href="index.html"><span><i class="bi bi-house"></i><br>Início</span></a>
+    <span><i class="bi bi-mortarboard active"></i><br>Aulas</span>
+    <a href="mensagens.html"><span><i class="bi bi-chat"></i><br>Mensagens</span></a>
+    <a href="desafio.html"><span><i class="bi bi-fire"></i><br>Desafio</span></a>
+    <a href="perfil.html"><span><i class="bi bi-person"></i><br>Perfil</span></a>
+  </nav>
 
-      <section class="recomendacao">
-        <p>Continue sua trilha e desbloqueie os exercícios da semana com seu professor.</p>
-        <button type="button">Continuar aula</button>
-      </section>
-    </main>
+  <!-- OVERLAY -->
+  <div id="modal-overlay" onclick="fecharModal()"
+    style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:100;"></div>
 
-    <nav class="bottom-nav">
-      <a href="index.html"><span><i class="bi bi-house"></i><br>Início</span></a>
-      <span><i class="bi bi-mortarboard active"></i><br>Aulas</span>
-      <a href="mensagens.html"><span><i class="bi bi-chat"></i><br>Mensagens</span></a>
-      <a href="desafio.html"><span><i class="bi bi-fire"></i><br>Desafio</span></a>
-      <a href="perfil.html"><span><i class="bi bi-person"></i><br>Perfil</span></a>
-    </nav>
+  <!-- MODAL: CONTEÚDO DA AULA -->
+  <div class="modal-sheet" id="modal-aula">
+    <div class="modal-handle"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <h3 style="margin:0;" id="modalAulaTitulo"></h3>
+      <i class="bi bi-x-lg" onclick="fecharModal()"
+         style="cursor:pointer; color:#aaa; font-size:1.1em;"></i>
+    </div>
+    <p style="font-size:0.78em; color:var(--cor-paragrafo); margin-bottom:12px;" id="modalAulaProf"></p>
+    <div id="modalAulaConteudo"></div>
+    <button id="modalBtnConcluir" class="btn-aula btn-concluir"
+            style="width:100%; margin-top:14px;" onclick="concluirDoModal()">
+      Marcar como concluída
+    </button>
+  </div>
 
-    <script src="../../scripts/Database.js"></script>
-    <script src="../../scripts/aluno-aulas.js" defer></script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("../../sw.js");
-      }
-    </script>
-  </body>
+  <script src="../../scripts/Database.js"></script>
+  <script src="../../scripts/aulas-db.js"></script>
+  <script src="../../scripts/aluno-aulas.js" defer></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("../../sw.js");
+    }
+  </script>
+</body>
 </html>
