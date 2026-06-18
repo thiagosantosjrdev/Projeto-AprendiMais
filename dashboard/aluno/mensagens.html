@@ -1,65 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprendi+ | Mensagens</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="/Projeto-AprendiMais/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/Projeto-AprendiMais/css/style.css">
-    <link rel="manifest" href="/Projeto-AprendiMais/manifest.json">
-    <meta name="theme-color" content="#7463e3">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Aprendi+">
-    <link rel="apple-touch-icon" href="/Projeto-AprendiMais/images/logo-192.png">
-    <style>
-      /* ── Lista de conversas ── */
-      .conversa-item {
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendi+ | Mensagens</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    /* ── Lista de conversas ── */
+    .conversa-item {
       display: flex; align-items: center; gap: 12px;
       padding: 12px; border-radius: 16px;
       cursor: pointer; transition: background 0.15s;
-      }
-      .conversa-item:active { background: #f0f0f8; }
-      .conversa-item.nao-lida { background: rgba(116,99,227,0.05); }
-      .conversa-avatar {
+    }
+    .conversa-item:active { background: #f0f0f8; }
+    .conversa-item.nao-lida { background: rgba(116,99,227,0.05); }
+
+    .conversa-avatar {
       width: 46px; height: 46px; border-radius: 50%;
       background: rgba(116,99,227,0.15); color: var(--cor-botoes);
       font-weight: 700; font-size: 1.1em;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; position: relative;
-      }
-      .conversa-avatar.professor { background: rgba(99,84,216,0.2); }
-      .conversa-avatar .badge-tipo {
+    }
+    .conversa-avatar.professor { background: rgba(99,84,216,0.2); }
+    .conversa-avatar .badge-tipo {
       position: absolute; bottom: -2px; right: -2px;
       width: 16px; height: 16px; border-radius: 50%;
       background: var(--cor-botoes); color: #fff;
       font-size: 0.55em; display: flex;
       align-items: center; justify-content: center;
       border: 2px solid #fff;
-      }
-      .conversa-info { flex: 1; min-width: 0; }
-      .conversa-nome {
+    }
+
+    .conversa-info { flex: 1; min-width: 0; }
+    .conversa-nome {
       font-weight: 700; font-size: 0.92em; color: var(--cor-titulo);
       margin: 0 0 2px; white-space: nowrap;
       overflow: hidden; text-overflow: ellipsis;
-      }
-      .conversa-preview {
+    }
+    .conversa-preview {
       font-size: 0.78em; color: var(--cor-paragrafo); margin: 0;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      }
-      .conversa-item.nao-lida .conversa-preview { font-weight: 600; color: var(--cor-titulo); }
-      .conversa-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
-      .conversa-hora { font-size: 0.72em; color: var(--cor-paragrafo); }
-      .conversa-badge {
+    }
+    .conversa-item.nao-lida .conversa-preview { font-weight: 600; color: var(--cor-titulo); }
+
+    .conversa-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .conversa-hora { font-size: 0.72em; color: var(--cor-paragrafo); }
+    .conversa-badge {
       width: 18px; height: 18px; border-radius: 50%;
       background: var(--cor-botoes); color: #fff;
       font-size: 0.65em; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
-      }
-      /* ── Chat — modal centralizado ── */
-      .chat-sheet {
+    }
+
+    /* ── Chat — modal centralizado ── */
+    .chat-sheet {
       position: fixed;
       top: 5vh; bottom: 5vh;
       left: 50%;
@@ -75,98 +79,105 @@
       opacity: 0;
       pointer-events: none;
       transition: transform 0.3s cubic-bezier(0.34, 1.1, 0.64, 1), opacity 0.25s ease;
-      }
-      .chat-sheet.aberto {
+    }
+    .chat-sheet.aberto {
       transform: translateX(-50%) scale(1);
       opacity: 1;
       pointer-events: all;
-      }
-      .chat-header {
+    }
+
+    .chat-header {
       display: flex; align-items: center; gap: 12px;
       padding: 14px 16px; background: #fff;
       box-shadow: 0 1px 0 #ebebf2; flex-shrink: 0;
       border-radius: 24px 24px 0 0;
-      }
-      .chat-header .btn-voltar {
+    }
+    .chat-header .btn-voltar {
       background: none; border: none; cursor: pointer;
       color: var(--cor-botoes); font-size: 1.2em;
       padding: 4px; display: flex; align-items: center;
-      }
-      .chat-header-avatar {
+    }
+    .chat-header-avatar {
       width: 38px; height: 38px; border-radius: 50%;
       background: rgba(116,99,227,0.15); color: var(--cor-botoes);
       font-weight: 700; display: flex; align-items: center;
       justify-content: center; flex-shrink: 0;
-      }
-      .chat-header-info { flex: 1; }
-      .chat-header-nome { font-weight: 700; font-size: 0.95em; margin: 0; }
-      .chat-header-sub  { font-size: 0.72em; color: var(--cor-paragrafo); margin: 0; }
-      .chat-mensagens {
+    }
+    .chat-header-info { flex: 1; }
+    .chat-header-nome { font-weight: 700; font-size: 0.95em; margin: 0; }
+    .chat-header-sub  { font-size: 0.72em; color: var(--cor-paragrafo); margin: 0; }
+
+    .chat-mensagens {
       flex: 1; overflow-y: auto;
       padding: 16px; display: flex;
       flex-direction: column; gap: 8px;
-      }
-      .msg-bubble {
+    }
+
+    .msg-bubble {
       max-width: 78%; padding: 10px 13px;
       border-radius: 18px; font-size: 0.88em; line-height: 1.45;
-      }
-      .msg-bubble.recebida {
+    }
+    .msg-bubble.recebida {
       background: #fff; color: var(--cor-titulo);
       border-radius: 4px 18px 18px 18px; align-self: flex-start;
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      }
-      .msg-bubble.enviada {
+    }
+    .msg-bubble.enviada {
       background: var(--cor-botoes); color: #fff;
       border-radius: 18px 18px 4px 18px; align-self: flex-end;
-      }
-      .msg-hora { font-size: 0.68em; opacity: 0.65; display: block; margin-top: 3px; text-align: right; }
-      .msg-data-divider { text-align: center; font-size: 0.72em; color: var(--cor-paragrafo); margin: 8px 0; }
-      .chat-input-area {
+    }
+    .msg-hora { font-size: 0.68em; opacity: 0.65; display: block; margin-top: 3px; text-align: right; }
+    .msg-data-divider { text-align: center; font-size: 0.72em; color: var(--cor-paragrafo); margin: 8px 0; }
+
+    .chat-input-area {
       display: flex; align-items: flex-end; gap: 8px;
       padding: 10px 12px; background: #fff;
       box-shadow: 0 -1px 0 #ebebf2; flex-shrink: 0;
       border-radius: 0 0 24px 24px;
-      }
-      .chat-input {
+    }
+    .chat-input {
       flex: 1; border: 1px solid #ddd; border-radius: 20px;
       padding: 9px 14px; font-size: 0.9em; font-family: inherit;
       outline: none; resize: none; max-height: 100px; overflow-y: auto;
       transition: border-color 0.2s; background: #f4f4f8; line-height: 1.4;
-      }
-      .chat-input:focus { border-color: var(--cor-botoes); background: #fff; }
-      .chat-send {
+    }
+    .chat-input:focus { border-color: var(--cor-botoes); background: #fff; }
+    .chat-send {
       width: 40px; height: 40px; border-radius: 50%;
       background: var(--cor-botoes); color: #fff;
       border: none; cursor: pointer; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 1em; transition: opacity 0.2s;
-      }
-      .chat-send:hover { opacity: 0.88; }
-      /* ── Busca ── */
-      .busca-wrap { position: relative; margin-bottom: 4px; }
-      .busca-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #aaa; }
-      .busca-input {
+    }
+    .chat-send:hover { opacity: 0.88; }
+
+    /* ── Busca ── */
+    .busca-wrap { position: relative; margin-bottom: 4px; }
+    .busca-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #aaa; }
+    .busca-input {
       width: 100%; box-sizing: border-box;
       padding: 10px 12px 10px 36px;
       border: 1px solid #ddd; border-radius: 12px;
       font-size: 0.9em; background: #fff; outline: none;
       font-family: inherit; transition: border-color 0.2s;
-      }
-      .busca-input:focus { border-color: var(--cor-botoes); }
-      /* ── Filtros ── */
-      .filtros-row {
+    }
+    .busca-input:focus { border-color: var(--cor-botoes); }
+
+    /* ── Filtros ── */
+    .filtros-row {
       display: flex; gap: 8px; margin-bottom: 12px;
       overflow-x: auto; padding-bottom: 2px;
-      }
-      .filtro-chip {
+    }
+    .filtro-chip {
       flex-shrink: 0; padding: 5px 14px; border-radius: 99px;
       font-size: 0.82em; font-weight: 600; cursor: pointer; border: none;
       background: #f0f0f8; color: var(--cor-paragrafo);
       transition: background 0.15s, color 0.15s;
-      }
-      .filtro-chip.ativo { background: var(--cor-botoes); color: #fff; }
-      /* ── Botão novo chat ── */
-      .btn-novo-chat {
+    }
+    .filtro-chip.ativo { background: var(--cor-botoes); color: #fff; }
+
+    /* ── Botão novo chat ── */
+    .btn-novo-chat {
       position: fixed; bottom: 80px; right: calc(50% - 196px);
       width: 48px; height: 48px; border-radius: 50%;
       background: var(--cor-botoes); color: #fff; border: none;
@@ -174,10 +185,11 @@
       justify-content: center; font-size: 1.3em;
       box-shadow: 0 4px 16px rgba(116,99,227,0.4);
       z-index: 50; transition: transform 0.2s;
-      }
-      .btn-novo-chat:active { transform: scale(0.92); }
-      /* ── Sheet novo chat ── */
-      .novo-chat-sheet {
+    }
+    .btn-novo-chat:active { transform: scale(0.92); }
+
+    /* ── Sheet novo chat ── */
+    .novo-chat-sheet {
       position: fixed; bottom: 0; left: 50%;
       transform: translateX(-50%) translateY(100%);
       width: 100%; max-width: 420px;
@@ -186,113 +198,123 @@
       box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
       transition: transform 0.3s cubic-bezier(0.34,1.1,0.64,1);
       max-height: 70vh; overflow-y: auto;
-      }
-      .novo-chat-sheet.aberto { transform: translateX(-50%) translateY(0); }
-      .novo-chat-item {
+    }
+    .novo-chat-sheet.aberto { transform: translateX(-50%) translateY(0); }
+
+    .novo-chat-item {
       display: flex; align-items: center; gap: 12px;
       padding: 10px 8px; border-radius: 12px; cursor: pointer;
       transition: background 0.15s;
-      }
-      .novo-chat-item:hover { background: #f3f3f8; }
-      .modal-handle {
+    }
+    .novo-chat-item:hover { background: #f3f3f8; }
+
+    .modal-handle {
       width: 40px; height: 4px; background: #ddd;
       border-radius: 99px; margin: 0 auto 16px;
-      }
-      .vazio-msg {
+    }
+
+    .vazio-msg {
       text-align: center; color: var(--cor-paragrafo);
       font-size: 0.88em; padding: 32px 0;
-      }
-      .vazio-msg i { font-size: 2em; display: block; margin-bottom: 8px; opacity: 0.4; }
-    </style>
-  </head>
-  <body>
-    <main id="dashboard">
-      <div class="header">
-        <div>
-          <h2>Mensagens</h2>
-          <p id="subtituloMensagens">Carregando...</p>
-        </div>
-        <div class="icons">
-          <div class="perfil" id="avatarHeader" style="cursor:pointer;"
-            onclick="window.location.href='perfil.html'"></div>
-        </div>
+    }
+    .vazio-msg i { font-size: 2em; display: block; margin-bottom: 8px; opacity: 0.4; }
+  </style>
+</head>
+<body>
+  <main id="dashboard">
+
+    <div class="header">
+      <div>
+        <h2>Mensagens</h2>
+        <p id="subtituloMensagens">Carregando...</p>
       </div>
-      <div class="busca-wrap">
-        <i class="bi bi-search"></i>
-        <input class="busca-input" type="text" id="buscaConversa"
-          placeholder="Buscar conversa..." oninput="filtrarConversas()">
+      <div class="icons">
+        <div class="perfil" id="avatarHeader" style="cursor:pointer;"
+             onclick="window.location.href='perfil.html'"></div>
       </div>
-      <div class="filtros-row">
-        <button class="filtro-chip ativo" data-filtro="todas"     onclick="setFiltro(this)">Todas</button>
-        <button class="filtro-chip"       data-filtro="nao-lida"  onclick="setFiltro(this)">Não lidas</button>
-        <button class="filtro-chip"       data-filtro="professor" onclick="setFiltro(this)">Professores</button>
-        <button class="filtro-chip"       data-filtro="aluno"     onclick="setFiltro(this)">Colegas</button>
-      </div>
-      <div id="listaConversas"></div>
-    </main>
-    <button class="btn-novo-chat" onclick="abrirNovoChat()" title="Nova conversa">
+    </div>
+
+    <div class="busca-wrap">
+      <i class="bi bi-search"></i>
+      <input class="busca-input" type="text" id="buscaConversa"
+             placeholder="Buscar conversa..." oninput="filtrarConversas()">
+    </div>
+
+    <div class="filtros-row">
+      <button class="filtro-chip ativo" data-filtro="todas"     onclick="setFiltro(this)">Todas</button>
+      <button class="filtro-chip"       data-filtro="nao-lida"  onclick="setFiltro(this)">Não lidas</button>
+      <button class="filtro-chip"       data-filtro="professor" onclick="setFiltro(this)">Professores</button>
+      <button class="filtro-chip"       data-filtro="aluno"     onclick="setFiltro(this)">Colegas</button>
+    </div>
+
+    <div id="listaConversas"></div>
+
+  </main>
+
+  <button class="btn-novo-chat" onclick="abrirNovoChat()" title="Nova conversa">
     <i class="bi bi-pencil-square"></i>
-    </button>
-    <nav class="bottom-nav">
-      <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
-      <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
-      <span><i class="bi bi-chat active"></i><br>Mensagens</span>
-      <a href="desafio.html"><span><i class="bi bi-fire"></i><br>Desafio</span></a>
-      <a href="perfil.html"><i class="bi bi-person"></i><br>Perfil</a>
-    </nav>
-    <!-- OVERLAY CHAT -->
-    <div id="chatOverlay" onclick="fecharChat()"
-      style="display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,0.4); z-index:109;"></div>
-    <!-- TELA DE CHAT -->
-    <div class="chat-sheet" id="chatSheet">
-      <div class="chat-header">
-        <button class="btn-voltar" id="btnVoltarChat">
+  </button>
+
+  <nav class="bottom-nav">
+    <a href="index.html"><i class="bi bi-house"></i><br>Início</a>
+    <a href="aulas.html"><i class="bi bi-mortarboard"></i><br>Aulas</a>
+    <span><i class="bi bi-chat active"></i><br>Mensagens</span>
+    <a href="perfil.html"><i class="bi bi-person"></i><br>Perfil</a>
+  </nav>
+
+  <!-- OVERLAY CHAT -->
+  <div id="chatOverlay" onclick="fecharChat()"
+    style="display:none; position:fixed; inset:0;
+           background:rgba(0,0,0,0.4); z-index:109;"></div>
+
+  <!-- TELA DE CHAT -->
+  <div class="chat-sheet" id="chatSheet">
+    <div class="chat-header">
+      <button class="btn-voltar" id="btnVoltarChat">
         <i class="bi bi-arrow-left"></i>
-        </button>
-        <div class="chat-header-avatar" id="chatAvatar"></div>
-        <div class="chat-header-info">
-          <p class="chat-header-nome" id="chatNome"></p>
-          <p class="chat-header-sub"  id="chatSub"></p>
-        </div>
+      </button>
+      <div class="chat-header-avatar" id="chatAvatar"></div>
+      <div class="chat-header-info">
+        <p class="chat-header-nome" id="chatNome"></p>
+        <p class="chat-header-sub"  id="chatSub"></p>
       </div>
-      <div class="chat-mensagens" id="chatMensagens"></div>
-      <div class="chat-input-area">
-        <textarea class="chat-input" id="chatInput" rows="1"
-          placeholder="Digite uma mensagem..."
-          onkeydown="handleEnter(event)"
-          oninput="autoResize(this)"></textarea>
-        <button class="chat-send" onclick="enviarMensagem()">
+    </div>
+    <div class="chat-mensagens" id="chatMensagens"></div>
+    <div class="chat-input-area">
+      <textarea class="chat-input" id="chatInput" rows="1"
+        placeholder="Digite uma mensagem..."
+        onkeydown="handleEnter(event)"
+        oninput="autoResize(this)"></textarea>
+      <button class="chat-send" onclick="enviarMensagem()">
         <i class="bi bi-send-fill"></i>
-        </button>
-      </div>
+      </button>
     </div>
-    <!-- OVERLAY NOVO CHAT -->
-    <div id="novoChatOverlay" onclick="fecharNovoChat()"
-      style="display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,0.35); z-index:119;"></div>
-    <!-- SHEET NOVO CHAT -->
-    <div class="novo-chat-sheet" id="novoChatSheet">
-      <div class="modal-handle"></div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="margin:0;">Nova conversa</h3>
-        <i class="bi bi-x-lg" onclick="fecharNovoChat()"
-          style="cursor:pointer; color:#aaa; font-size:1.1em;"></i>
-      </div>
-      <div id="listaNovosContatos"></div>
+  </div>
+
+  <!-- OVERLAY NOVO CHAT -->
+  <div id="novoChatOverlay" onclick="fecharNovoChat()"
+    style="display:none; position:fixed; inset:0;
+           background:rgba(0,0,0,0.35); z-index:119;"></div>
+
+  <!-- SHEET NOVO CHAT -->
+  <div class="novo-chat-sheet" id="novoChatSheet">
+    <div class="modal-handle"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h3 style="margin:0;">Nova conversa</h3>
+      <i class="bi bi-x-lg" onclick="fecharNovoChat()"
+         style="cursor:pointer; color:#aaa; font-size:1.1em;"></i>
     </div>
-    <script src="../../scripts/Database.js"></script>
-    <script src="../../scripts/mensagens.js" defer></script>
-    <script>
-      // Garante que o botão voltar funciona mesmo antes do defer carregar
-      document.getElementById("btnVoltarChat").addEventListener("click", () => {
-        if (typeof fecharChat === "function") fecharChat();
-      });
-    </script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("../../sw.js");
-      }
-    </script>
-  </body>
+    <div id="listaNovosContatos"></div>
+  </div>
+
+  <script src="../../scripts/Database.js"></script>
+  <script src="../../scripts/mensagens.js" defer></script>
+
+  <script>
+    // Garante que o botão voltar funciona mesmo antes do defer carregar
+    document.getElementById("btnVoltarChat").addEventListener("click", () => {
+      if (typeof fecharChat === "function") fecharChat();
+    });
+  </script>
+</body>
 </html>
