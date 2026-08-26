@@ -68,26 +68,30 @@
 
     /* ── Modal de conteúdo ── */
     .modal-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%) translateY(100%);
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+
       width: 100%;
       max-width: 420px;
+
       background: #fff;
       border-radius: 24px 24px 0 0;
       padding: 16px 20px 40px;
-      z-index: 1000;
+
+      z-index: 9999 !important;
+
       box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
-      transition: transform 0.3s ease;
+
       max-height: 85vh;
       overflow-y: auto;
-      visibility: hidden;
+
+      display: none;
     }
 
     .modal-sheet.aberto {
-        transform: translateX(-50%) translateY(0);
-        visibility: visible;
+      display: block !important;
     }
     .modal-handle {
       width: 40px; height: 4px; background: #ddd;
